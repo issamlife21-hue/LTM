@@ -72,12 +72,24 @@
 
   body {
     background: #fff !important;
+    color: #000 !important;
   }
 
   header,
   footer,
-  [role="tablist"] {
+  [role="tablist"],
+  [aria-label="Open menu"],
+  [data-print-hide] {
     display: none !important;
+  }
+
+  /* Hide the page-header CTA block (e.g. the Print button). */
+  .container-ltm > .print\:hidden {
+    display: none !important;
+  }
+
+  a[href]::after {
+    content: "";
   }
 
   .print-stack > * {

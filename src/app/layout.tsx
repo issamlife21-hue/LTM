@@ -20,7 +20,37 @@ export const metadata: Metadata = {
     template: "%s | Liberia Traffic Management",
   },
   description:
-    "Official government concessionaire for vehicle registration, driver licensing, inspection, and license plates in Liberia.",
+    "Liberia Traffic Management (LTM) is the official government concessionaire for vehicle registration, driver licensing, vehicle inspection, and license plates in Liberia. Visit our SKD Boulevard service center in Monrovia.",
+  keywords: [
+    "Liberia Traffic Management",
+    "LTM",
+    "Liberia driver license",
+    "Liberia vehicle registration",
+    "Liberia vehicle inspection",
+    "Monrovia traffic services",
+    "license plates Liberia",
+  ],
+  authors: [{ name: "Liberia Traffic Management" }],
+  metadataBase: new URL("https://www.liberiatraffic.com"),
+  openGraph: {
+    title: "Liberia Traffic Management",
+    description:
+      "Official traffic management services for the Republic of Liberia — vehicle registration, driver licensing, inspection, and license plates.",
+    url: "https://www.liberiatraffic.com",
+    siteName: "Liberia Traffic Management",
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Liberia Traffic Management",
+    description:
+      "Official traffic management services for the Republic of Liberia.",
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
 };
 
 export default function RootLayout({

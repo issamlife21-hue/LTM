@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
+import Script from "next/script";
 import {
   ArrowRight,
   Car,
@@ -109,9 +110,37 @@ const GALLERY = [
   "https://images.unsplash.com/photo-1520340356584-f9917d1eea6f?w=800&auto=format&fit=crop",
 ];
 
+const ORGANIZATION_JSON_LD = {
+  "@context": "https://schema.org",
+  "@type": "GovernmentOrganization",
+  name: "Liberia Traffic Management",
+  alternateName: "LTM",
+  url: "https://www.liberiatraffic.com",
+  telephone: ["+231-888-900070", "+231-770-900080", "+231-770-900090"],
+  email: "Ltm@liberiatraffic.com",
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: "SKD Boulevard, Adjacent to SKD Stadium",
+    addressLocality: "Monrovia",
+    addressCountry: "LR",
+  },
+  openingHours: ["Mo-Fr 08:00-17:00", "Sa 09:00-13:00"],
+  sameAs: [
+    "https://www.facebook.com/Liberia-Traffic-Management-103333742243540/",
+  ],
+};
+
 export default function HomePage() {
   return (
     <>
+      <Script
+        id="ltm-organization-jsonld"
+        type="application/ld+json"
+        strategy="afterInteractive"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(ORGANIZATION_JSON_LD),
+        }}
+      />
       {/* ── Section 1 — Hero ─────────────────────────────────────── */}
       <section className="relative overflow-hidden bg-gradient-to-br from-ltm-navy to-ltm-navy-dark">
         <div className="absolute inset-0 opacity-25">
