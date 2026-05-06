@@ -30,6 +30,7 @@ type ServiceDetailLayoutProps = {
   process: string[];
   faqs: FAQ[];
   headerImage?: { url: string; alt: string };
+  extraContent?: React.ReactNode;
 };
 
 function PricingSection({
@@ -69,6 +70,7 @@ export function ServiceDetailLayout({
   process,
   faqs,
   headerImage,
+  extraContent,
 }: ServiceDetailLayoutProps) {
   return (
     <>
@@ -142,6 +144,8 @@ export function ServiceDetailLayout({
                 ))}
               </ol>
             </div>
+
+            {extraContent}
 
             {faqs.length > 0 && (
               <div>

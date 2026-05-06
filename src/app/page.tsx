@@ -14,6 +14,7 @@ import {
   Wrench,
 } from "lucide-react";
 
+import { HeroCarousel } from "@/components/HeroCarousel";
 import { CTABanner } from "@/components/layout/CTABanner";
 import { ServiceCard } from "@/components/ServiceCard";
 import {
@@ -24,7 +25,7 @@ import {
 } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
 import { faqs } from "@/data/faqs";
-import { galleryPhotos, heroPhoto } from "@/data/photos";
+import { galleryPhotos } from "@/data/photos";
 
 const TRUST_ITEMS = [
   {
@@ -133,19 +134,9 @@ export default function HomePage() {
       />
       {/* ── Section 1 — Hero ─────────────────────────────────────── */}
       <section className="relative overflow-hidden bg-ltm-navy">
-        <div className="absolute inset-0">
-          <Image
-            src={heroPhoto.url}
-            alt={heroPhoto.alt}
-            fill
-            priority
-            sizes="100vw"
-            className="object-cover"
-          />
-        </div>
-        <div className="absolute inset-0 bg-ltm-navy/55" aria-hidden="true" />
+        <HeroCarousel />
 
-        <div className="container-ltm relative flex min-h-[480px] flex-col items-center justify-center py-20 text-center text-white md:min-h-[600px] md:py-28">
+        <div className="container-ltm relative z-10 flex min-h-[480px] flex-col items-center justify-center py-20 text-center text-white md:min-h-[600px] md:py-28">
           <p className="mb-4 text-xs font-semibold uppercase tracking-[0.2em] text-white/80 sm:text-sm">
             Official Government Concessionaire
           </p>

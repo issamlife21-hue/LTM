@@ -1,7 +1,9 @@
+import Image from "next/image";
+
 import { ServiceDetailLayout } from "@/components/ServiceDetailLayout";
 import { type PriceColumn } from "@/components/PriceTable";
 import { faqs } from "@/data/faqs";
-import { servicePhotos } from "@/data/photos";
+import { inspectionPhotos, servicePhotos } from "@/data/photos";
 import { vehicleInspectionCharges } from "@/data/pricing";
 import { formatUsd } from "@/lib/format";
 
@@ -51,6 +53,30 @@ export default function VehicleInspectionPage() {
       ]}
       faqs={faqs.filter((f) => INSPECTION_FAQ_IDS.includes(f.id))}
       headerImage={servicePhotos["vehicle-inspection"]}
+      extraContent={
+        <div>
+          <h2 className="text-2xl font-semibold text-ltm-navy">
+            Our state-of-the-art inspection bays
+          </h2>
+          <ul className="mt-4 grid gap-4 sm:grid-cols-2">
+            {inspectionPhotos.map((photo) => (
+              <li
+                key={photo.id}
+                className="aspect-[16/9] overflow-hidden rounded-lg border border-ltm-border"
+              >
+                <Image
+                  src={photo.url}
+                  alt={photo.alt}
+                  width={photo.width}
+                  height={photo.height}
+                  sizes="(max-width: 640px) 100vw, 50vw"
+                  className="h-full w-full object-cover"
+                />
+              </li>
+            ))}
+          </ul>
+        </div>
+      }
     />
   );
 }

@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { AlertTriangle } from "lucide-react";
+import { AlertTriangle, ExternalLink, FileText } from "lucide-react";
 
 import { PageHeader } from "@/components/PageHeader";
 import { SignCard } from "@/components/SignCard";
@@ -57,6 +57,33 @@ export function RoadSignsPageClient() {
             </div>
           </div>
         </div>
+
+        <a
+          href="https://www.liberiatraffic.com/signs-signals"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="mb-8 block rounded-lg border border-ltm-border bg-ltm-bg p-4 transition-colors hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ltm-navy focus-visible:ring-offset-2"
+        >
+          <div className="flex items-center gap-3">
+            <FileText
+              className="h-5 w-5 shrink-0 text-ltm-navy"
+              aria-hidden="true"
+            />
+            <div className="flex-1">
+              <p className="font-medium text-ltm-navy">
+                Official LTM Signs &amp; Signals reference
+              </p>
+              <p className="text-sm text-ltm-muted">
+                View the complete 7-page reference on the official LTM
+                website.
+              </p>
+            </div>
+            <ExternalLink
+              className="h-4 w-4 shrink-0 text-ltm-muted"
+              aria-hidden="true"
+            />
+          </div>
+        </a>
 
         <div className="lg:grid lg:grid-cols-[1fr_220px] lg:gap-8">
           <Tabs
