@@ -16,6 +16,12 @@ import type { FAQ } from "@/data/faqs";
 const DIRECTIONS_URL =
   "https://www.google.com/maps/dir/?api=1&destination=SKD+Boulevard+Monrovia+Liberia";
 
+export type ProcessStep = {
+  title: string;
+  body: string;
+  items?: string[];
+};
+
 type ServiceDetailLayoutProps = {
   title: string;
   subtitle: string;
@@ -27,10 +33,11 @@ type ServiceDetailLayoutProps = {
     searchKey?: string;
     note?: React.ReactNode;
   } | React.ReactNode;
-  process: string[];
+  process: ProcessStep[];
   faqs: FAQ[];
   headerImage?: { url: string; alt: string };
   extraContent?: React.ReactNode;
+  estimatedTime?: string;
 };
 
 function PricingSection({
@@ -71,6 +78,7 @@ export function ServiceDetailLayout({
   faqs,
   headerImage,
   extraContent,
+  estimatedTime,
 }: ServiceDetailLayoutProps) {
   return (
     <>
@@ -78,6 +86,7 @@ export function ServiceDetailLayout({
         title={title}
         subtitle={subtitle}
         backgroundImage={headerImage}
+        estimatedTime={estimatedTime}
       />
 
       <section className="container-ltm py-12 md:py-16">
@@ -87,7 +96,7 @@ export function ServiceDetailLayout({
               <h2 className="text-2xl font-semibold text-ltm-navy">
                 Overview
               </h2>
-              <div className="mt-4 space-y-4 text-base leading-relaxed text-ltm-slate">
+              <div className="mt-4 max-w-prose space-y-4 text-[18px] leading-relaxed text-ltm-slate">
                 {typeof overview === "string" ? <p>{overview}</p> : overview}
               </div>
             </div>
@@ -123,23 +132,39 @@ export function ServiceDetailLayout({
 
             <div>
               <h2 className="text-2xl font-semibold text-ltm-navy">
-                The process
+                Step by step
               </h2>
-              <ol className="mt-4 space-y-3">
+              <ol className="relative mt-6 space-y-8 border-l-2 border-ltm-border pl-8">
                 {process.map((step, i) => (
-                  <li
-                    key={i}
-                    className="flex items-start gap-4 rounded-md border border-ltm-border bg-white p-4"
-                  >
+                  <li key={i} className="relative">
                     <span
-                      className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-ltm-navy text-sm font-bold text-white"
+                      className="absolute -left-[2.6rem] top-0 inline-flex h-12 w-12 items-center justify-center rounded-full border-2 border-ltm-navy bg-white text-base font-bold text-ltm-navy shadow-sm"
                       aria-hidden="true"
                     >
                       {i + 1}
                     </span>
-                    <p className="text-sm leading-relaxed text-ltm-slate">
-                      {step}
+                    <h3 className="text-lg font-semibold text-ltm-navy">
+                      {step.title}
+                    </h3>
+                    <p className="mt-2 text-base leading-relaxed text-ltm-slate">
+                      {step.body}
                     </p>
+                    {step.items && step.items.length > 0 && (
+                      <ul className="mt-3 space-y-2">
+                        {step.items.map((item, j) => (
+                          <li
+                            key={j}
+                            className="flex items-start gap-2 text-sm text-ltm-slate"
+                          >
+                            <Check
+                              className="mt-0.5 h-4 w-4 shrink-0 text-ltm-success"
+                              aria-hidden="true"
+                            />
+                            <span>{item}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
                   </li>
                 ))}
               </ol>

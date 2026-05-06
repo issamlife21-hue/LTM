@@ -16,6 +16,7 @@ import {
 
 import { HeroCarousel } from "@/components/HeroCarousel";
 import { CTABanner } from "@/components/layout/CTABanner";
+import { ServiceAdvisor } from "@/components/ServiceAdvisor";
 import { ServiceCard } from "@/components/ServiceCard";
 import {
   Accordion,
@@ -27,26 +28,26 @@ import { Button } from "@/components/ui/button";
 import { faqs } from "@/data/faqs";
 import { galleryPhotos } from "@/data/photos";
 
-const TRUST_ITEMS = [
+const TRUST_STATS = [
   {
-    icon: ShieldCheck,
-    title: "Officially Authorized",
-    text: "The only entity authorized by the Government of Liberia to provide these services.",
+    icon: MapPin,
+    headline: "1 location",
+    text: "More branches coming soon across Liberia.",
   },
   {
     icon: Clock,
-    title: "15-Minute Service",
-    text: "If you have all your documents ready, your visit can take as little as 15 minutes.",
+    headline: "15-minute service",
+    text: "Same-day service when your paperwork is in order.",
+  },
+  {
+    icon: ShieldCheck,
+    headline: "Government authorized",
+    text: "The only LTM-authorized service provider in Liberia.",
   },
   {
     icon: UserCheck,
-    title: "Walk-In, No Appointment",
-    text: "Just walk in during our working hours. No booking required.",
-  },
-  {
-    icon: MapPin,
-    title: "One-Stop Shop",
-    text: "Vehicle inspection, registration, and licensing all under one roof.",
+    headline: "No appointment needed",
+    text: "Walk in during working hours — no booking required.",
   },
 ];
 
@@ -83,16 +84,16 @@ const SERVICES = [
 
 const STEPS = [
   {
-    title: "Visit our service center",
-    text: "Walk into our SKD Boulevard location during working hours. No appointment needed.",
+    title: "Walk in to our Monrovia office",
+    text: "Visit us on SKD Boulevard during working hours. No appointment needed.",
   },
   {
     title: "Bring your documents",
-    text: "Valid ID, vehicle papers if registering a vehicle, and any previous documentation.",
+    text: "Bring your ID, your vehicle papers (if you're registering a vehicle), and any previous LTM documents.",
   },
   {
-    title: "Get same-day service",
-    text: "Most services completed in under 15 minutes if your paperwork is in order.",
+    title: "Leave the same day",
+    text: "Most visits are done in under 15 minutes when your paperwork is in order.",
   },
 ];
 
@@ -138,14 +139,14 @@ export default function HomePage() {
 
         <div className="container-ltm relative z-10 flex min-h-[480px] flex-col items-center justify-center py-20 text-center text-white md:min-h-[600px] md:py-28">
           <p className="mb-4 text-xs font-semibold uppercase tracking-[0.2em] text-white/80 sm:text-sm">
-            Official Government Concessionaire
+            Authorized by the Government of Liberia
           </p>
           <h1 className="max-w-4xl text-4xl font-bold leading-tight text-white md:text-6xl">
             Liberia&rsquo;s Official Traffic Management Service
           </h1>
           <p className="mt-5 max-w-2xl text-base leading-relaxed text-white/90 md:text-lg">
-            Vehicle registration, driver licensing, inspections, and license
-            plates — authorized by the Government of Liberia.
+            Get your driver license, register your vehicle, pass inspection,
+            and pick up your plates — all from one trusted office in Monrovia.
           </p>
           <div className="mt-8 flex w-full flex-col gap-3 sm:w-auto sm:flex-row">
             <Button asChild size="lg" variant="whitePrimary">
@@ -161,32 +162,35 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── Section 2 — Trust strip ──────────────────────────────── */}
-      <section className="bg-white py-12">
+      {/* ── Section 2 — By the numbers ───────────────────────────── */}
+      <section className="bg-white py-14" aria-label="LTM at a glance">
         <div className="container-ltm">
           <ul className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
-            {TRUST_ITEMS.map((item) => (
+            {TRUST_STATS.map((stat) => (
               <li
-                key={item.title}
-                className="flex flex-col items-start gap-3 sm:items-center sm:text-center"
+                key={stat.headline}
+                className="flex flex-col items-start gap-2 border-l-4 border-ltm-navy pl-4 sm:items-start"
               >
                 <span
-                  className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-ltm-navy text-white"
+                  className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-ltm-navy/10 text-ltm-navy"
                   aria-hidden="true"
                 >
-                  <item.icon className="h-6 w-6" />
+                  <stat.icon className="h-4 w-4" />
                 </span>
-                <h2 className="text-base font-semibold text-ltm-navy">
-                  {item.title}
-                </h2>
+                <p className="text-2xl font-bold leading-tight text-ltm-navy md:text-3xl">
+                  {stat.headline}
+                </p>
                 <p className="text-sm leading-relaxed text-ltm-slate">
-                  {item.text}
+                  {stat.text}
                 </p>
               </li>
             ))}
           </ul>
         </div>
       </section>
+
+      {/* ── Section 3 — Service Advisor ──────────────────────────── */}
+      <ServiceAdvisor />
 
       {/* ── Section 3 — Services grid ────────────────────────────── */}
       <section className="bg-ltm-bg py-20">
@@ -242,6 +246,36 @@ export default function HomePage() {
               </li>
             ))}
           </ol>
+        </div>
+      </section>
+
+      {/* ── Not sure where to start banner ───────────────────────── */}
+      <section className="bg-ltm-navy text-white" aria-label="Get help">
+        <div className="container-ltm flex flex-col items-start gap-3 py-6 text-sm md:flex-row md:items-center md:justify-between md:text-base">
+          <p className="leading-relaxed">
+            Not sure which service you need?{" "}
+            <Link
+              href="#service-advisor"
+              className="font-semibold underline-offset-4 hover:underline"
+            >
+              Use our Service Advisor
+            </Link>
+            , call{" "}
+            <Link
+              href="tel:+231770900080"
+              className="font-semibold underline-offset-4 hover:underline"
+            >
+              0770 900 080
+            </Link>
+            , or{" "}
+            <Link
+              href="/contact"
+              className="font-semibold underline-offset-4 hover:underline"
+            >
+              visit us on SKD Boulevard
+            </Link>
+            .
+          </p>
         </div>
       </section>
 

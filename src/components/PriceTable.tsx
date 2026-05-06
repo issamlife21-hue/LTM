@@ -1,5 +1,7 @@
 import * as React from "react";
+import { SearchX } from "lucide-react";
 
+import { EmptyState } from "@/components/EmptyState";
 import {
   Table,
   TableBody,
@@ -33,7 +35,7 @@ export function PriceTable({
   searchQuery = "",
   searchKey = "category",
   caption,
-  emptyMessage = "No matches.",
+  emptyMessage = "No prices matched your search. Try a shorter word or a different category.",
 }: PriceTableProps) {
   const filtered = React.useMemo(() => {
     const q = searchQuery.trim().toLowerCase();
@@ -47,9 +49,11 @@ export function PriceTable({
 
   if (filtered.length === 0) {
     return (
-      <div className="rounded-lg border border-ltm-border bg-white p-8 text-center text-sm text-ltm-muted">
-        {emptyMessage}
-      </div>
+      <EmptyState
+        icon={SearchX}
+        title="No matching prices"
+        description={emptyMessage}
+      />
     );
   }
 

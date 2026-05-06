@@ -1,9 +1,12 @@
 "use client";
 
 import * as React from "react";
-import { Search } from "lucide-react";
+import Link from "next/link";
+import { MessagesSquare, Search } from "lucide-react";
 
+import { EmptyState } from "@/components/EmptyState";
 import { CTABanner } from "@/components/layout/CTABanner";
+import { LastUpdated } from "@/components/LastUpdated";
 import { PageHeader } from "@/components/PageHeader";
 import {
   Accordion,
@@ -39,9 +42,22 @@ function HighlightedText({ text, query }: { text: string; query: string }) {
 function FAQList({ items, query }: { items: FAQ[]; query: string }) {
   if (items.length === 0) {
     return (
-      <div className="rounded-lg border border-ltm-border bg-white p-8 text-center text-sm text-ltm-muted">
-        No questions match your search.
-      </div>
+      <EmptyState
+        icon={MessagesSquare}
+        title="No questions match your search"
+        description={
+          <>
+            Try a different word, or{" "}
+            <Link
+              href="/contact"
+              className="font-medium text-ltm-navy hover:underline"
+            >
+              contact us directly
+            </Link>{" "}
+            and we&rsquo;ll help.
+          </>
+        }
+      />
     );
   }
   return (
@@ -56,9 +72,11 @@ function FAQList({ items, query }: { items: FAQ[]; query: string }) {
             <HighlightedText text={faq.question} query={query} />
           </AccordionTrigger>
           <AccordionContent>
-            <p className="leading-relaxed text-ltm-slate">{faq.answer}</p>
+            <p className="text-[17px] leading-relaxed text-ltm-slate">
+              {faq.answer}
+            </p>
             {faq.bullets && faq.bullets.length > 0 && (
-              <ul className="mt-3 list-disc list-inside space-y-1 text-ltm-slate">
+              <ul className="mt-3 list-disc list-inside space-y-1 text-[17px] text-ltm-slate">
                 {faq.bullets.map((b, i) => (
                   <li key={i}>{b}</li>
                 ))}
@@ -138,6 +156,8 @@ export function FAQPageClient() {
             </TabsContent>
           ))}
         </Tabs>
+
+        <LastUpdated />
       </section>
 
       <CTABanner />

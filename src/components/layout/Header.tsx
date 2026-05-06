@@ -4,6 +4,7 @@ import * as React from "react";
 import Link from "next/link";
 import { ChevronDown, Menu, Phone } from "lucide-react";
 
+import { SiteSearch } from "@/components/SiteSearch";
 import { Button } from "@/components/ui/button";
 import {
   Sheet,
@@ -150,7 +151,12 @@ export function Header() {
           </Link>
         </nav>
 
-        <div className="hidden lg:block">
+        <div className="hidden items-center gap-3 lg:flex">
+          <SiteSearch
+            className="hidden w-56 xl:block"
+            inputClassName="h-9 text-sm"
+            placeholder="Search…"
+          />
           <Button asChild>
             <Link href="tel:+231770900080">
               <Phone className="h-4 w-4" aria-hidden="true" />
@@ -172,6 +178,13 @@ export function Header() {
           <SheetContent side="right" className="w-[300px] p-0 sm:w-[340px]">
             <div className="border-b border-ltm-border px-6 py-4">
               <SheetTitle className="text-base">Menu</SheetTitle>
+            </div>
+            <div className="border-b border-ltm-border px-4 py-3">
+              <SiteSearch
+                inputClassName="h-9 text-sm"
+                placeholder="Search…"
+                onNavigate={() => setMobileOpen(false)}
+              />
             </div>
             <nav
               aria-label="Mobile"

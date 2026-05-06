@@ -2,6 +2,7 @@ import { ServiceDetailLayout } from "@/components/ServiceDetailLayout";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { faqs } from "@/data/faqs";
 import { servicePhotos } from "@/data/photos";
+import { serviceEstimates } from "@/data/site-meta";
 import { licensePlateCharges } from "@/data/pricing";
 import { formatUsd } from "@/lib/format";
 
@@ -63,14 +64,30 @@ export default function LicensePlatesPage() {
       ]}
       pricing={<PlatesPricing />}
       process={[
-        "Complete your vehicle registration.",
-        "If you want a test or custom plate, request it at the registration counter.",
-        "For custom plates, choose your combination (subject to availability).",
-        "Pay the additional fee.",
-        "Receive your plates same-day.",
+        {
+          title: "Complete your vehicle registration",
+          body: "Standard plates are issued together with your registration. If you only need a standard plate, you're done after registration.",
+        },
+        {
+          title: "Request a test or custom plate (optional)",
+          body: "Tell the registration counter what you'd like. They'll add it to your file.",
+        },
+        {
+          title: "Choose your custom combination",
+          body: "For customized plates, pick the letter/number combination you want — subject to availability.",
+        },
+        {
+          title: "Pay the additional fee",
+          body: "Test plates are a flat $250. Customized plates are $30 per character on the plate.",
+        },
+        {
+          title: "Receive your plates same-day",
+          body: "Standard plates leave with you on the day of registration. Custom plates are usually ready the same day.",
+        },
       ]}
       faqs={faqs.filter((f) => PLATE_FAQ_IDS.includes(f.id))}
       headerImage={servicePhotos["license-plates"]}
+      estimatedTime={serviceEstimates["license-plates"]}
     />
   );
 }

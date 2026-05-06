@@ -3,6 +3,7 @@
 import * as React from "react";
 import { AlertTriangle, ExternalLink, FileText } from "lucide-react";
 
+import { LastUpdated } from "@/components/LastUpdated";
 import { PageHeader } from "@/components/PageHeader";
 import { SignCard } from "@/components/SignCard";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -150,6 +151,8 @@ export function RoadSignsPageClient() {
             </ul>
           </aside>
         </div>
+
+        <LastUpdated />
       </section>
     </>
   );

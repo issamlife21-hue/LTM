@@ -9,9 +9,11 @@ import {
   Info,
   Lightbulb,
   RotateCw,
+  Trophy,
   XCircle,
 } from "lucide-react";
 
+import { EmptyState } from "@/components/EmptyState";
 import { PageHeader } from "@/components/PageHeader";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -364,9 +366,11 @@ function ReviewScreen({
           </div>
 
           {visible.length === 0 ? (
-            <div className="rounded-lg border border-ltm-border bg-white p-6 text-center text-sm text-ltm-muted">
-              You answered every question correctly. Excellent work.
-            </div>
+            <EmptyState
+              icon={Trophy}
+              title="A perfect score — well done!"
+              description="You answered every question correctly. Switch to 'Show all questions' if you'd like to review your answers."
+            />
           ) : (
             <ul className="space-y-3">
               {visible.map((q) => {

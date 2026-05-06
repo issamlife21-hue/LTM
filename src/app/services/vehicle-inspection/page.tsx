@@ -4,6 +4,7 @@ import { ServiceDetailLayout } from "@/components/ServiceDetailLayout";
 import { type PriceColumn } from "@/components/PriceTable";
 import { faqs } from "@/data/faqs";
 import { inspectionPhotos, servicePhotos } from "@/data/photos";
+import { serviceEstimates } from "@/data/site-meta";
 import { vehicleInspectionCharges } from "@/data/pricing";
 import { formatUsd } from "@/lib/format";
 
@@ -46,13 +47,27 @@ export default function VehicleInspectionPage() {
         rows: vehicleInspectionCharges as unknown as Record<string, unknown>[],
       }}
       process={[
-        "Bring your vehicle to our SKD Boulevard service center.",
-        "Our inspector checks lights, brakes, and windshield wipers.",
-        "If passed, you receive an inspection report immediately — proceed to registration.",
-        "If failed, you have 45 days to fix the faults and re-inspect.",
+        {
+          title: "Bring your vehicle to our Monrovia office",
+          body: "Drive to our SKD Boulevard service center. No appointment required — walk-ins welcome.",
+        },
+        {
+          title: "Our inspector runs the check",
+          body: "For 2025 the inspection covers three things only: lights, brakes, and windshield wipers.",
+          items: ["Lights — front, rear, and indicators", "Brakes", "Windshield wipers"],
+        },
+        {
+          title: "If you pass, you get your report",
+          body: "We issue your inspection report immediately. You can take it straight to registration.",
+        },
+        {
+          title: "If you fail, use the 45-day grace period",
+          body: "You have 45 days to fix the faults and come back for a re-inspection. After 45 days you're at risk of traffic penalties.",
+        },
       ]}
       faqs={faqs.filter((f) => INSPECTION_FAQ_IDS.includes(f.id))}
       headerImage={servicePhotos["vehicle-inspection"]}
+      estimatedTime={serviceEstimates["vehicle-inspection"]}
       extraContent={
         <div>
           <h2 className="text-2xl font-semibold text-ltm-navy">

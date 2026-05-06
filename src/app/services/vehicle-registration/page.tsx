@@ -3,6 +3,7 @@ import { Badge } from "@/components/ui/badge";
 import { type PriceColumn } from "@/components/PriceTable";
 import { faqs } from "@/data/faqs";
 import { servicePhotos } from "@/data/photos";
+import { serviceEstimates } from "@/data/site-meta";
 import { vehicleRegistrationCharges } from "@/data/pricing";
 import { formatUsd } from "@/lib/format";
 
@@ -62,15 +63,40 @@ export default function VehicleRegistrationPage() {
         note: "Heavy duty trucks above 8 tons and trailers have variable pricing — see the full pricing page for details.",
       }}
       process={[
-        "Pass vehicle inspection (mandatory).",
-        "Walk into our service center.",
-        "Submit your documents.",
-        "Pay the registration fee based on your vehicle category.",
-        "Receive your registration and license plates same-day.",
-        "Obtain mandatory insurance from any provider — we have insurers on premises for convenience.",
+        {
+          title: "Pass your vehicle inspection",
+          body: "Inspection is mandatory before we can register your vehicle. The inspector checks lights, brakes, and windshield wipers.",
+        },
+        {
+          title: "Walk in to our Monrovia office",
+          body: "Bring the vehicle and your documents to our SKD Boulevard service center.",
+        },
+        {
+          title: "Submit your documents",
+          body: "Hand them to the registration counter. We'll verify and enter them into your file.",
+          items: [
+            "Valid ID",
+            "Previous registration (for renewals)",
+            "Customs clearance (for imported vehicles)",
+            "Bill of sale and second-party ID (for ownership transfers)",
+          ],
+        },
+        {
+          title: "Pay the registration fee",
+          body: "Fees are set by vehicle category — see the pricing section above. Public transport rates apply for licensed taxis and buses.",
+        },
+        {
+          title: "Receive your registration and plates",
+          body: "Most registrations are issued same-day. You'll leave with the paperwork and standard plates.",
+        },
+        {
+          title: "Get insurance",
+          body: "Vehicle insurance is mandatory by law. You can buy it from any provider — we have insurers on the premises for your convenience.",
+        },
       ]}
       faqs={faqs.filter((f) => f.category === "vehicle-registration")}
       headerImage={servicePhotos["vehicle-registration"]}
+      estimatedTime={serviceEstimates["vehicle-registration"]}
     />
   );
 }

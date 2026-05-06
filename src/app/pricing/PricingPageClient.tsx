@@ -3,6 +3,7 @@
 import * as React from "react";
 import { Printer, Search } from "lucide-react";
 
+import { LastUpdated } from "@/components/LastUpdated";
 import { PageHeader } from "@/components/PageHeader";
 import { PriceTable, type PriceColumn } from "@/components/PriceTable";
 import { Badge } from "@/components/ui/badge";
@@ -351,6 +352,8 @@ export function PricingPageClient() {
             </TabsContent>
           </div>
         </Tabs>
+
+        <LastUpdated />
       </section>
     </>
   );

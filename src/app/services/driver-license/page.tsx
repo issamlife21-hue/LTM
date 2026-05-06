@@ -4,6 +4,7 @@ import { type PriceColumn } from "@/components/PriceTable";
 import { driverLicenseCharges } from "@/data/pricing";
 import { faqs } from "@/data/faqs";
 import { servicePhotos } from "@/data/photos";
+import { serviceEstimates } from "@/data/site-meta";
 import { formatUsd } from "@/lib/format";
 
 export const metadata = {
@@ -54,14 +55,34 @@ export default function DriverLicensePage() {
         rows: driverLicenseCharges as unknown as Record<string, unknown>[],
       }}
       process={[
-        "Walk into our service center on SKD Boulevard.",
-        "Pick up and complete the application form.",
-        "Provide your ID, blood type, and personal details.",
-        "We capture your live photo and biometrics.",
-        "Pay the fee and receive your license — typically same-day.",
+        {
+          title: "Walk in to our Monrovia office",
+          body: "Visit our SKD Boulevard service center during working hours. No appointment needed.",
+        },
+        {
+          title: "Pick up and complete the application form",
+          body: "We hand it to you when you arrive — fill it in there with your details.",
+        },
+        {
+          title: "Hand over your documents",
+          body: "Show your ID, share your blood type, and confirm your personal details.",
+          items: [
+            "Valid ID (national ID, passport, or previous license)",
+            "Your blood type",
+          ],
+        },
+        {
+          title: "We capture your photo and biometrics",
+          body: "Required for first-time applicants. Renewals only need biometrics if your file is incomplete.",
+        },
+        {
+          title: "Pay and receive your license",
+          body: "Most licenses are issued the same day, often within 20–30 minutes from arrival.",
+        },
       ]}
       faqs={faqs.filter((f) => f.category === "driver-license")}
       headerImage={servicePhotos["driver-license"]}
+      estimatedTime={serviceEstimates["driver-license"]}
     />
   );
 }
