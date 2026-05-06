@@ -60,3 +60,29 @@
     @apply mx-auto w-full max-w-[1200px] px-4 sm:px-6 lg:px-8;
   }
 }
+
+@media print {
+  .print-hidden {
+    display: none !important;
+  }
+
+  .print-block {
+    display: block !important;
+  }
+
+  body {
+    background: #fff !important;
+  }
+
+  header,
+  footer,
+  [role="tablist"] {
+    display: none !important;
+  }
+
+  .print-stack > * {
+    display: block !important;
+    margin-bottom: 1.5rem;
+    page-break-inside: avoid;
+  }
+}
