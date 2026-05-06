@@ -50,7 +50,7 @@ export default function VehicleInspectionPage() {
         "If failed, you have 45 days to fix the faults and re-inspect.",
       ]}
       faqs={faqs.filter((f) => INSPECTION_FAQ_IDS.includes(f.id))}
-      headerImage={servicePhotos.vehicleInspection}
+      headerImage={servicePhotos["vehicle-inspection"]}
     />
   );
 }

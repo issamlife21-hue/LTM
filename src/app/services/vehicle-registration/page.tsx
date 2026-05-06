@@ -70,7 +70,7 @@ export default function VehicleRegistrationPage() {
         "Obtain mandatory insurance from any provider — we have insurers on premises for convenience.",
       ]}
       faqs={faqs.filter((f) => f.category === "vehicle-registration")}
-      headerImage={servicePhotos.vehicleRegistration}
+      headerImage={servicePhotos["vehicle-registration"]}
     />
   );
 }

@@ -62,15 +62,6 @@ export default function ContactPage() {
         <div className="grid gap-8 lg:grid-cols-5">
           {/* Left column — info cards */}
           <div className="space-y-4 lg:col-span-2">
-            <div className="relative aspect-[4/3] overflow-hidden rounded-lg border border-ltm-border">
-              <Image
-                src={contactPhoto.url}
-                alt={contactPhoto.alt}
-                fill
-                sizes="(min-width: 1024px) 40vw, 100vw"
-                className="object-cover"
-              />
-            </div>
             <InfoCard icon={MapPin} title="Visit Us">
               <address className="not-italic">
                 LTM Compound
@@ -164,8 +155,19 @@ export default function ContactPage() {
             </InfoCard>
           </div>
 
-          {/* Right column — map and form */}
+          {/* Right column — banner photo, map, and form */}
           <div className="space-y-6 lg:col-span-3">
+            <div className="aspect-[16/9] overflow-hidden rounded-lg border border-ltm-border">
+              <Image
+                src={contactPhoto.url}
+                alt={contactPhoto.alt}
+                width={contactPhoto.width}
+                height={contactPhoto.height}
+                sizes="(max-width: 1024px) 100vw, 60vw"
+                className="h-full w-full object-cover"
+              />
+            </div>
+
             <div className="overflow-hidden rounded-lg border border-ltm-border">
               <div className="aspect-video w-full">
                 <iframe

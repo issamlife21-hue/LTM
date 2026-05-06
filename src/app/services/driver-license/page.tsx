@@ -61,7 +61,7 @@ export default function DriverLicensePage() {
         "Pay the fee and receive your license — typically same-day.",
       ]}
       faqs={faqs.filter((f) => f.category === "driver-license")}
-      headerImage={servicePhotos.driverLicense}
+      headerImage={servicePhotos["driver-license"]}
     />
   );
 }

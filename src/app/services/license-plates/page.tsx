@@ -70,7 +70,7 @@ export default function LicensePlatesPage() {
         "Receive your plates same-day.",
       ]}
       faqs={faqs.filter((f) => PLATE_FAQ_IDS.includes(f.id))}
-      headerImage={servicePhotos.licensePlates}
+      headerImage={servicePhotos["license-plates"]}
     />
   );
 }
