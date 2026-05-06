@@ -3,12 +3,16 @@ import { Badge } from "@/components/ui/badge";
 import { type PriceColumn } from "@/components/PriceTable";
 import { faqs } from "@/data/faqs";
 import { servicePhotos } from "@/data/photos";
-import { serviceEstimates } from "@/data/site-meta";
+import {
+  formatLastUpdated,
+  lastUpdated,
+  serviceEstimates,
+} from "@/data/site-meta";
 import { vehicleRegistrationCharges } from "@/data/pricing";
 import { formatUsd } from "@/lib/format";
 
 export const metadata = {
-  title: "Vehicle Registration — Liberia Traffic Management",
+  title: "Vehicle Registration. Liberia Traffic Management",
   description:
     "Register a new vehicle, renew your registration, or transfer ownership at LTM, the official registrar in Liberia.",
 };
@@ -31,15 +35,14 @@ const columns: PriceColumn[] = [
     key: "totalCost",
     label: "Total Cost",
     align: "right",
+    emphasis: true,
     render: (v, row) =>
       v === null || v === undefined ? (
-        <span className="italic text-ltm-muted">
-          {(row.notes as string) ?? "Variable"}
+        <span className="text-sm font-normal italic text-ltm-muted">
+          {(row.notes as string) ?? "Set by traffic law"}
         </span>
       ) : (
-        <span className="font-semibold text-ltm-navy">
-          {formatUsd(v as number)}
-        </span>
+        formatUsd(v as number)
       ),
   },
 ];
@@ -49,7 +52,7 @@ export default function VehicleRegistrationPage() {
     <ServiceDetailLayout
       title="Vehicle Registration"
       subtitle="Register, renew, or transfer ownership of your vehicle."
-      overview="All vehicles operating in Liberia must be registered with LTM. We handle new registrations, renewals, and ownership transfers. Vehicle inspection is required before registration — you must have a passing inspection report. Vehicle insurance is also mandatory by law, but you can complete your registration first and obtain insurance separately."
+      overview="All vehicles operating in Liberia must be registered with LTM. We handle new registrations, renewals, and ownership transfers. Vehicle inspection is required before registration; you must have a passing inspection report. Vehicle insurance is also mandatory by law, but you can complete your registration first and obtain insurance separately."
       whatToBring={[
         "Valid ID",
         "Personal information",
@@ -60,7 +63,7 @@ export default function VehicleRegistrationPage() {
       pricing={{
         columns,
         rows: vehicleRegistrationCharges as unknown as Record<string, unknown>[],
-        note: "Heavy duty trucks above 8 tons and trailers have variable pricing — see the full pricing page for details.",
+        note: "Heavy duty trucks above 8 tons and trailers have variable pricing. See the full pricing page for details.",
       }}
       process={[
         {
@@ -83,7 +86,7 @@ export default function VehicleRegistrationPage() {
         },
         {
           title: "Pay the registration fee",
-          body: "Fees are set by vehicle category — see the pricing section above. Public transport rates apply for licensed taxis and buses.",
+          body: "Fees are set by vehicle category; see the pricing section above. Public transport rates apply for licensed taxis and buses.",
         },
         {
           title: "Receive your registration and plates",
@@ -91,12 +94,24 @@ export default function VehicleRegistrationPage() {
         },
         {
           title: "Get insurance",
-          body: "Vehicle insurance is mandatory by law. You can buy it from any provider — we have insurers on the premises for your convenience.",
+          body: "Vehicle insurance is mandatory by law. You can buy it from any provider; we have insurers on the premises for your convenience.",
         },
       ]}
       faqs={faqs.filter((f) => f.category === "vehicle-registration")}
       headerImage={servicePhotos["vehicle-registration"]}
       estimatedTime={serviceEstimates["vehicle-registration"]}
+      summary={{
+        cost: "US$78 to US$509",
+        visit: "30 to 45 minutes",
+        documents: 5,
+        lastReviewed: formatLastUpdated(lastUpdated.services),
+      }}
+      source={
+        <>
+          Vehicle categories and fees are set by the Government of Liberia.
+          Insurance is mandatory by law.
+        </>
+      }
     />
   );
 }

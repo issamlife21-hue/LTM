@@ -18,10 +18,10 @@ const config: Config = {
     extend: {
       colors: {
         ltm: {
-          navy: "#002868",
-          "navy-dark": "#001A4D",
-          red: "#BF0A30",
-          "red-dark": "#9A0826",
+          navy: "#003082",
+          "navy-dark": "#001E5C",
+          red: "#D21034",
+          "red-dark": "#A50D29",
           slate: "#1F2937",
           muted: "#64748B",
           border: "#E5E7EB",
@@ -70,6 +70,11 @@ const config: Config = {
       },
       fontFamily: {
         sans: ["var(--font-inter)", "system-ui", "sans-serif"],
+        display: [
+          "var(--font-source-serif)",
+          "Georgia",
+          "serif",
+        ],
       },
       maxWidth: {
         prose: "70ch",

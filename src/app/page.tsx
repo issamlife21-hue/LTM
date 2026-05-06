@@ -16,6 +16,7 @@ import {
 
 import { HeroCarousel } from "@/components/HeroCarousel";
 import { CTABanner } from "@/components/layout/CTABanner";
+import { LoneStar } from "@/components/LoneStar";
 import { ServiceAdvisor } from "@/components/ServiceAdvisor";
 import { ServiceCard } from "@/components/ServiceCard";
 import {
@@ -32,7 +33,7 @@ const TRUST_STATS = [
   {
     icon: MapPin,
     headline: "1 location",
-    text: "More branches coming soon across Liberia.",
+    text: "Additional branches are planned across Liberia.",
   },
   {
     icon: Clock,
@@ -47,7 +48,7 @@ const TRUST_STATS = [
   {
     icon: UserCheck,
     headline: "No appointment needed",
-    text: "Walk in during working hours — no booking required.",
+    text: "Walk in during working hours. No booking required.",
   },
 ];
 
@@ -97,7 +98,7 @@ const STEPS = [
   },
 ];
 
-const HOMEPAGE_FAQ_IDS = ["q1", "q3", "q6", "q8"];
+const HOMEPAGE_FAQ_IDS = ["q1", "q3", "q6", "q11"];
 const homepageFaqs = HOMEPAGE_FAQ_IDS.map(
   (id) => faqs.find((f) => f.id === id)!
 ).filter(Boolean);
@@ -138,15 +139,16 @@ export default function HomePage() {
         <HeroCarousel />
 
         <div className="container-ltm relative z-10 flex min-h-[480px] flex-col items-center justify-center py-20 text-center text-white md:min-h-[600px] md:py-28">
+          <LoneStar size={40} className="mb-5 rounded-sm" />
           <p className="mb-4 text-xs font-semibold uppercase tracking-[0.2em] text-white/80 sm:text-sm">
             Authorized by the Government of Liberia
           </p>
-          <h1 className="max-w-4xl text-4xl font-bold leading-tight text-white md:text-6xl">
+          <h1 className="max-w-4xl font-display text-4xl font-bold leading-tight text-white md:text-6xl">
             Liberia&rsquo;s Official Traffic Management Service
           </h1>
           <p className="mt-5 max-w-2xl text-base leading-relaxed text-white/90 md:text-lg">
             Get your driver license, register your vehicle, pass inspection,
-            and pick up your plates — all from one trusted office in Monrovia.
+            and pick up your plates, all from one trusted office in Monrovia.
           </p>
           <div className="mt-8 flex w-full flex-col gap-3 sm:w-auto sm:flex-row">
             <Button asChild size="lg" variant="whitePrimary">
@@ -291,8 +293,8 @@ export default function HomePage() {
             </span>
             <h3 className="mt-4 text-lg font-semibold text-ltm-navy">Hours</h3>
             <ul className="mt-3 space-y-1 text-sm text-ltm-slate">
-              <li>Mon–Fri: 8:00 AM – 5:00 PM</li>
-              <li>Saturday: 9:00 AM – 1:00 PM</li>
+              <li>Monday to Friday: 8:00 AM to 5:00 PM</li>
+              <li>Saturday: 9:00 AM to 1:00 PM</li>
               <li>Sunday: Closed</li>
             </ul>
           </div>

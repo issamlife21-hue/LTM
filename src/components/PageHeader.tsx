@@ -12,6 +12,8 @@ type PageHeaderProps = {
   className?: string;
   backgroundImage?: { url: string; alt: string };
   estimatedTime?: string;
+  crest?: { src: string; alt: string };
+  align?: "left" | "center";
 };
 
 export function PageHeader({
@@ -22,6 +24,8 @@ export function PageHeader({
   className,
   backgroundImage,
   estimatedTime,
+  crest,
+  align = "left",
 }: PageHeaderProps) {
   return (
     <section
@@ -47,8 +51,34 @@ export function PageHeader({
           />
         </>
       )}
-      <div className="container-ltm relative flex flex-col gap-4 py-12 md:flex-row md:items-end md:justify-between md:py-16">
-        <div className="max-w-3xl">
+      <div
+        className={cn(
+          "container-ltm relative flex flex-col gap-4 py-12 md:py-16",
+          align === "center"
+            ? "items-center text-center"
+            : "md:flex-row md:items-end md:justify-between"
+        )}
+      >
+        <div
+          className={cn(
+            "max-w-3xl",
+            align === "center" && "flex flex-col items-center"
+          )}
+        >
+          {crest && (
+            // Inline <img> so the SVG inherits currentColor for monochrome
+            // rendering on the navy hero. Optimizing this small SVG via
+            // next/image provides no meaningful savings.
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
+              src={crest.src}
+              alt={crest.alt}
+              width={80}
+              height={96}
+              className="mb-4 h-20 w-auto text-white"
+              style={{ color: "#ffffff" }}
+            />
+          )}
           <h1 className="text-3xl font-bold text-white md:text-4xl">{title}</h1>
           {estimatedTime && (
             <p className="mt-3 inline-flex items-center gap-1.5 rounded-full border border-white/30 bg-white/10 px-3 py-1 text-xs font-medium text-white">

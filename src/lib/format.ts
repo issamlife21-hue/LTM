@@ -1,6 +1,6 @@
 export function formatUsd(n: number | null | undefined): string {
-  if (n === null || n === undefined) return "—";
-  return `$${n.toFixed(2)}`;
+  if (n === null || n === undefined) return "Variable";
+  return `US$${n.toFixed(2)}`;
 }
 
 export function highlightMatch(text: string, query: string): Array<{ text: string; match: boolean }> {

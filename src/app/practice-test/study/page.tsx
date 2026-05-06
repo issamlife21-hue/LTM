@@ -11,7 +11,7 @@ import {
 import { cn } from "@/lib/utils";
 
 export const metadata = {
-  title: "Practice Test — Study Mode",
+  title: "Practice Test. Study Mode",
 };
 
 export default function StudyPage() {

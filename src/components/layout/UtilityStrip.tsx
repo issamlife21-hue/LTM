@@ -6,8 +6,7 @@ export function UtilityStrip() {
     <div className="hidden bg-ltm-navy text-white md:block">
       <div className="container-ltm flex h-9 items-center justify-between text-sm">
         <p className="truncate">
-          Official Government Concessionaire — Authorized by the Government of
-          Liberia
+          Authorized by the Government of Liberia
         </p>
         <div className="flex items-center gap-4">
           <span className="flex items-center gap-1.5">

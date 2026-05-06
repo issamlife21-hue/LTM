@@ -55,8 +55,8 @@ const SERVICES: Array<{
           "Your blood type",
           "Personal details",
         ],
-        price: "From $35",
-        time: "20–30 minutes",
+        price: "US$35 to US$100 by license category",
+        time: "20 to 30 minutes once you're at the counter",
       },
       {
         id: "renewal",
@@ -66,8 +66,8 @@ const SERVICES: Array<{
           "Your previous driving license",
           "Valid ID (if your license has expired)",
         ],
-        price: "From $35",
-        time: "15–20 minutes",
+        price: "US$35 to US$100 by license category",
+        time: "15 to 20 minutes once you're at the counter",
       },
       {
         id: "upgrade",
@@ -78,8 +78,8 @@ const SERVICES: Array<{
           "Valid ID",
           "Personal details",
         ],
-        price: "From $45",
-        time: "20–30 minutes",
+        price: "US$45 to US$100 by category added",
+        time: "20 to 30 minutes once you're at the counter",
       },
     ],
   },
@@ -99,8 +99,8 @@ const SERVICES: Array<{
           "Personal information",
           "Passing vehicle inspection report",
         ],
-        price: "From $78",
-        time: "30–45 minutes",
+        price: "US$78 to US$509 by vehicle category",
+        time: "30 to 45 minutes once you're at the counter",
       },
       {
         id: "renewal",
@@ -111,8 +111,8 @@ const SERVICES: Array<{
           "Previous vehicle registration",
           "Passing vehicle inspection report",
         ],
-        price: "From $78",
-        time: "20–30 minutes",
+        price: "US$78 to US$509 by vehicle category",
+        time: "20 to 30 minutes once you're at the counter",
       },
       {
         id: "transfer",
@@ -124,8 +124,8 @@ const SERVICES: Array<{
           "Bill of sale",
           "Second-party valid ID and contact details",
         ],
-        price: "From $78",
-        time: "30–45 minutes",
+        price: "US$78 to US$509 by vehicle category",
+        time: "30 to 45 minutes once you're at the counter",
       },
       {
         id: "imported",
@@ -137,8 +137,8 @@ const SERVICES: Array<{
           "Bill of lading or shipping documents",
           "Passing vehicle inspection report",
         ],
-        price: "From $78",
-        time: "30–45 minutes",
+        price: "US$78 to US$509 by vehicle category",
+        time: "30 to 45 minutes once you're at the counter",
       },
     ],
   },
@@ -158,8 +158,8 @@ const SERVICES: Array<{
           "Valid ID",
           "Existing registration documents (if renewing)",
         ],
-        price: "$15 – $200 by vehicle type",
-        time: "15–20 minutes",
+        price: "US$15 to US$200 by vehicle type",
+        time: "15 to 20 minutes once you're at the counter",
       },
       {
         id: "re-inspection",
@@ -170,8 +170,8 @@ const SERVICES: Array<{
           "The vehicle being re-inspected",
           "Your previous inspection report",
         ],
-        price: "$15 – $200 by vehicle type",
-        time: "10–15 minutes",
+        price: "US$15 to US$200 by vehicle type",
+        time: "10 to 15 minutes once you're at the counter",
       },
     ],
   },
@@ -191,7 +191,7 @@ const SERVICES: Array<{
           "Valid ID",
         ],
         price: "Included with registration",
-        time: "Same-day",
+        time: "Same day if your registration paperwork is complete",
       },
       {
         id: "test",
@@ -201,8 +201,8 @@ const SERVICES: Array<{
           "Valid vehicle registration",
           "Valid ID",
         ],
-        price: "$250",
-        time: "Same-day",
+        price: "US$250",
+        time: "Same day if your registration paperwork is complete",
       },
       {
         id: "custom",
@@ -213,8 +213,8 @@ const SERVICES: Array<{
           "Valid ID",
           "Your preferred plate combination",
         ],
-        price: "$30 per character",
-        time: "Same-day",
+        price: "US$30 per character on the plate",
+        time: "Same day if your registration paperwork is complete",
       },
     ],
   },
@@ -443,7 +443,7 @@ export function ServiceAdvisor() {
               <div className="mt-7 flex flex-col gap-3 sm:flex-row">
                 <Button asChild size="lg" className="flex-1">
                   <Link href={service.href}>
-                    Visit us — full details
+                    Visit us, full details
                     <ArrowRight className="h-4 w-4" aria-hidden="true" />
                   </Link>
                 </Button>

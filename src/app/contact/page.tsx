@@ -54,8 +54,13 @@ export default function ContactPage() {
     <>
       <PageHeader
         title="Contact Us"
-        subtitle="Visit our service center, give us a call, or send us a message."
+        subtitle="Visit us, give us a call, or send us a message."
         backgroundImage={contactPhoto}
+        crest={{
+          src: "/coat-of-arms.svg",
+          alt: "Coat of arms of the Republic of Liberia",
+        }}
+        align="center"
       />
 
       <section className="container-ltm py-12 md:py-16">
@@ -137,12 +142,12 @@ export default function ContactPage() {
             <InfoCard icon={Clock} title="Working Hours">
               <dl className="space-y-1.5">
                 <div className="flex justify-between gap-4">
-                  <dt className="font-medium text-ltm-slate">Monday – Friday</dt>
-                  <dd>8:00 AM – 5:00 PM</dd>
+                  <dt className="font-medium text-ltm-slate">Monday to Friday</dt>
+                  <dd>8:00 AM to 5:00 PM</dd>
                 </div>
                 <div className="flex justify-between gap-4">
                   <dt className="font-medium text-ltm-slate">Saturday</dt>
-                  <dd>9:00 AM – 1:00 PM</dd>
+                  <dd>9:00 AM to 1:00 PM</dd>
                 </div>
                 <div className="flex justify-between gap-4">
                   <dt className="font-medium text-ltm-slate">Sunday</dt>
@@ -150,7 +155,7 @@ export default function ContactPage() {
                 </div>
               </dl>
               <p className="mt-3 text-xs text-ltm-muted">
-                No appointment required — walk-ins welcome.
+                No appointment required. Walk-ins welcome.
               </p>
             </InfoCard>
           </div>

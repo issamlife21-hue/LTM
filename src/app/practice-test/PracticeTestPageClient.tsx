@@ -348,6 +348,13 @@ function ReviewScreen({
                 {incorrect} incorrect
               </span>
             </div>
+
+            <p className="rounded-md border border-ltm-border bg-ltm-bg p-3 text-xs italic leading-relaxed text-ltm-muted">
+              You answered {correct} of {total} correctly. This practice test
+              is a study aid only. It does not guarantee a passing score on
+              the official examination, and it is not the official examination
+              itself.
+            </p>
           </CardContent>
         </Card>
 
@@ -368,7 +375,7 @@ function ReviewScreen({
           {visible.length === 0 ? (
             <EmptyState
               icon={Trophy}
-              title="A perfect score — well done!"
+              title="A perfect score. Well done."
               description="You answered every question correctly. Switch to 'Show all questions' if you'd like to review your answers."
             />
           ) : (

@@ -152,7 +152,7 @@ export function RoadSignsPageClient() {
           </aside>
         </div>
 
-        <LastUpdated />
+        <LastUpdated section="roadSigns" />
       </section>
     </>
   );

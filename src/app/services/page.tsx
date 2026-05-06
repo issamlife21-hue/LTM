@@ -14,7 +14,7 @@ import { PageHeader } from "@/components/PageHeader";
 import { Button } from "@/components/ui/button";
 
 export const metadata = {
-  title: "Our Services — Liberia Traffic Management",
+  title: "Our Services. Liberia Traffic Management",
   description:
     "All the traffic-related services authorized by the Government of Liberia: driver licensing, vehicle registration, inspection, and license plates.",
 };
@@ -74,7 +74,7 @@ const SERVICES: ServiceDetail[] = [
       "Standard plates are included with vehicle registration. Test plates and customized plates are also available.",
     whatYouNeed: [
       "Valid vehicle registration",
-      "Payment for any custom plates ($30 per character) or test plates ($250)",
+      "Payment for any custom plates (US$30 per character) or test plates (US$250)",
     ],
     href: "/services/license-plates",
   },

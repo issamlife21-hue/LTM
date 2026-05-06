@@ -56,22 +56,21 @@ const registrationColumns: PriceColumn[] = [
       v ? (
         <span className="text-sm text-ltm-slate">{v as string}</span>
       ) : (
-        <span className="text-ltm-muted">—</span>
+        <span className="text-ltm-muted">None</span>
       ),
   },
   {
     key: "totalCost",
     label: "Total",
     align: "right",
+    emphasis: true,
     render: (v, row) =>
       v === null || v === undefined ? (
-        <span className="italic text-ltm-muted">
-          {(row.notes as string) ?? "Variable"}
+        <span className="text-sm font-normal italic text-ltm-muted">
+          {(row.notes as string) ?? "Set by traffic law"}
         </span>
       ) : (
-        <span className="font-semibold text-ltm-navy">
-          {formatUsd(v as number)}
-        </span>
+        formatUsd(v as number)
       ),
   },
 ];
@@ -93,11 +92,8 @@ const driverLicenseColumns: PriceColumn[] = [
     key: "charge",
     label: "Charge",
     align: "right",
-    render: (v) => (
-      <span className="font-semibold text-ltm-navy">
-        {formatUsd(v as number)}
-      </span>
-    ),
+    emphasis: true,
+    render: (v) => formatUsd(v as number),
   },
 ];
 
@@ -107,11 +103,8 @@ const drivingTestColumns: PriceColumn[] = [
     key: "charge",
     label: "Charge",
     align: "right",
-    render: (v) => (
-      <span className="font-semibold text-ltm-navy">
-        {formatUsd(v as number)}
-      </span>
-    ),
+    emphasis: true,
+    render: (v) => formatUsd(v as number),
   },
 ];
 
@@ -121,11 +114,8 @@ const inspectionColumns: PriceColumn[] = [
     key: "charge",
     label: "Charge",
     align: "right",
-    render: (v) => (
-      <span className="font-semibold text-ltm-navy">
-        {formatUsd(v as number)}
-      </span>
-    ),
+    emphasis: true,
+    render: (v) => formatUsd(v as number),
   },
 ];
 
@@ -148,11 +138,8 @@ const towingColumns: PriceColumn[] = [
     key: "upTo25MilesUsd",
     label: "Up to 25 miles",
     align: "right",
-    render: (v) => (
-      <span className="font-semibold text-ltm-navy">
-        {formatUsd(v as number)}
-      </span>
-    ),
+    emphasis: true,
+    render: (v) => formatUsd(v as number),
   },
   {
     key: "additionalMileRateUsd",
@@ -168,19 +155,16 @@ const impoundmentColumns: PriceColumn[] = [
     key: "ratePerDayUsd",
     label: "Rate per day",
     align: "right",
+    emphasis: true,
     render: (v, row) => {
       if (v === 0) return <Badge variant="success">Free</Badge>;
       if (v === null || v === undefined)
         return (
-          <span className="italic text-ltm-muted">
-            {(row.notes as string) ?? "Variable"}
+          <span className="text-sm font-normal italic text-ltm-muted">
+            {(row.notes as string) ?? "Set by traffic law"}
           </span>
         );
-      return (
-        <span className="font-semibold text-ltm-navy">
-          {formatUsd(v as number)}
-        </span>
-      );
+      return formatUsd(v as number);
     },
   },
 ];
@@ -353,7 +337,19 @@ export function PricingPageClient() {
           </div>
         </Tabs>
 
-        <LastUpdated />
+        <p className="mt-8 text-xs leading-relaxed text-ltm-muted">
+          Fees are set by the Government of Liberia. LTM does not have
+          authority to discount, waive, or negotiate published fees. Last
+          reviewed:{" "}
+          <time dateTime="2025-11-01">November 1, 2025</time>.
+        </p>
+
+        <p className="mt-3 hidden text-xs text-ltm-muted print:block">
+          Printed from www.liberiatraffic.com. For the most current pricing,
+          visit the website.
+        </p>
+
+        <LastUpdated section="pricing" />
       </section>
     </>
   );

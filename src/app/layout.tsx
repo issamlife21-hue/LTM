@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Source_Serif_4 } from "next/font/google";
 
 import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
@@ -14,10 +14,17 @@ const inter = Inter({
   display: "swap",
 });
 
+const sourceSerif = Source_Serif_4({
+  subsets: ["latin"],
+  variable: "--font-source-serif",
+  weight: ["600", "700"],
+  display: "swap",
+});
+
 export const metadata: Metadata = {
   title: {
     default:
-      "Liberia Traffic Management — Official Traffic Services in Liberia",
+      "Liberia Traffic Management. Official Traffic Services in Liberia",
     template: "%s | Liberia Traffic Management",
   },
   description:
@@ -36,7 +43,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Liberia Traffic Management",
     description:
-      "Official traffic management services for the Republic of Liberia — vehicle registration, driver licensing, inspection, and license plates.",
+      "Official traffic management services for the Republic of Liberia: vehicle registration, driver licensing, inspection, and license plates.",
     url: "https://www.liberiatraffic.com",
     siteName: "Liberia Traffic Management",
     locale: "en_US",
@@ -60,7 +67,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={inter.variable}>
+    <html
+      lang="en"
+      className={`${inter.variable} ${sourceSerif.variable}`}
+    >
       <body className="flex min-h-screen flex-col font-sans antialiased">
         <a
           href="#main-content"

@@ -9,12 +9,12 @@ export type LtmPhoto = {
   height: number;
 };
 
-// Hero carousel — rotates through 5 strongest photos
+// Hero carousel rotates through the 5 strongest photos
 export const heroPhotos: LtmPhoto[] = [
   {
     id: "hero-main-facility",
     url: "https://images.squarespace-cdn.com/content/v1/5b3f2240f7939231db24fdab/789e2f87-932a-469e-bf8b-97348b9ffaef/PHOTO-2024-11-04-05-35-52.jpg",
-    alt: "LTM main service facility — modern two-story building with paved compound under blue sky",
+    alt: "LTM main service facility, a modern two-story building with paved compound under blue sky",
     category: "exterior",
     width: 3024,
     height: 4032,

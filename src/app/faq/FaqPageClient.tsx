@@ -111,6 +111,13 @@ export function FAQPageClient() {
       />
 
       <section className="container-ltm py-10">
+        <blockquote className="mb-8 max-w-2xl border-l-4 border-ltm-red pl-4 font-display text-base italic text-ltm-navy">
+          &ldquo;The Love of Liberty Brought Us Here&rdquo;
+          <footer className="mt-1 text-xs not-italic text-ltm-muted">
+            National motto of the Republic of Liberia, 1847.
+          </footer>
+        </blockquote>
+
         <div className="mb-6">
           <label htmlFor="faq-search" className="sr-only">
             Search questions
@@ -157,7 +164,7 @@ export function FAQPageClient() {
           ))}
         </Tabs>
 
-        <LastUpdated />
+        <LastUpdated section="faq" />
       </section>
 
       <CTABanner />

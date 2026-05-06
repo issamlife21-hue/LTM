@@ -18,13 +18,14 @@ export type PriceColumn = {
   align?: "left" | "right" | "center";
   render?: (value: unknown, row: Record<string, unknown>) => React.ReactNode;
   searchable?: boolean;
+  emphasis?: boolean;
 };
 
 type PriceTableProps = {
   columns: PriceColumn[];
   rows: Record<string, unknown>[];
   searchQuery?: string;
-  searchKey?: string; // field used for filtering — defaults to "category"
+  searchKey?: string; // field used for filtering, defaults to "category"
   caption?: string;
   emptyMessage?: string;
 };
@@ -95,13 +96,16 @@ export function PriceTable({
                   <TableCell
                     key={col.key}
                     className={cn(
+                      "text-sm",
                       col.align === "right" && "text-right tabular-nums",
-                      col.align === "center" && "text-center"
+                      col.align === "center" && "text-center",
+                      col.emphasis &&
+                        "text-base font-semibold text-ltm-navy"
                     )}
                   >
                     {col.render
                       ? col.render(row[col.key], row)
-                      : (row[col.key] as React.ReactNode) ?? "—"}
+                      : (row[col.key] as React.ReactNode) ?? "Not applicable"}
                   </TableCell>
                 ))}
               </TableRow>
@@ -129,7 +133,7 @@ export function PriceTable({
                   <dd className="text-sm text-ltm-slate">
                     {col.render
                       ? col.render(row[col.key], row)
-                      : ((row[col.key] as React.ReactNode) ?? "—")}
+                      : ((row[col.key] as React.ReactNode) ?? "Not applicable")}
                   </dd>
                 </div>
               ))}

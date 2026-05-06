@@ -22,6 +22,13 @@ export type ProcessStep = {
   items?: string[];
 };
 
+export type ServiceSummary = {
+  cost: string;
+  visit: string;
+  documents: number;
+  lastReviewed: string;
+};
+
 type ServiceDetailLayoutProps = {
   title: string;
   subtitle: string;
@@ -38,6 +45,8 @@ type ServiceDetailLayoutProps = {
   headerImage?: { url: string; alt: string };
   extraContent?: React.ReactNode;
   estimatedTime?: string;
+  summary?: ServiceSummary;
+  source?: React.ReactNode;
 };
 
 function PricingSection({
@@ -79,6 +88,8 @@ export function ServiceDetailLayout({
   headerImage,
   extraContent,
   estimatedTime,
+  summary,
+  source,
 }: ServiceDetailLayoutProps) {
   return (
     <>
@@ -92,6 +103,43 @@ export function ServiceDetailLayout({
       <section className="container-ltm py-12 md:py-16">
         <div className="lg:grid lg:grid-cols-3 lg:gap-10">
           <div className="space-y-12 lg:col-span-2">
+            {summary && (
+              <dl className="grid grid-cols-1 gap-4 rounded-lg border border-ltm-border bg-white p-4 sm:grid-cols-2 sm:p-5">
+                <div>
+                  <dt className="text-xs font-semibold uppercase tracking-wider text-ltm-muted">
+                    Cost
+                  </dt>
+                  <dd className="mt-1 text-base font-semibold text-ltm-navy">
+                    {summary.cost}
+                  </dd>
+                </div>
+                <div>
+                  <dt className="text-xs font-semibold uppercase tracking-wider text-ltm-muted">
+                    Visit
+                  </dt>
+                  <dd className="mt-1 text-base font-semibold text-ltm-navy">
+                    {summary.visit}
+                  </dd>
+                </div>
+                <div>
+                  <dt className="text-xs font-semibold uppercase tracking-wider text-ltm-muted">
+                    Documents required
+                  </dt>
+                  <dd className="mt-1 text-base font-semibold text-ltm-navy">
+                    {summary.documents}
+                  </dd>
+                </div>
+                <div>
+                  <dt className="text-xs font-semibold uppercase tracking-wider text-ltm-muted">
+                    Last reviewed
+                  </dt>
+                  <dd className="mt-1 text-base font-semibold text-ltm-navy">
+                    {summary.lastReviewed}
+                  </dd>
+                </div>
+              </dl>
+            )}
+
             <div>
               <h2 className="text-2xl font-semibold text-ltm-navy">
                 Overview
@@ -99,12 +147,21 @@ export function ServiceDetailLayout({
               <div className="mt-4 max-w-prose space-y-4 text-[18px] leading-relaxed text-ltm-slate">
                 {typeof overview === "string" ? <p>{overview}</p> : overview}
               </div>
+              {source && (
+                <p className="mt-4 max-w-prose text-sm italic text-ltm-muted">
+                  {source}
+                </p>
+              )}
             </div>
 
             <div>
               <h2 className="text-2xl font-semibold text-ltm-navy">
                 What you need to bring
               </h2>
+              <p className="mt-2 max-w-prose text-sm italic text-ltm-muted">
+                Please bring everything below. Missing documents are the most
+                common reason a visit can&rsquo;t be completed in one trip.
+              </p>
               <ul className="mt-4 space-y-3">
                 {whatToBring.map((item, i) => (
                   <li
@@ -232,9 +289,9 @@ export function ServiceDetailLayout({
                   aria-hidden="true"
                 />
                 <div className="leading-relaxed">
-                  Mon–Fri: 8AM – 5PM
+                  Monday to Friday: 8AM to 5PM
                   <br />
-                  Saturday: 9AM – 1PM
+                  Saturday: 9AM to 1PM
                 </div>
               </div>
 

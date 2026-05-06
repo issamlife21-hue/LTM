@@ -68,28 +68,44 @@ export function ContactForm() {
         We&rsquo;ll respond during working hours.
       </p>
 
-      {submitted && (
+      {submitted ? (
         <div
           role="status"
-          className="mt-6 flex items-start gap-3 rounded-lg border border-ltm-success/30 bg-ltm-success/10 p-4 text-sm text-ltm-slate"
+          className="mt-6 rounded-lg border border-ltm-success/40 bg-ltm-success/10 p-5 text-sm text-ltm-slate"
         >
-          <CheckCircle2
-            className="mt-0.5 h-5 w-5 shrink-0 text-ltm-success"
-            aria-hidden="true"
-          />
-          <p>
-            Thanks — we&rsquo;ll be in touch soon.
-            <button
-              type="button"
-              onClick={() => setSubmitted(false)}
-              className="ml-2 font-medium text-ltm-navy underline-offset-4 hover:underline"
-            >
-              Send another
-            </button>
-          </p>
+          <div className="flex items-start gap-3">
+            <CheckCircle2
+              className="mt-0.5 h-5 w-5 shrink-0 text-ltm-success"
+              aria-hidden="true"
+            />
+            <div className="space-y-2">
+              <p className="text-base font-semibold text-ltm-navy">
+                We received your message.
+              </p>
+              <p className="leading-relaxed">
+                We typically respond by email within 1 to 2 working days. For
+                urgent matters, call our service center at{" "}
+                <a
+                  href="tel:+231770900080"
+                  className="font-semibold text-ltm-navy hover:underline"
+                >
+                  0770 900 080
+                </a>{" "}
+                (Monday to Friday, 8am to 5pm).
+              </p>
+              <button
+                type="button"
+                onClick={() => setSubmitted(false)}
+                className="text-sm font-medium text-ltm-navy underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ltm-navy focus-visible:ring-offset-2"
+              >
+                Send another message
+              </button>
+            </div>
+          </div>
         </div>
-      )}
+      ) : null}
 
+      {!submitted && (
       <form onSubmit={handleSubmit} noValidate className="mt-6 space-y-5">
         <div className="grid gap-5 sm:grid-cols-2">
           <div>
@@ -229,6 +245,7 @@ export function ContactForm() {
           Send Message
         </Button>
       </form>
+      )}
     </div>
   );
 }

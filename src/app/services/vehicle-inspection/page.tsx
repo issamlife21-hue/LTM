@@ -4,12 +4,16 @@ import { ServiceDetailLayout } from "@/components/ServiceDetailLayout";
 import { type PriceColumn } from "@/components/PriceTable";
 import { faqs } from "@/data/faqs";
 import { inspectionPhotos, servicePhotos } from "@/data/photos";
-import { serviceEstimates } from "@/data/site-meta";
+import {
+  formatLastUpdated,
+  lastUpdated,
+  serviceEstimates,
+} from "@/data/site-meta";
 import { vehicleInspectionCharges } from "@/data/pricing";
 import { formatUsd } from "@/lib/format";
 
 export const metadata = {
-  title: "Vehicle Inspection — Liberia Traffic Management",
+  title: "Vehicle Inspection. Liberia Traffic Management",
   description:
     "Mandatory annual vehicle inspection. For 2025, criteria are limited to lights, brakes, and windshield wipers.",
 };
@@ -34,13 +38,13 @@ export default function VehicleInspectionPage() {
   return (
     <ServiceDetailLayout
       title="Vehicle Inspection"
-      subtitle="Mandatory annual inspection — required before registration."
-      overview="Vehicle inspection is mandatory under Liberian law. You will be in violation if you do not have a passing inspection report. For 2025, inspection criteria are limited to three things: lights, brakes, and windshield wipers. If your vehicle fails on the first attempt, you have a 45-day grace period to make repairs and re-inspect — after that grace period, you risk serious traffic penalties."
+      subtitle="Mandatory annual inspection. Required before registration."
+      overview="Vehicle inspection is mandatory under Liberian law. You will be in violation if you do not have a passing inspection report. For 2025, inspection criteria are limited to three things: lights, brakes, and windshield wipers. If your vehicle fails on the first attempt, you have a 45-day grace period to make repairs and re-inspect. After that grace period, you risk serious traffic penalties."
       whatToBring={[
         "The vehicle being inspected",
         "Valid ID",
         "Existing registration documents (if renewing)",
-        "Time to wait — most inspections are completed quickly",
+        "Time to wait. Most inspections are completed quickly",
       ]}
       pricing={{
         columns,
@@ -49,12 +53,12 @@ export default function VehicleInspectionPage() {
       process={[
         {
           title: "Bring your vehicle to our Monrovia office",
-          body: "Drive to our SKD Boulevard service center. No appointment required — walk-ins welcome.",
+          body: "Drive to our SKD Boulevard service center. No appointment required, walk-ins welcome.",
         },
         {
           title: "Our inspector runs the check",
           body: "For 2025 the inspection covers three things only: lights, brakes, and windshield wipers.",
-          items: ["Lights — front, rear, and indicators", "Brakes", "Windshield wipers"],
+          items: ["Lights (front, rear, and indicators)", "Brakes", "Windshield wipers"],
         },
         {
           title: "If you pass, you get your report",
@@ -68,6 +72,18 @@ export default function VehicleInspectionPage() {
       faqs={faqs.filter((f) => INSPECTION_FAQ_IDS.includes(f.id))}
       headerImage={servicePhotos["vehicle-inspection"]}
       estimatedTime={serviceEstimates["vehicle-inspection"]}
+      summary={{
+        cost: "US$15 to US$200",
+        visit: "15 to 20 minutes",
+        documents: 3,
+        lastReviewed: formatLastUpdated(lastUpdated.services),
+      }}
+      source={
+        <>
+          Inspection criteria for 2025 are limited to lights, brakes, and
+          windshield wipers, per LTM operating standards.
+        </>
+      }
       extraContent={
         <div>
           <h2 className="text-2xl font-semibold text-ltm-navy">

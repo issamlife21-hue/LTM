@@ -26,10 +26,14 @@ export function Footer() {
           <div>
             <h2 className="mb-4 text-lg font-semibold text-white">About LTM</h2>
             <p className="text-sm leading-relaxed">
-              Liberia Traffic Management is the only officially authorized
-              entity by the Government of Liberia to provide vehicle
-              registration, driver licensing, vehicle inspection, license plate,
-              and traffic violation services.
+              Liberia Traffic Management is the only entity authorized by the
+              Government of Liberia to provide vehicle registration, driver
+              licensing, vehicle inspection, license plate, and traffic
+              violation services.
+            </p>
+            <p className="mt-3 text-xs leading-relaxed text-slate-400">
+              Operating under the 2018 Concession Agreement ratified by the
+              Liberian Legislature.
             </p>
           </div>
 
@@ -125,11 +129,11 @@ export function Footer() {
                   aria-hidden="true"
                 />
                 <div className="leading-relaxed">
-                  Mon–Fri 8AM–5PM
+                  Monday to Friday 8AM to 5PM
                   <br />
-                  Sat 9AM–1PM
+                  Saturday 9AM to 1PM
                   <br />
-                  Sun closed
+                  Sunday closed
                 </div>
               </li>
               <li className="pt-2">
@@ -148,10 +152,36 @@ export function Footer() {
         </div>
 
         <div className="mt-10 border-t border-white/10 pt-6 text-xs leading-relaxed text-slate-400">
-          <p>
-            © Liberia Traffic Management. All rights reserved. The content of
-            this website is for general information and use only. It is subject
-            to change without notice.
+          <div className="flex flex-col items-start gap-4 sm:flex-row sm:items-center">
+            {/* Inline <img> so the SVG inherits currentColor for monochrome
+                white rendering on the navy footer. */}
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/coat-of-arms.svg"
+              alt="Coat of arms of the Republic of Liberia"
+              width={40}
+              height={48}
+              className="h-12 w-10 shrink-0 text-white"
+              style={{ color: "#ffffff" }}
+            />
+            <p>
+              © Liberia Traffic Management. All fees and procedures listed on
+              this site are set by the Government of Liberia and are accurate
+              as of the date last reviewed on each page. For the most current
+              information, contact our service center at{" "}
+              <a
+                href="tel:+231770900080"
+                className="font-medium text-white hover:underline"
+              >
+                0770 900 080
+              </a>
+              .
+            </p>
+          </div>
+          <p
+            className="mt-4 text-center font-display text-sm italic text-white/60"
+          >
+            &ldquo;The Love of Liberty Brought Us Here&rdquo;
           </p>
         </div>
       </div>

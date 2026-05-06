@@ -2,12 +2,16 @@ import { ServiceDetailLayout } from "@/components/ServiceDetailLayout";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { faqs } from "@/data/faqs";
 import { servicePhotos } from "@/data/photos";
-import { serviceEstimates } from "@/data/site-meta";
+import {
+  formatLastUpdated,
+  lastUpdated,
+  serviceEstimates,
+} from "@/data/site-meta";
 import { licensePlateCharges } from "@/data/pricing";
 import { formatUsd } from "@/lib/format";
 
 export const metadata = {
-  title: "License Plates — Liberia Traffic Management",
+  title: "License Plates. Liberia Traffic Management",
   description:
     "Standard, test, and customized license plates. Customized plates priced per character.",
 };
@@ -42,7 +46,7 @@ function PlatesPricing() {
             </span>
           </p>
           <p className="mt-2 text-sm text-ltm-slate">
-            Choose your own combination — pricing is per character on the
+            Choose your own combination. Pricing is per character on the
             plate.
           </p>
         </CardContent>
@@ -56,7 +60,7 @@ export default function LicensePlatesPage() {
     <ServiceDetailLayout
       title="License Plates"
       subtitle="Standard, test, and customized license plates."
-      overview="Standard license plates are included with your vehicle registration. We also offer test plates for newly imported or temporary-use vehicles, and customized license plates where you choose your own letter/number combination — priced per character."
+      overview="Standard license plates are included with your vehicle registration. We also offer test plates for newly imported or temporary-use vehicles, and customized license plates where you choose your own letter/number combination, priced per character."
       whatToBring={[
         "Valid vehicle registration",
         "Valid ID",
@@ -74,11 +78,11 @@ export default function LicensePlatesPage() {
         },
         {
           title: "Choose your custom combination",
-          body: "For customized plates, pick the letter/number combination you want — subject to availability.",
+          body: "For customized plates, pick the letter/number combination you want, subject to availability.",
         },
         {
           title: "Pay the additional fee",
-          body: "Test plates are a flat $250. Customized plates are $30 per character on the plate.",
+          body: "Test plates are a flat US$250. Customized plates are US$30 per character on the plate.",
         },
         {
           title: "Receive your plates same-day",
@@ -88,6 +92,12 @@ export default function LicensePlatesPage() {
       faqs={faqs.filter((f) => PLATE_FAQ_IDS.includes(f.id))}
       headerImage={servicePhotos["license-plates"]}
       estimatedTime={serviceEstimates["license-plates"]}
+      summary={{
+        cost: "Standard plate included; test US$250; custom US$30 per character",
+        visit: "Same day",
+        documents: 3,
+        lastReviewed: formatLastUpdated(lastUpdated.services),
+      }}
     />
   );
 }

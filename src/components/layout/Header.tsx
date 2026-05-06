@@ -4,6 +4,7 @@ import * as React from "react";
 import Link from "next/link";
 import { ChevronDown, Menu, Phone } from "lucide-react";
 
+import { LoneStar } from "@/components/LoneStar";
 import { SiteSearch } from "@/components/SiteSearch";
 import { Button } from "@/components/ui/button";
 import {
@@ -98,13 +99,16 @@ export function Header() {
         <Link
           href="/"
           aria-label="Liberia Traffic Management home"
-          className="flex flex-col leading-tight rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ltm-navy focus-visible:ring-offset-2"
+          className="flex items-center gap-3 rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ltm-navy focus-visible:ring-offset-2"
         >
-          <span className="text-2xl font-bold tracking-tight text-ltm-navy">
-            LTM
-          </span>
-          <span className="text-xs text-ltm-muted">
-            Liberia Traffic Management
+          <LoneStar size={36} className="rounded-sm" />
+          <span className="flex flex-col leading-tight">
+            <span className="text-2xl font-bold tracking-tight text-ltm-navy">
+              LTM
+            </span>
+            <span className="text-xs text-ltm-muted">
+              Liberia Traffic Management
+            </span>
           </span>
         </Link>
 
