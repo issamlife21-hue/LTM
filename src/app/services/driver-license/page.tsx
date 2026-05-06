@@ -3,6 +3,7 @@ import { Badge } from "@/components/ui/badge";
 import { type PriceColumn } from "@/components/PriceTable";
 import { driverLicenseCharges } from "@/data/pricing";
 import { faqs } from "@/data/faqs";
+import { servicePhotos } from "@/data/photos";
 import { formatUsd } from "@/lib/format";
 
 export const metadata = {
@@ -60,6 +61,7 @@ export default function DriverLicensePage() {
         "Pay the fee and receive your license — typically same-day.",
       ]}
       faqs={faqs.filter((f) => f.category === "driver-license")}
+      headerImage={servicePhotos.driverLicense}
     />
   );
 }

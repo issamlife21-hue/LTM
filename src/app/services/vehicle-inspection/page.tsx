@@ -1,6 +1,7 @@
 import { ServiceDetailLayout } from "@/components/ServiceDetailLayout";
 import { type PriceColumn } from "@/components/PriceTable";
 import { faqs } from "@/data/faqs";
+import { servicePhotos } from "@/data/photos";
 import { vehicleInspectionCharges } from "@/data/pricing";
 import { formatUsd } from "@/lib/format";
 
@@ -49,6 +50,7 @@ export default function VehicleInspectionPage() {
         "If failed, you have 45 days to fix the faults and re-inspect.",
       ]}
       faqs={faqs.filter((f) => INSPECTION_FAQ_IDS.includes(f.id))}
+      headerImage={servicePhotos.vehicleInspection}
     />
   );
 }

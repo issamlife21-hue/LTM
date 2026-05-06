@@ -24,6 +24,7 @@ import {
 } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
 import { faqs } from "@/data/faqs";
+import { galleryPhotos, heroPhoto } from "@/data/photos";
 
 const TRUST_ITEMS = [
   {
@@ -99,17 +100,6 @@ const homepageFaqs = HOMEPAGE_FAQ_IDS.map(
   (id) => faqs.find((f) => f.id === id)!
 ).filter(Boolean);
 
-// TODO: Replace these placeholder Unsplash photos with actual LTM compound photos
-// (e.g. squarespace-cdn URLs from liberiatraffic.com).
-const GALLERY = [
-  "https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?w=800&auto=format&fit=crop",
-  "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=800&auto=format&fit=crop",
-  "https://images.unsplash.com/photo-1486006920555-c77dcf18193c?w=800&auto=format&fit=crop",
-  "https://images.unsplash.com/photo-1542362567-b07e54358753?w=800&auto=format&fit=crop",
-  "https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=800&auto=format&fit=crop",
-  "https://images.unsplash.com/photo-1520340356584-f9917d1eea6f?w=800&auto=format&fit=crop",
-];
-
 const ORGANIZATION_JSON_LD = {
   "@context": "https://schema.org",
   "@type": "GovernmentOrganization",
@@ -142,11 +132,11 @@ export default function HomePage() {
         }}
       />
       {/* ── Section 1 — Hero ─────────────────────────────────────── */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-ltm-navy to-ltm-navy-dark">
-        <div className="absolute inset-0 opacity-25">
+      <section className="relative overflow-hidden bg-ltm-navy">
+        <div className="absolute inset-0 opacity-50">
           <Image
-            src="https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?w=1600&auto=format&fit=crop"
-            alt=""
+            src={heroPhoto.url}
+            alt={heroPhoto.alt}
             fill
             priority
             sizes="100vw"
@@ -354,14 +344,14 @@ export default function HomePage() {
             </p>
           </div>
           <ul className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {GALLERY.map((src, i) => (
+            {galleryPhotos.slice(0, 6).map((photo) => (
               <li
-                key={i}
+                key={photo.id}
                 className="group relative aspect-[4/3] overflow-hidden rounded-lg border border-ltm-border"
               >
                 <Image
-                  src={src}
-                  alt={`LTM facility photo ${i + 1}`}
+                  src={photo.url}
+                  alt={photo.alt}
                   fill
                   sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
                   className="object-cover transition-transform duration-500 group-hover:scale-105"

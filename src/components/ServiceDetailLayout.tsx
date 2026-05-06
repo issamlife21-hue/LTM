@@ -29,6 +29,7 @@ type ServiceDetailLayoutProps = {
   } | React.ReactNode;
   process: string[];
   faqs: FAQ[];
+  headerImage?: { url: string; alt: string };
 };
 
 function PricingSection({
@@ -67,10 +68,15 @@ export function ServiceDetailLayout({
   pricing,
   process,
   faqs,
+  headerImage,
 }: ServiceDetailLayoutProps) {
   return (
     <>
-      <PageHeader title={title} subtitle={subtitle} />
+      <PageHeader
+        title={title}
+        subtitle={subtitle}
+        backgroundImage={headerImage}
+      />
 
       <section className="container-ltm py-12 md:py-16">
         <div className="lg:grid lg:grid-cols-3 lg:gap-10">

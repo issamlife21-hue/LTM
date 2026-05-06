@@ -2,6 +2,7 @@ import { ServiceDetailLayout } from "@/components/ServiceDetailLayout";
 import { Badge } from "@/components/ui/badge";
 import { type PriceColumn } from "@/components/PriceTable";
 import { faqs } from "@/data/faqs";
+import { servicePhotos } from "@/data/photos";
 import { vehicleRegistrationCharges } from "@/data/pricing";
 import { formatUsd } from "@/lib/format";
 
@@ -69,6 +70,7 @@ export default function VehicleRegistrationPage() {
         "Obtain mandatory insurance from any provider — we have insurers on premises for convenience.",
       ]}
       faqs={faqs.filter((f) => f.category === "vehicle-registration")}
+      headerImage={servicePhotos.vehicleRegistration}
     />
   );
 }

@@ -1,9 +1,11 @@
+import Image from "next/image";
 import Link from "next/link";
 import { Clock, Facebook, Mail, MapPin, Phone } from "lucide-react";
 
 import { ContactForm } from "@/components/ContactForm";
 import { CTABanner } from "@/components/layout/CTABanner";
 import { PageHeader } from "@/components/PageHeader";
+import { contactPhoto } from "@/data/photos";
 
 export const metadata = {
   title: "Contact Us",
@@ -53,12 +55,22 @@ export default function ContactPage() {
       <PageHeader
         title="Contact Us"
         subtitle="Visit our service center, give us a call, or send us a message."
+        backgroundImage={contactPhoto}
       />
 
       <section className="container-ltm py-12 md:py-16">
         <div className="grid gap-8 lg:grid-cols-5">
           {/* Left column — info cards */}
           <div className="space-y-4 lg:col-span-2">
+            <div className="relative aspect-[4/3] overflow-hidden rounded-lg border border-ltm-border">
+              <Image
+                src={contactPhoto.url}
+                alt={contactPhoto.alt}
+                fill
+                sizes="(min-width: 1024px) 40vw, 100vw"
+                className="object-cover"
+              />
+            </div>
             <InfoCard icon={MapPin} title="Visit Us">
               <address className="not-italic">
                 LTM Compound
