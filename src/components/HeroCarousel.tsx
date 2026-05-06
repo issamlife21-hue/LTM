@@ -6,7 +6,7 @@ import Image from "next/image";
 import { heroPhotos } from "@/data/photos";
 import { cn } from "@/lib/utils";
 
-const INTERVAL_MS = 4000;
+const INTERVAL_MS = 3200;
 
 export function HeroCarousel() {
   const [index, setIndex] = React.useState(0);
