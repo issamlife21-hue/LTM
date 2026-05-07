@@ -4,8 +4,6 @@ import { Inter, Source_Serif_4 } from "next/font/google";
 import { FlagStripe } from "@/components/layout/FlagStripe";
 import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
-import { IdentityStrip } from "@/components/layout/IdentityStrip";
-import { UtilityStrip } from "@/components/layout/UtilityStrip";
 
 import "./globals.css";
 
@@ -80,8 +78,6 @@ export default function RootLayout({
           Skip to main content
         </a>
         <FlagStripe />
-        <IdentityStrip />
-        <UtilityStrip />
         <Header />
         <main id="main-content" className="flex-1">
           {children}

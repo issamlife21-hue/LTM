@@ -18,21 +18,14 @@ import { HeroCarousel } from "@/components/HeroCarousel";
 import { CTABanner } from "@/components/layout/CTABanner";
 import { ServiceAdvisor } from "@/components/ServiceAdvisor";
 import { ServiceCard } from "@/components/ServiceCard";
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
-import { faqs } from "@/data/faqs";
 import { galleryPhotos } from "@/data/photos";
 
 const TRUST_STATS = [
   {
-    icon: MapPin,
-    headline: "1 location",
-    text: "Additional branches are planned across Liberia.",
+    icon: ShieldCheck,
+    headline: "Government authorized",
+    text: "The only LTM-authorized service provider in Liberia.",
   },
   {
     icon: Clock,
@@ -40,14 +33,9 @@ const TRUST_STATS = [
     text: "Same-day service when your paperwork is in order.",
   },
   {
-    icon: ShieldCheck,
-    headline: "Government authorized",
-    text: "The only LTM-authorized service provider in Liberia.",
-  },
-  {
     icon: UserCheck,
     headline: "No appointment needed",
-    text: "Walk in during working hours. No booking required.",
+    text: "Walk in during working hours.",
   },
 ];
 
@@ -96,11 +84,6 @@ const STEPS = [
     text: "Most visits are done in under 15 minutes when your paperwork is in order.",
   },
 ];
-
-const HOMEPAGE_FAQ_IDS = ["q1", "q3", "q6", "q11"];
-const homepageFaqs = HOMEPAGE_FAQ_IDS.map(
-  (id) => faqs.find((f) => f.id === id)!
-).filter(Boolean);
 
 const ORGANIZATION_JSON_LD = {
   "@context": "https://schema.org",
@@ -167,7 +150,7 @@ export default function HomePage() {
       {/* ── Section 2 — By the numbers ───────────────────────────── */}
       <section className="bg-ltm-paper py-14" aria-label="LTM at a glance">
         <div className="container-ltm">
-          <ul className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+          <ul className="grid gap-8 sm:grid-cols-3">
             {TRUST_STATS.map((stat) => (
               <li
                 key={stat.headline}
@@ -390,49 +373,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── Section 7 — FAQ teaser ───────────────────────────────── */}
-      <section className="bg-ltm-stone py-20">
-        <div className="container-ltm">
-          <div className="mx-auto max-w-2xl text-center">
-            <h2 className="text-3xl font-semibold text-ltm-black md:text-4xl">
-              Common questions
-            </h2>
-            <p className="mt-3 text-base text-ltm-muted md:text-lg">
-              Quick answers to what people ask most.
-            </p>
-          </div>
-          <div className="mx-auto mt-10 max-w-3xl">
-            <Accordion
-              type="single"
-              collapsible
-              className="rounded-lg border border-ltm-border bg-white px-4 sm:px-6"
-            >
-              {homepageFaqs.map((faq) => (
-                <AccordionItem key={faq.id} value={faq.id}>
-                  <AccordionTrigger className="text-left">
-                    {faq.question}
-                  </AccordionTrigger>
-                  <AccordionContent>
-                    <p className="leading-relaxed text-ltm-slate">
-                      {faq.answer}
-                    </p>
-                  </AccordionContent>
-                </AccordionItem>
-              ))}
-            </Accordion>
-            <div className="mt-6 text-center">
-              <Button asChild variant="outline" size="lg">
-                <Link href="/faq">
-                  View all questions
-                  <ArrowRight className="h-4 w-4" aria-hidden="true" />
-                </Link>
-              </Button>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ── Section 8 — CTA banner ───────────────────────────────── */}
+      {/* ── CTA banner ───────────────────────────────────────────── */}
       <CTABanner />
     </>
   );

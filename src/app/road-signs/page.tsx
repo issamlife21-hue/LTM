@@ -1,12 +1,7 @@
 import { LastUpdated } from "@/components/LastUpdated";
-import { SignCard } from "@/components/SignCard";
-import {
-  roadSigns,
-  sectionMeta,
-  signColorMeanings,
-  type SignSection,
-} from "@/data/road-signs";
-import { cn } from "@/lib/utils";
+import { signColorMeanings } from "@/data/road-signs";
+
+import { RoadSignsBody } from "./RoadSignsBody";
 
 export const metadata = {
   title: "Road Signs & Pavement Markings",
@@ -15,10 +10,6 @@ export const metadata = {
 };
 
 export default function RoadSignsPage() {
-  const sectionsInOrder = (Object.keys(sectionMeta) as SignSection[]).sort(
-    (a, b) => sectionMeta[a].order - sectionMeta[b].order
-  );
-
   return (
     <>
       {/* Page header */}
@@ -34,37 +25,14 @@ export default function RoadSignsPage() {
         </div>
       </section>
 
-      {/* On-page jump links */}
-      <nav
-        aria-label="Jump to section"
-        className="border-b border-ltm-border bg-ltm-paper"
-      >
-        <div className="container-ltm flex flex-wrap items-center gap-x-5 gap-y-2 py-3 text-xs">
-          <span className="font-semibold uppercase tracking-wider text-ltm-muted">
-            Jump to:
-          </span>
-          {sectionsInOrder.map((section) => (
-            <a
-              key={section}
-              href={`#${section}`}
-              className="rounded text-ltm-black underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ltm-navy focus-visible:ring-offset-2"
-            >
-              {sectionMeta[section].title}
-            </a>
-          ))}
-        </div>
-      </nav>
-
       {/* Sign colors callout */}
       <section className="bg-ltm-cream py-12 md:py-16">
         <div className="container-ltm">
           <div className="max-w-4xl">
-            <h2 className="mb-2 font-serif text-2xl md:text-3xl">Sign Colors</h2>
+            <h2 className="mb-2 font-serif text-2xl md:text-3xl">Sign colors</h2>
             <p className="mb-6 text-ltm-slate">
-              Sign colors help you know what the intention of the sign is. As
-              you approach a sign and while still distant, you may see the
-              color long before you can read the message or see the symbol,
-              giving you advance information.
+              The color of a sign tells you its purpose before you can read
+              it. Recognize the color and you already know the message.
             </p>
             <div className="grid gap-4 sm:grid-cols-2">
               {signColorMeanings.map((c) => (
@@ -85,35 +53,8 @@ export default function RoadSignsPage() {
         </div>
       </section>
 
-      {/* Six sections */}
-      {sectionsInOrder.map((section, i) => {
-        const meta = sectionMeta[section];
-        const signs = roadSigns.filter((s) => s.section === section);
-        return (
-          <section
-            key={section}
-            id={section}
-            className={cn(
-              "py-12 md:py-16",
-              i % 2 === 0 ? "bg-ltm-paper" : "bg-ltm-stone"
-            )}
-          >
-            <div className="container-ltm">
-              <h2 className="mb-3 font-serif text-3xl md:text-4xl">
-                {meta.title}
-              </h2>
-              <p className="mb-8 max-w-3xl leading-relaxed text-ltm-slate">
-                {meta.intro}
-              </p>
-              <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
-                {signs.map((sign) => (
-                  <SignCard key={sign.id} sign={sign} />
-                ))}
-              </div>
-            </div>
-          </section>
-        );
-      })}
+      {/* Search + sections (full-bleed alternating bands) */}
+      <RoadSignsBody />
 
       <section className="bg-ltm-paper">
         <div className="container-ltm pb-10">

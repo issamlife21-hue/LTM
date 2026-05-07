@@ -14,7 +14,6 @@ import {
 } from "lucide-react";
 
 import { EmptyState } from "@/components/EmptyState";
-import { PageHeader } from "@/components/PageHeader";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -481,10 +480,6 @@ export function PracticeTestPageClient() {
 
   return (
     <>
-      <PageHeader
-        title={practiceTestMeta.title}
-        subtitle={practiceTestMeta.subtitle}
-      />
       {mode === "intro" && <IntroScreen onStart={startTest} />}
       {mode === "quiz" && (
         <QuizScreen
