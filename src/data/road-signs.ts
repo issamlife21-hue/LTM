@@ -1,152 +1,824 @@
 // src/data/road-signs.ts
-// Source: liberiatraffic.com Signs & Signals reference.
+// Source: liberiatraffic.com — official LTM "Signals, Signs and Pavement Markings" reference.
+// All descriptions copied verbatim from the source document.
 
-export type SignCategory =
-  | "signals" | "lane-signals" | "phb" | "sign-colors" | "sign-shapes"
-  | "regulatory" | "warning" | "railroad" | "work-zone" | "pavement-markings";
-
-export type SignShape =
-  | "circle" | "octagon" | "triangle" | "rectangle"
-  | "diamond" | "pentagon" | "crossbuck" | "none";
-
-export type SignColor =
-  | "red" | "yellow" | "green" | "white" | "black"
-  | "orange" | "blue" | "brown" | "pink" | "yellow-green";
+export type SignSection =
+  | "traffic-signals"
+  | "sign-shapes"
+  | "regulatory"
+  | "warning"
+  | "work-zone"
+  | "pavement-markings";
 
 export type RoadSign = {
   id: string;
-  category: SignCategory;
   name: string;
+  section: SignSection;
   description: string;
-  shape?: SignShape;
-  primaryColor?: SignColor;
+  imageHint: string; // short cue for which Wikimedia/MUTCD image to use
   liberiaSpecific?: boolean;
 };
 
-export const signCategories: { id: SignCategory; label: string }[] = [
-  { id: "signals", label: "Traffic Signals" },
-  { id: "lane-signals", label: "Lane Use Signals" },
-  { id: "phb", label: "Pedestrian Hybrid Beacons" },
-  { id: "sign-colors", label: "Sign Colors" },
-  { id: "sign-shapes", label: "Sign Shapes" },
-  { id: "regulatory", label: "Regulatory Signs" },
-  { id: "warning", label: "Warning Signs" },
-  { id: "railroad", label: "Railroad Crossings" },
-  { id: "work-zone", label: "Work Zones" },
-  { id: "pavement-markings", label: "Pavement Markings" },
-];
-
-export const sectionIntros: Record<SignCategory, string> = {
-  signals: "Traffic signals apply to drivers, motorcycle riders, bicyclists, moped riders and pedestrians. Obey all signals unless directed by a police officer; always follow the officer's direction.",
-  "lane-signals": "Lane use signals indicate lanes where you can or cannot drive during different hours of the day.",
-  phb: "Pedestrian Hybrid Beacons appear over intersections without stoplights and alert drivers when pedestrians are at a crosswalk.",
-  "sign-colors": "The color of a traffic sign communicates important information. In poor visibility you may see the color before you can read the sign.",
-  "sign-shapes": "The shape of a sign can tell you its meaning even before you can read it.",
-  regulatory: "Regulatory signs inform you of the law. You must obey them. A red circle with a slash means NO; the symbol inside the circle tells you what is prohibited.",
-  warning: "Warning signs alert you to possible hazards ahead. Slow down and watch for other markings, signs, signals or work zones that may follow.",
-  railroad: "Always look, listen, and slow down when approaching railroad crossings. School buses must always stop at railroad crossings, even when the lights are not flashing.",
-  "work-zone": "In a work zone, the lives of highway workers depend on drivers obeying posted speed limits and avoiding distractions. Speeding in a highway work zone can result in a fine of up to US$500. Using a handheld communications device in a work zone carries a US$250 fine. Orange marks a work zone. Slow down and be alert.",
-  "pavement-markings": "Road markings guide and warn drivers as well as regulate traffic. Markings may be red, yellow, or white, and each color has a different meaning. Note: many two-lane roads in Liberia do not have lane markings.",
+export const sectionMeta: Record<SignSection, { title: string; intro: string; order: number }> = {
+  "traffic-signals": {
+    order: 1,
+    title: "Traffic Signals",
+    intro:
+      "Traffic signals apply to drivers, motorcycle riders, bicyclists, moped-riders and pedestrians. Obey all signs and signals unless directed by a police officer; always follow the officer's direction.",
+  },
+  "sign-shapes": {
+    order: 2,
+    title: "Sign Colors and Shapes",
+    intro:
+      "The color and shape of a traffic sign communicates important information about the sign's message. In poor visibility conditions, such as heavy fog, you may be able to make out only the shape of a sign. As you approach a sign and while still distant, you may see the color long before you can read the message or see the symbol, giving you some advance information.",
+  },
+  regulatory: {
+    order: 3,
+    title: "Regulatory Signs",
+    intro:
+      "Regulatory signs inform you of the law; you must obey their instructions. Remember that a red circle with a slash means NO. The symbol inside the circle tells you what is prohibited.",
+  },
+  warning: {
+    order: 4,
+    title: "Warning Signs",
+    intro:
+      "Warning signs alert you to possible hazards ahead. Slow down and watch for other pavement markings, signs, signals or work zones that may follow.",
+  },
+  "work-zone": {
+    order: 5,
+    title: "Work Zone & Railroad Signs",
+    intro:
+      "In a work zone, the lives of highway workers depend on drivers like you obeying the posted speed limits and avoiding distractions. If you are convicted of exceeding the speed limit in a highway work zone, you may be fined up to US$500. If you are convicted of using a handheld communications device in a highway work zone, you will be fined US$250. Remember, the color orange marks a work zone and means slow down and be alert.",
+  },
+  "pavement-markings": {
+    order: 6,
+    title: "Pavement Markings",
+    intro:
+      "Road markings guide and warn drivers as well as regulate traffic. Markings may be red, yellow or white. They may be used alone or in combinations. Each has a different meaning.",
+  },
 };
 
 export const roadSigns: RoadSign[] = [
-  { id: "red-light", category: "signals", name: "Red Light", description: "Come to a complete stop at the stop line. If there is no stop line, stop before entering the intersection or reaching the crosswalk. Remain stopped as long as the signal is red, unless turns are allowed.", shape: "circle", primaryColor: "red" },
-  { id: "right-turn-on-red", category: "signals", name: "Right Turn on Red", description: "You may turn right while the signal is red after a complete stop. Look both ways and yield the right-of-way to pedestrians and other traffic. Watch for less visible vehicles such as motorcycles, bicycles and mopeds. You may not turn right on red where signs read \"No Turn on Red\" or where a red arrow points right." },
-  { id: "left-turn-on-red", category: "signals", name: "Left Turn on Red", description: "You may turn left at a red light from a one-way street onto another one-way street, after a complete stop and after yielding right-of-way. You may not turn left on red where signs read \"No Turn on Red\" or where a red arrow points left." },
-  { id: "red-arrow", category: "signals", name: "Red Arrow", description: "A red arrow means you must stop if you intend to move in the direction of the arrow. Liberia law prohibits right and left turns at red arrow lights. If you are traveling in another country or state, check its laws on red-arrow turns.", liberiaSpecific: true },
-  { id: "flashing-red-light", category: "signals", name: "Flashing Red Light", description: "Come to a complete stop and yield to oncoming vehicles and pedestrians. Proceed when the way is clear. At railroad crossings, you must stop completely even if you don't see a train.", shape: "circle", primaryColor: "red" },
-  { id: "flashing-red-arrow", category: "signals", name: "Flashing Red Arrow", description: "Come to a complete stop, yield right-of-way to vehicles coming from the other direction and to pedestrians, then proceed in the direction of the arrow when the way is clear." },
-  { id: "yellow-light", category: "signals", name: "Yellow Light or Arrow", description: "A caution warning that the light is about to change. If you have not entered the intersection, stop. If it's unsafe to stop, proceed cautiously. If you are already in the intersection, go through cautiously. Do not speed up to beat the light.", shape: "circle", primaryColor: "yellow" },
-  { id: "flashing-yellow-light", category: "signals", name: "Flashing Yellow Light", description: "Slow down and proceed with caution. Flashing yellow lights are placed at locations with higher-than-normal hazardous conditions." },
-  { id: "flashing-yellow-arrow", category: "signals", name: "Flashing Yellow Arrow", description: "You may turn in the direction of the arrow if the way is clear. Yield to vehicles from the other direction and to pedestrians. Watch for motorcycles, bicycles and mopeds. If a light changes from red to flashing yellow arrow while a pedestrian is in the intersection, allow them to cross before turning." },
-  { id: "green-light", category: "signals", name: "Green Light or Arrow", description: "You may go if the way is clear. At a green arrow, you may go in the direction of the arrow if the way is clear. If you are turning without a green arrow, you must yield right-of-way to vehicles from the other direction and to pedestrians. Watch for less visible vehicles.", shape: "circle", primaryColor: "green" },
-  { id: "out-of-service", category: "signals", name: "Out-of-Service Signals", description: "When traffic signals are not working due to a power outage and not displaying any lights, you must stop and proceed as though it were an all-way stop. This does not apply if a law enforcement officer or other authorized person is directing traffic, or if portable stop signs are in use." },
-  { id: "red-x", category: "lane-signals", name: "Red X", description: "Never drive in a lane marked with a red X." },
-  { id: "yellow-x", category: "lane-signals", name: "Yellow X or Yellow Diagonal Downward Arrow", description: "Move out of the lane as soon as it is safely possible." },
-  { id: "green-arrow-lane", category: "lane-signals", name: "Green Arrow", description: "You are permitted to drive in a lane marked with a green arrow signal." },
-  { id: "left-turn-arrow", category: "lane-signals", name: "Left-Turn Arrow", description: "You are permitted to enter a lane marked with a one-way or two-way arrow only to turn in the direction of the arrow." },
-  { id: "phb", category: "phb", name: "Pedestrian Hybrid Beacon (PHB)", description: "When a pedestrian activates a PHB, one yellow light at the bottom flashes. Next, the yellow light turns solid to alert drivers to prepare to stop. Then the top two red lights turn solid while a walk signal appears at the crosswalk; drivers must stop. While the walk signal counts down for pedestrians, the PHB's two red lights alternate flashing, telling drivers that if the crosswalk is now clear, they may proceed with caution." },
-  { id: "color-red", category: "sign-colors", name: "Red with White", description: "Conveys stop, yield, do not, and no. Used on stop signs, yield signs, do not enter, wrong way, the no-turn circle/slash, and parking restrictions.", primaryColor: "red" },
-  { id: "color-black", category: "sign-colors", name: "Black with White", description: "Conveys regulatory information. Speed limit, do not pass, and no turns are examples where operation is regulated by law.", primaryColor: "black" },
-  { id: "color-yellow", category: "sign-colors", name: "Yellow with Black", description: "Conveys a warning. Curve ahead, stop ahead, overhead clearance, and slippery when wet are all examples. A specialized class uses strong yellow/green with black to advise of school zone, pedestrian and bicyclist activities.", primaryColor: "yellow" },
-  { id: "color-green-blue-brown", category: "sign-colors", name: "Green / Blue / Brown with White", description: "Provide helpful information. Green signs indicate destinations. Blue signs indicate motorist services. Brown signs indicate historical or cultural points of interest.", primaryColor: "green" },
-  { id: "color-orange-pink", category: "sign-colors", name: "Orange or Pink with Black", description: "Advise and warn in construction (orange) and incident (pink) areas. Used alongside black-and-white signs that convey regulations existing only because of the construction or the incident.", primaryColor: "orange" },
-  { id: "shape-octagon", category: "sign-shapes", name: "Octagon: Stop", description: "This eight-sided shape always means stop. You must come to a complete stop at the sign, stop line, pedestrian crosswalk, or curb. Wait for any vehicle or pedestrian to clear the way. At \"All Way\" or \"4 Way\" intersections, all vehicles on all roads leading into the intersection must stop. If two drivers arrive at the same time, the driver on the left must yield to the driver on the right.", shape: "octagon", primaryColor: "red" },
-  { id: "shape-triangle", category: "sign-shapes", name: "Triangle: Yield", description: "You must slow down as you come to the intersection. Be prepared to stop. Let any vehicles, pedestrians, or bicyclists safely pass before you proceed.", shape: "triangle", primaryColor: "red" },
-  { id: "shape-rectangle", category: "sign-shapes", name: "Rectangle: Regulatory or Guide", description: "Vertical rectangular signs generally give instructions or tell you the law. Horizontal rectangular signs may give directions or information.", shape: "rectangle" },
-  { id: "shape-diamond", category: "sign-shapes", name: "Diamond: Warning", description: "Diamond signs warn you of special conditions or hazards ahead. Slow down and drive with caution. Be ready to stop.", shape: "diamond", primaryColor: "yellow" },
-  { id: "shape-pentagon", category: "sign-shapes", name: "Pentagon: School Zone / School Crossing", description: "This five-sided shape marks school zones and warns of school crossings. Two signs may be used together to show the actual location of the crosswalk.", shape: "pentagon", primaryColor: "yellow-green" },
-  { id: "speed-limit", category: "regulatory", name: "Speed Limit", description: "Indicates the maximum legal speed when weather conditions are good. Some roads have electronic speed limit signs that change based on conditions. During rain, snow or ice you may receive a ticket for driving too fast for conditions, even if you are at or below the posted limit." },
-  { id: "do-not-enter", category: "regulatory", name: "Do Not Enter / Wrong Way", description: "These signs mean you cannot drive in that direction. If you drive past these signs you are going the wrong way and could have a head-on crash. Slow down, pull over, and cautiously turn around.", primaryColor: "red" },
-  { id: "one-way", category: "regulatory", name: "One Way", description: "Traffic flows only in the direction of the arrow." },
-  { id: "no-left-turn", category: "regulatory", name: "No Left Turn", description: "Left turns are against the law. In Liberia, U-turns are considered as two left turns and are illegal if this sign is posted.", liberiaSpecific: true },
-  { id: "no-right-turn", category: "regulatory", name: "No Right Turn", description: "Right turns are illegal. Do not make a right turn when you see this sign." },
-  { id: "no-u-turn", category: "regulatory", name: "No U-Turn", description: "U-turns are illegal. Do not make a U-turn when you see this sign." },
-  { id: "no-turn-on-red", category: "regulatory", name: "No Turn on Red", description: "You may not turn on the red light. Wait for the signal to turn green." },
-  { id: "do-not-pass", category: "regulatory", name: "Do Not Pass", description: "This sign marks the beginning of a no-passing zone. You may not pass cars ahead of you in your lane, even if the way is clear." },
-  { id: "left-turn-yield-on-green", category: "regulatory", name: "Left Turn Yield on Green", description: "Used with a traffic signal. Tells you that traffic turning left at a green light does not have right-of-way and must yield to oncoming traffic. Stop and look for oncoming traffic, then proceed cautiously." },
-  { id: "keep-right", category: "regulatory", name: "Keep Right", description: "A traffic island, median or barrier is ahead. Keep to the side indicated by the arrow." },
-  { id: "lane-use-control", category: "regulatory", name: "Lane Use Control", description: "Used where turns are required or where special turning movements are permitted for specific lanes. Traffic in the lane must turn in the direction of the arrow." },
-  { id: "hov", category: "regulatory", name: "High Occupancy Vehicle", description: "Indicates lanes reserved for buses and vehicles with a driver and one or more passengers as specified on the sign." },
-  { id: "disabled-parking", category: "regulatory", name: "Disabled Parking", description: "Parking spaces marked with these signs are reserved for people with disabled parking permits." },
-  { id: "advisory-speed", category: "warning", name: "Advisory Speed", description: "Indicates the maximum safe speed for a highway exit.", shape: "diamond", primaryColor: "yellow" },
-  { id: "reduced-speed-ahead", category: "warning", name: "Reduced Speed Limit Ahead", description: "Prepare to reduce your speed. The speed limit is changing ahead.", shape: "diamond", primaryColor: "yellow" },
-  { id: "stop-yield-ahead", category: "warning", name: "Stop Ahead / Yield Ahead", description: "A stop sign or yield sign is ahead. Slow down and be ready to stop.", shape: "diamond", primaryColor: "yellow" },
-  { id: "signal-ahead", category: "warning", name: "Signal Ahead", description: "Traffic signals are ahead. Slow down and be ready to stop.", shape: "diamond", primaryColor: "yellow" },
-  { id: "no-passing-zone", category: "warning", name: "No Passing Zone", description: "This sign marks the beginning of a no-passing zone. You may not pass cars ahead of you in your lane, even if the way is clear." },
-  { id: "merge", category: "warning", name: "Merge", description: "Two lanes of traffic moving in the same direction are about to become one. Drivers in both lanes are responsible for merging safely.", shape: "diamond", primaryColor: "yellow" },
-  { id: "lane-reduction", category: "warning", name: "Lane Reduction", description: "The right lane ends soon. Drivers in the right lane must merge left when space opens up. Drivers in the left lane should allow other vehicles to merge smoothly.", shape: "diamond", primaryColor: "yellow" },
-  { id: "divided-highway-begins", category: "warning", name: "Divided Highway Begins", description: "The highway ahead is split into two separate roadways by a median or divider, and each roadway is one-way. Keep right.", shape: "diamond", primaryColor: "yellow" },
-  { id: "divided-highway-ends", category: "warning", name: "Divided Highway Ends", description: "The highway ahead no longer has a median or divider. Traffic goes in both directions. Keep right.", shape: "diamond", primaryColor: "yellow" },
-  { id: "slippery-when-wet", category: "warning", name: "Slippery When Wet", description: "When the pavement is wet, reduce your speed. Do not brake hard or change direction suddenly. Increase the distance between your car and the one ahead of you.", shape: "diamond", primaryColor: "yellow" },
-  { id: "low-clearance", category: "warning", name: "Low Clearance", description: "The overpass ahead has a low clearance. Do not proceed if your vehicle is taller than the height shown on the sign.", shape: "diamond", primaryColor: "yellow" },
-  { id: "hill", category: "warning", name: "Hill", description: "A steep grade is ahead. Check your brakes.", shape: "diamond", primaryColor: "yellow" },
-  { id: "deer-crossing", category: "warning", name: "Deer Crossing", description: "Deer cross the roadway in this area. Slow down, be alert and be ready to stop.", shape: "diamond", primaryColor: "yellow" },
-  { id: "horse-drawn-buggies", category: "warning", name: "Horse-Drawn Buggies", description: "These regularly travel in the area. Slow down and don't use the horn. State law requires motorists to pass with at least three feet of clearance when the way is clear.", shape: "diamond", primaryColor: "yellow" },
-  { id: "tractors-farm-equipment", category: "warning", name: "Tractors and Farm Equipment", description: "Regularly travel in the area. Be ready to slow down or stop. Only pass when the way is clear.", shape: "diamond", primaryColor: "yellow" },
-  { id: "pedestrian-crossing", category: "warning", name: "Pedestrian Crossing", description: "Watch for people walking, riding bicycles or other devices entering a crosswalk or crossing your path. Slow down and be prepared to stop. A second sign with an arrow may show the actual location of the crosswalk.", shape: "diamond", primaryColor: "yellow-green" },
-  { id: "bicycle-crossing", category: "warning", name: "Bicycle Crossing / Bike Path", description: "Bicycles regularly cross or ride beside traffic in this area. Drive with caution. A second sign with an arrow may show the actual location of the bike crossing.", shape: "diamond", primaryColor: "yellow-green" },
-  { id: "school-zone", category: "warning", name: "School Zone / School Crossing", description: "Watch out for children crossing the street or playing. Be ready to slow down or stop at school zones and surrounding areas. Obey the speed limit and signals from crossing guards. A second sign with an arrow may show the actual location of the sidewalk.", shape: "pentagon", primaryColor: "yellow-green" },
-  { id: "open-joints", category: "warning", name: "Open Joints on Bridge", description: "Slow down. Open joints on bridges or ramps could cause a motorcyclist to lose control.", shape: "diamond", primaryColor: "yellow" },
-  { id: "expansion-joints", category: "warning", name: "Expansion Joints", description: "This sign is used when a joint across lanes creates a bump or is wide enough to cause loss of traction in wet weather.", shape: "diamond", primaryColor: "yellow" },
-  { id: "intersections", category: "warning", name: "Intersections", description: "An intersection is ahead. Be alert for vehicles entering the road on which you are traveling.", shape: "diamond", primaryColor: "yellow" },
-  { id: "y-intersection", category: "warning", name: "Y Intersection", description: "You must bear either right or left ahead.", shape: "diamond", primaryColor: "yellow" },
-  { id: "t-intersection", category: "warning", name: "T Intersection", description: "The roadway you are traveling on ends ahead at a stop sign. You must turn right or left after yielding to oncoming traffic and pedestrians.", shape: "diamond", primaryColor: "yellow" },
-  { id: "roundabout", category: "warning", name: "Roundabout", description: "Indicates a circular intersection with an island in the center is ahead. Also called traffic circles, these intersections may have one or more lanes. Entering traffic must yield right-of-way to traffic already in the circle and travel counterclockwise.", shape: "diamond", primaryColor: "yellow" },
-  { id: "right-curve-side-road", category: "warning", name: "Right Curve with Side Road", description: "The road ahead curves right and a side road joins from the left within the curve. Be alert for vehicles entering the roadway you are traveling on.", shape: "diamond", primaryColor: "yellow" },
-  { id: "sharp-right-turn", category: "warning", name: "Sharp Right Turn", description: "Slow down and be prepared for a sharp right turn in the road ahead.", shape: "diamond", primaryColor: "yellow" },
-  { id: "sharp-right-left-turns", category: "warning", name: "Sharp Right and Left Turns", description: "Slow down and be prepared for the road ahead to turn sharply right, then left.", shape: "diamond", primaryColor: "yellow" },
-  { id: "right-left-curves", category: "warning", name: "Right and Left Curves", description: "The road ahead curves right, then left. Slow down.", shape: "diamond", primaryColor: "yellow" },
-  { id: "right-curve-safe-speed", category: "warning", name: "Right Curve with Safe Speed Indicator", description: "The road ahead curves right. Slow down to the safe speed indicated.", shape: "diamond", primaryColor: "yellow" },
-  { id: "winding-road", category: "warning", name: "Winding Road", description: "The road ahead winds with a series of turns or curves. On all curves, slow down for better control.", shape: "diamond", primaryColor: "yellow" },
-  { id: "rough-road", category: "warning", name: "Rough Road, Bump, or Uneven Lanes", description: "These signs are used when certain road conditions, such as loose gravel or road construction, affect the surface and create potentially difficult conditions for motorists, especially motorcyclists.", shape: "diamond", primaryColor: "orange" },
-  { id: "rumble-strips-ahead", category: "warning", name: "Rumble Strips Ahead", description: "Warns motorists of black or orange strips placed across travel lanes in advance of work zones, including a flagger or lane closure. Rumble strips should be slowly driven over, not swerved around.", primaryColor: "orange" },
-  { id: "slow-moving-vehicles", category: "warning", name: "Slow Moving Vehicles", description: "Vehicles traveling at 25 MPH or less, such as farm equipment, horse-drawn vehicles, or highway work vehicles, must display this sign on a public highway. Be prepared to adjust your speed or position when you see a vehicle with one of these signs.", shape: "triangle", primaryColor: "orange" },
-  { id: "low-ground-railroad", category: "railroad", name: "Low Ground Railroad Crossing", description: "A steep slope where the railroad tracks cross the road may cause the bottom of low vehicles to get caught or drag on the tracks.", shape: "diamond", primaryColor: "yellow" },
-  { id: "railroad-crossing", category: "railroad", name: "Railroad Crossing (Advance Warning)", description: "Advance warning signs are placed before a railroad crossing. They warn you to look, listen, slow down, and be prepared to stop for trains or any vehicles using the rails.", shape: "circle", primaryColor: "yellow" },
-  { id: "crossbuck", category: "railroad", name: "Railroad Crossbuck", description: "This sign is a warning of a railroad crossing. Look, listen, slow down, and be prepared to stop for trains or any vehicles using the rails. Trains may approach from either direction. If there is more than one track, trains may be approaching from either direction on either track.", shape: "crossbuck" },
-  { id: "crossbuck-flashing", category: "railroad", name: "Crossbuck with Flashing Lights", description: "Always stop when the lights begin to flash, and be alert for approaching trains. Do not proceed until all trains have passed, the tracks are clear, and the lights are no longer flashing. Be especially alert at multi-track crossings, where a second train could be approaching from the opposite direction." },
-  { id: "crossbuck-flashing-gate", category: "railroad", name: "Crossbuck, Flashing Lights and Gate", description: "Gates are used with flashing light signals at some crossings. Stop when the lights begin to flash and before the gates lower. Remain stopped until the gates are raised and the lights stop flashing. Do not attempt to drive around a lowered gate." },
-  { id: "road-construction-detour", category: "work-zone", name: "Road Construction Ahead / Detour", description: "These signs indicate a change in the traffic pattern or route ahead. Slow down. Unusual or potentially dangerous conditions are ahead.", shape: "diamond", primaryColor: "orange" },
-  { id: "flashing-arrow-boards", category: "work-zone", name: "Flashing Arrow Boards", description: "Large flashing arrow boards or flashing message signs in work zones direct drivers to proceed into different traffic lanes and inform them that part of the road ahead is closed.", primaryColor: "orange" },
-  { id: "flaggers", category: "work-zone", name: "Flaggers", description: "Flaggers are highway workers who normally wear orange or yellow vests, or yellow-green shirts or jackets. They use STOP/SLOW paddles or red flags to stop or direct traffic through the work zone, and to let other workers or construction vehicles cross the road.", primaryColor: "orange" },
-  { id: "photo-speed-enforcement", category: "work-zone", name: "Photo Speed Enforcement", description: "This sign indicates that automated photo enforcement is in place for speeding in a work zone. Always obey the posted speed limit in a work zone.", primaryColor: "orange" },
-  { id: "traffic-control-devices", category: "work-zone", name: "Traffic Control Devices", description: "Barricades, vertical signs, concrete barriers, drums and cones are the most common devices used to guide drivers safely through work zones. When driving near these devices, keep your vehicle in the middle of the lane and obey the posted speed limit. As you leave the work zone, stay in your lane and maintain your speed. Don't change lanes until you are completely clear of the work zone.", primaryColor: "orange" },
-  { id: "red-markings", category: "pavement-markings", name: "Red Markings", description: "Generally not used. Some communities use red curbs to indicate no-parking zones.", primaryColor: "red" },
-  { id: "red-reflectors", category: "pavement-markings", name: "Red Reflectors", description: "Show areas not to be entered or used. They are positioned on the road surface so that only traffic flowing in the wrong direction would observe them.", primaryColor: "red" },
-  { id: "yellow-center-lines", category: "pavement-markings", name: "Yellow Center Lines", description: "Two-way traffic, flowing in opposite directions.", primaryColor: "yellow" },
-  { id: "broken-yellow-center", category: "pavement-markings", name: "Broken Yellow Center Lines", description: "Passing on the left is allowed in either direction when the way ahead is clear.", primaryColor: "yellow" },
-  { id: "broken-yellow-solid-yellow", category: "pavement-markings", name: "Broken Yellow Line Alongside Solid Yellow Line", description: "Passing is allowed from the side of the broken line, but not from the side of the solid line. Vehicles on the solid yellow line side may only cross the line to pass pedestrians, bicyclists, scooters or skateboards when the opposite lane is clear and you can pass safely.", primaryColor: "yellow" },
-  { id: "double-solid-yellow", category: "pavement-markings", name: "Double Solid Yellow Lines", description: "Mark the center of the road and separate traffic traveling in two different directions. Passing is not allowed in either direction. You may not cross the lines unless making a left turn or passing pedestrians, bicyclists, or riders of scooters or skateboards, when the opposite lane is clear and you can pass safely.", primaryColor: "yellow" },
-  { id: "broken-white", category: "pavement-markings", name: "Broken White Lines", description: "Separate lanes of traffic going in the same direction. You may change lanes with caution.", primaryColor: "white" },
-  { id: "dotted-white", category: "pavement-markings", name: "Dotted White Lines", description: "Small rectangles in a series, each closely spaced to the next. Used to show lane assignment in intersections and interchanges where there might otherwise be a tendency to drift out of a lane. Often guide two turning lanes through an intersection. Also denote the opening of a turn lane and entrance/exit lanes at interchanges.", primaryColor: "white" },
-  { id: "unmarked-two-lane", category: "pavement-markings", name: "Unmarked Two-Lane Roads in Liberia", description: "Many two-lane roads in Liberia do not have lane markings to separate the lanes. On an unmarked two-lane road, you may pass a slow-moving vehicle on the left side if there are no signs prohibiting passing. Make sure that the way is clear.", liberiaSpecific: true },
+  // ── TRAFFIC SIGNALS ──
+  {
+    id: "red-light",
+    name: "Red Light",
+    section: "traffic-signals",
+    description:
+      "At a red light, come to a complete stop at the stop line or, if there is no stop line, before entering the intersection or before reaching the crosswalk. Remain stopped as long as the signal is red, unless turns are allowed.",
+    imageHint: "solid red traffic light",
+  },
+  {
+    id: "right-turn-on-red",
+    name: "Right Turn on Red",
+    section: "traffic-signals",
+    description:
+      "You may turn right while the traffic signal displays a red light. Before turning, you must come to a complete stop. Look both ways and yield the right-of-way to pedestrians and other traffic. Be sure to check for less visible vehicles such as motorcycles, bicycles and mopeds. You may not turn right on red if signs are posted at the intersection that read 'No Turn on Red,' or if a red arrow pointing to the right is displayed.",
+    imageHint: "right turn arrow on red signal",
+  },
+  {
+    id: "left-turn-on-red",
+    name: "Left Turn on Red",
+    section: "traffic-signals",
+    description:
+      "You may turn left at a red light if you are on a one-way street and turning left onto another one-way street while the traffic signal displays a red light. Before turning, you must come to a complete stop. Look both ways and yield the right-of-way to pedestrians and other traffic. Be sure to check for less visible vehicles such as motorcycles, bicycles, and mopeds. You may not turn left on red if signs are posted at the intersection that read 'No Turn on Red,' or if a red arrow pointing to the left is displayed.",
+    imageHint: "left turn arrow on red signal",
+  },
+  {
+    id: "red-arrow",
+    name: "Red Arrow",
+    section: "traffic-signals",
+    description:
+      "A red arrow means you must stop if you intend to move in the direction of the arrow. You may not proceed in the direction of the arrow as long as the red arrow is displayed, unless signs are posted at the intersection that read 'Right on Red Arrow After Stop' or 'Left on Red Arrow After Stop.' Liberia law prohibits right and left turns at red arrow lights.",
+    imageHint: "red left arrow traffic signal",
+    liberiaSpecific: true,
+  },
+  {
+    id: "flashing-red-light",
+    name: "Flashing Red Light",
+    section: "traffic-signals",
+    description:
+      "At a flashing red light, come to a complete stop and yield to oncoming vehicles and pedestrians. You may go when the way is clear. At a railroad crossing, you must come to a complete stop even if you don't see a train.",
+    imageHint: "flashing red traffic light",
+  },
+  {
+    id: "flashing-red-arrow",
+    name: "Flashing Red Arrow",
+    section: "traffic-signals",
+    description:
+      "At a flashing red arrow, come to a complete stop, yield the right-of-way to vehicles coming from the other direction and pedestrians in the intersection, and proceed in the direction of the arrow when the way is clear.",
+    imageHint: "flashing red arrow signal",
+  },
+  {
+    id: "yellow-light",
+    name: "Yellow Light or Arrow",
+    section: "traffic-signals",
+    description:
+      "A yellow light or arrow are cautions warning that the light is about to change. If you have not entered the intersection, stop; or, if unsafe to stop, cautiously go through it. If you are already in the intersection, go through it cautiously. Do not speed up to beat the light.",
+    imageHint: "solid yellow traffic light",
+  },
+  {
+    id: "flashing-yellow-light",
+    name: "Flashing Yellow Light",
+    section: "traffic-signals",
+    description:
+      "A flashing yellow light means slow down and proceed with caution. Flashing yellow lights are at locations with higher-than-normal hazardous conditions.",
+    imageHint: "flashing yellow traffic light",
+  },
+  {
+    id: "flashing-yellow-arrow",
+    name: "Flashing Yellow Arrow",
+    section: "traffic-signals",
+    description:
+      "At a flashing yellow arrow, you may turn in the direction of the arrow, if the way is clear. Yield the right-of-way to vehicles coming from the other direction and pedestrians in the intersection. Be sure to check for less visible vehicles such as motorcycles, bicycles, and mopeds. If a traffic light changes from red to flashing yellow arrow while a pedestrian is in the intersection, allow the pedestrian to cross the street before turning.",
+    imageHint: "flashing yellow arrow signal",
+  },
+  {
+    id: "green-light",
+    name: "Green Light or Arrow",
+    section: "traffic-signals",
+    description:
+      "At a green light, you may go if the way is clear. At a green arrow, you may go in the direction of the arrow if the way is clear. If you are turning without a green arrow, you must yield the right-of-way to vehicles coming from the other direction and pedestrians in the intersection. Be sure to check for less visible vehicles such as motorcycles, bicycles, and mopeds. If a traffic light changes from red to green while a pedestrian is in the street, allow the pedestrian to cross the street before turning.",
+    imageHint: "solid green traffic light",
+  },
+  {
+    id: "out-of-service-signals",
+    name: "Out of Service Signals",
+    section: "traffic-signals",
+    description:
+      "When traffic signals are not working because of a power outage or other problem and not displaying any lights, you are required to stop, proceeding through the intersection as though it were an all-way stop. This does not apply if a law enforcement officer or other authorized person is directing traffic at the intersection, or if portable stop signs are in use.",
+    imageHint: "dark traffic signal",
+  },
+  {
+    id: "lane-use-red-x",
+    name: "Lane Use Signal: Red X",
+    section: "traffic-signals",
+    description: "Never drive in a lane marked with a red X signal.",
+    imageHint: "red X overhead lane signal",
+  },
+  {
+    id: "lane-use-yellow-x",
+    name: "Lane Use Signal: Yellow X or Diagonal Arrow",
+    section: "traffic-signals",
+    description:
+      "These signals mean that you should move out of the lane as soon as safely possible.",
+    imageHint: "yellow X overhead lane signal",
+  },
+  {
+    id: "lane-use-green-arrow",
+    name: "Lane Use Signal: Green Arrow",
+    section: "traffic-signals",
+    description: "You are permitted to drive in a lane marked with a green arrow signal.",
+    imageHint: "green down arrow overhead lane signal",
+  },
+  {
+    id: "lane-use-left-turn-arrow",
+    name: "Lane Use Signal: Left-turn Arrow",
+    section: "traffic-signals",
+    description:
+      "You are permitted to enter in a lane marked with a one-way or two-way arrow only to turn in the direction of the arrow.",
+    imageHint: "white left turn arrow lane signal",
+  },
+  {
+    id: "pedestrian-hybrid-beacon",
+    name: "Pedestrian Hybrid Beacons (PHBs)",
+    section: "traffic-signals",
+    description:
+      "PHBs appear over intersections without stoplights and alert drivers when pedestrians are at a crosswalk. One yellow light at the bottom flashes when a pedestrian activates the PHB. Next, the yellow light turns solid to alert drivers to prepare to stop. Then, the top two red lights on the PHB turn solid while a walk signal appears at the crosswalk, and drivers must stop. Lastly, while the walk signal counts down for the pedestrians, the PHB's two red lights alternate flashing, telling the driver that if the crosswalk is now clear, they may proceed with caution.",
+    imageHint: "pedestrian hybrid beacon assembly",
+  },
+
+  // ── SIGN SHAPES ──
+  {
+    id: "shape-octagon",
+    name: "Octagon: Stop",
+    section: "sign-shapes",
+    description:
+      "This eight-sided shape always means stop. You must come to a complete stop at the sign, stop line, pedestrian crosswalk or curb. Wait for any vehicle or pedestrian to clear the way. At some intersections you'll find a sign beneath the stop sign that reads 'All Way' or '4 Way.' At these intersections all vehicles on all roads leading into the intersection must stop. If you get to the intersection at the same time as other vehicles, the driver on the left must yield to the driver on the right.",
+    imageHint: "red octagonal stop sign",
+  },
+  {
+    id: "shape-triangle",
+    name: "Triangle: Yield",
+    section: "sign-shapes",
+    description:
+      "You must slow down as you come to the intersection. Be prepared to stop. Let any vehicles, pedestrians or bicyclists safely pass before you proceed.",
+    imageHint: "red and white inverted triangle yield sign",
+  },
+  {
+    id: "shape-rectangle",
+    name: "Rectangle: Regulatory or Guide",
+    section: "sign-shapes",
+    description:
+      "Vertical signs generally give instructions or tell you the law. Horizontal signs may give directions or information.",
+    imageHint: "white and green rectangular signs",
+  },
+  {
+    id: "shape-diamond",
+    name: "Diamond: Warning",
+    section: "sign-shapes",
+    description:
+      "These signs warn you of special conditions or hazards ahead. Slow down and drive with caution. Be ready to stop.",
+    imageHint: "yellow diamond warning sign",
+  },
+  {
+    id: "shape-pentagon",
+    name: "Pentagon: School Zone / School Crossing",
+    section: "sign-shapes",
+    description:
+      "This five-sided shape marks school zones and warns you about school crossings. Two signs may be used together to show the actual location of the crosswalk.",
+    imageHint: "yellow-green pentagon school crossing",
+  },
+
+  // ── REGULATORY ──
+  {
+    id: "speed-limit",
+    name: "Speed Limit",
+    section: "regulatory",
+    description:
+      "These signs tell you the maximum legal speed that you may drive on the road where the sign is posted when weather conditions are good. Some roads have electronic speed limit signs that change based on weather or traffic conditions. During rain, snow and ice, you may receive a ticket for driving too fast for the conditions even if you are driving at or less than the posted speed limit.",
+    imageHint: "speed limit 55 sign",
+  },
+  {
+    id: "do-not-enter",
+    name: "Do Not Enter / Wrong Way",
+    section: "regulatory",
+    description:
+      "These signs mean you cannot drive in that direction. If you drive past these signs you are going in the wrong direction and could get into a head-on crash with vehicles headed your way. Immediately slow down, pull over, and cautiously turn around.",
+    imageHint: "DO NOT ENTER and WRONG WAY signs",
+  },
+  {
+    id: "one-way",
+    name: "One Way",
+    section: "regulatory",
+    description: "Traffic flows only in the direction of the arrow.",
+    imageHint: "ONE WAY arrow sign",
+  },
+  {
+    id: "no-left-turn",
+    name: "No Left Turn",
+    section: "regulatory",
+    description:
+      "Left turns are against the law. In Liberia, U-turns are considered as two left turns and are illegal if this sign is posted.",
+    imageHint: "no left turn sign with red slash",
+    liberiaSpecific: true,
+  },
+  {
+    id: "no-right-turn",
+    name: "No Right Turn",
+    section: "regulatory",
+    description: "Right turns are illegal. Do not make a right turn when you see this sign.",
+    imageHint: "no right turn sign with red slash",
+  },
+  {
+    id: "no-u-turn",
+    name: "No U-Turn",
+    section: "regulatory",
+    description: "U-turns are illegal. Do not make a U-turn when you see this sign.",
+    imageHint: "no U-turn sign with red slash",
+  },
+  {
+    id: "no-turn-on-red",
+    name: "No Turn on Red",
+    section: "regulatory",
+    description: "You may not turn on the red light. Wait for the signal to turn green.",
+    imageHint: "NO TURN ON RED text sign",
+  },
+  {
+    id: "do-not-pass",
+    name: "Do Not Pass",
+    section: "regulatory",
+    description:
+      "This sign marks the beginning of a no passing zone. You may not pass cars ahead of you in your lane, even if the way is clear.",
+    imageHint: "DO NOT PASS rectangle sign",
+  },
+  {
+    id: "left-turn-yield-on-green",
+    name: "Left Turn Yield on Green",
+    section: "regulatory",
+    description:
+      "This sign is used with a traffic signal. It tells you that the traffic turning left at a green light does not have the right-of-way and must yield to traffic coming from the other direction. Stop and look for oncoming traffic, then proceed with caution.",
+    imageHint: "LEFT TURN YIELD ON GREEN sign with green dot",
+  },
+  {
+    id: "keep-right",
+    name: "Keep Right",
+    section: "regulatory",
+    description:
+      "A traffic island, median or barrier is ahead. Keep to the side indicated by the arrow.",
+    imageHint: "keep right arrow sign",
+  },
+  {
+    id: "lane-use-control",
+    name: "Lane Use Control",
+    section: "regulatory",
+    description:
+      "These signs are used where turns are required or where special turning movements are permitted for specific lanes. Traffic in the lane must turn in the direction of the arrow.",
+    imageHint: "ONLY left and combination turn arrow signs",
+  },
+  {
+    id: "hov",
+    name: "High Occupancy Vehicle (HOV)",
+    section: "regulatory",
+    description:
+      "These signs indicate lanes reserved for buses and vehicles with a driver and one or more passengers as specified on the sign.",
+    imageHint: "HOV 2+ lane sign",
+  },
+  {
+    id: "disabled-parking",
+    name: "Disabled Parking",
+    section: "regulatory",
+    description:
+      "Parking spaces marked with these signs are reserved for people with disabled parking permits.",
+    imageHint: "blue and white disabled parking sign",
+  },
+
+  // ── WARNING ──
+  {
+    id: "advisory-speed",
+    name: "Advisory Speed",
+    section: "warning",
+    description: "This sign indicates the maximum safe speed for a highway exit.",
+    imageHint: "exit advisory speed 25 MPH sign",
+  },
+  {
+    id: "reduced-speed-ahead",
+    name: "Reduced Speed Limit Ahead",
+    section: "warning",
+    description: "Prepare to reduce your speed; the speed limit is changing ahead.",
+    imageHint: "reduced speed limit ahead diamond sign",
+  },
+  {
+    id: "stop-yield-ahead",
+    name: "Stop Ahead / Yield Ahead",
+    section: "warning",
+    description: "A stop sign or yield sign is ahead. Slow down and be ready to stop.",
+    imageHint: "stop ahead and yield ahead diamond signs",
+  },
+  {
+    id: "signal-ahead",
+    name: "Signal Ahead",
+    section: "warning",
+    description:
+      "There is a traffic light signal ahead on the road you are on. Be ready to stop.",
+    imageHint: "diamond sign with traffic light symbol",
+  },
+  {
+    id: "no-passing-zone",
+    name: "No Passing Zone",
+    section: "warning",
+    description:
+      "This sign marks the beginning of a no passing zone. You may not pass cars ahead of you in your lane, even if the way is clear.",
+    imageHint: "yellow pennant NO PASSING ZONE sign",
+  },
+  {
+    id: "merge",
+    name: "Merge",
+    section: "warning",
+    description:
+      "Two lanes of traffic moving in the same direction are about to become one. Drivers in both lanes are responsible for merging safely. Traffic from another road may be entering the road you are on. Be prepared for vehicles to move into your lane.",
+    imageHint: "merge diamond sign with merging arrows",
+  },
+  {
+    id: "lane-reduction",
+    name: "Lane Reduction",
+    section: "warning",
+    description:
+      "The right lane ends soon. Drivers in the right lane must merge left when space opens up. Drivers in the left lane should allow other vehicles to merge smoothly.",
+    imageHint: "lane reduction diamond sign",
+  },
+  {
+    id: "divided-highway-begins",
+    name: "Divided Highway Begins",
+    section: "warning",
+    description:
+      "The highway ahead is split into two separate roadways by a median or divider and each roadway is one-way. Keep right. The road will soon become two-way traffic divided by a median or barrier.",
+    imageHint: "divided highway begins diamond sign",
+  },
+  {
+    id: "divided-highway-ends",
+    name: "Divided Highway Ends",
+    section: "warning",
+    description:
+      "The highway ahead no longer has a median or divider. Traffic goes in both directions. Keep right.",
+    imageHint: "divided highway ends diamond sign",
+  },
+  {
+    id: "slippery-when-wet",
+    name: "Slippery When Wet",
+    section: "warning",
+    description:
+      "When pavement is wet, reduce your speed. Do not brake hard or change direction suddenly. Increase the distance between your car and the one ahead of you. The road ahead becomes unusually slippery in wet weather. Drive carefully in these conditions.",
+    imageHint: "slippery when wet diamond sign",
+  },
+  {
+    id: "low-clearance",
+    name: "Low Clearance",
+    section: "warning",
+    description:
+      "The overpass ahead has a low clearance. Do not proceed if your vehicle is taller than the height shown on the sign.",
+    imageHint: "low clearance diamond sign with height",
+  },
+  {
+    id: "hill",
+    name: "Hill",
+    section: "warning",
+    description: "A steep grade is ahead. Check your brakes.",
+    imageHint: "hill diamond warning sign",
+  },
+  {
+    id: "deer-crossing",
+    name: "Deer Crossing",
+    section: "warning",
+    description:
+      "Deer cross the roadway in this area. Slow down, be alert and be ready to stop.",
+    imageHint: "deer crossing diamond sign",
+  },
+  {
+    id: "horse-drawn-buggies",
+    name: "Horse-Drawn Buggies",
+    section: "warning",
+    description:
+      "Regularly travel in this area. Slow down and don't use the horn. State law requires motorists to pass with at least three feet of clearance when the way is clear.",
+    imageHint: "horse-drawn buggy diamond sign",
+  },
+  {
+    id: "tractors-farm-equipment",
+    name: "Tractors and Farm Equipment",
+    section: "warning",
+    description:
+      "Regularly travel in this area. Be ready to slow down or stop. Only pass when the way is clear.",
+    imageHint: "tractor warning diamond sign",
+  },
+  {
+    id: "pedestrian-crossing",
+    name: "Pedestrian Crossing",
+    section: "warning",
+    description:
+      "Watch for people who are walking, riding bicycles or other devices entering a crosswalk or crossing your path. Slow down and be prepared to stop. A second sign with an arrow may show the actual location of the crosswalk.",
+    imageHint: "yellow-green pedestrian crossing pentagon",
+  },
+  {
+    id: "bicycle-crossing",
+    name: "Bicycle Crossing / Bike Path",
+    section: "warning",
+    description:
+      "Bicycles regularly cross or ride beside traffic in this area. Drive with caution. A second sign with an arrow may show the actual location of the bike crossing.",
+    imageHint: "yellow-green bicycle crossing diamond",
+  },
+  {
+    id: "school-zone",
+    name: "School Zone / School Crossing",
+    section: "warning",
+    description:
+      "Watch out for children crossing the street or playing. Be ready to slow down or stop at school zones and surrounding areas. Obey the speed limit and signals from crossing guards. A second sign with an arrow may show the actual location of the sidewalk. NOTE: This sign is being transitioned to neon green. This transition will take effect within the next 10 years.",
+    imageHint: "yellow-green pentagon school crossing sign",
+    liberiaSpecific: true,
+  },
+  {
+    id: "open-joints",
+    name: "Open Joints on Bridge",
+    section: "warning",
+    description:
+      "Slow down. Open joints on bridges or ramps could cause a motorcyclist to lose control of the motorcycle.",
+    imageHint: "open joints on bridge sign",
+  },
+  {
+    id: "expansion-joints",
+    name: "Expansion Joints",
+    section: "warning",
+    description:
+      "This sign is used when a joint across lanes creates a bump or is wide enough to cause loss of traction in wet weather.",
+    imageHint: "expansion joints sign",
+  },
+  {
+    id: "intersection",
+    name: "Intersection",
+    section: "warning",
+    description:
+      "An intersection is ahead. Be alert for vehicles entering the road on which you are traveling. Another road crosses the road you are on. Watch carefully for traffic crossing your path.",
+    imageHint: "cross intersection diamond sign",
+  },
+  {
+    id: "y-intersection",
+    name: "Y Intersection",
+    section: "warning",
+    description: "You must bear either right or left ahead.",
+    imageHint: "Y intersection diamond sign",
+  },
+  {
+    id: "t-intersection",
+    name: "T Intersection",
+    section: "warning",
+    description:
+      "The roadway you are traveling on ends ahead at a stop sign. You must turn right or left after yielding to oncoming traffic and pedestrians.",
+    imageHint: "T intersection diamond sign",
+  },
+  {
+    id: "roundabout",
+    name: "Roundabout",
+    section: "warning",
+    description:
+      "These signs indicate a circular intersection with an island in the center is ahead. Also called traffic circles, these intersections may have one or more lanes. Entering traffic must yield the right-of-way to traffic already in the circle and travel in a counter clockwise direction.",
+    imageHint: "roundabout diamond sign with circular arrows",
+  },
+  {
+    id: "right-curve-side-road",
+    name: "Right Curve with Side Road",
+    section: "warning",
+    description:
+      "The road ahead curves right and a side road joins from the left within the curve. Be alert for vehicles entering the roadway you are traveling on.",
+    imageHint: "right curve with side road diamond sign",
+  },
+  {
+    id: "sharp-right-turn",
+    name: "Sharp Right Turn",
+    section: "warning",
+    description: "Slow down and be prepared for a sharp right turn in the road ahead.",
+    imageHint: "sharp right turn diamond sign with right angle arrow",
+  },
+  {
+    id: "sharp-right-left-turns",
+    name: "Sharp Right and Left Turns",
+    section: "warning",
+    description:
+      "Slow down and be prepared for the road ahead to turn sharply right, then left.",
+    imageHint: "sharp right and left turns zigzag diamond sign",
+  },
+  {
+    id: "right-and-left-curves",
+    name: "Right and Left Curves",
+    section: "warning",
+    description: "The road ahead curves right, then left. Slow down.",
+    imageHint: "right and left curves S-shape diamond sign",
+  },
+  {
+    id: "right-curve-safe-speed",
+    name: "Right Curve with Safe Speed Indicator",
+    section: "warning",
+    description:
+      "The road ahead curves right. Slow down to the safe speed indicated. A curve sign is used to warn of a curve where the recommended speed is less than the posted speed limit for the highway.",
+    imageHint: "curve sign with 35 MPH speed advisory",
+  },
+  {
+    id: "winding-road",
+    name: "Winding Road",
+    section: "warning",
+    description:
+      "The road ahead winds with a series of turns or curves. On all curves, slow down for better control.",
+    imageHint: "winding road S-curves diamond sign",
+  },
+  {
+    id: "low-ground-railroad-crossing",
+    name: "Low Ground Railroad Crossing",
+    section: "warning",
+    description:
+      "A steep slope where the railroad tracks cross the road may cause the bottom of low vehicles to get caught or drag on the tracks.",
+    imageHint: "low ground railroad crossing diamond sign",
+  },
+  {
+    id: "added-lane",
+    name: "Added Lane",
+    section: "warning",
+    description:
+      "Traffic from another road will be entering the road you are on. No merging is necessary because a lane has been added.",
+    imageHint: "added lane diamond sign",
+  },
+
+  // ── WORK ZONE & RAILROAD ──
+  {
+    id: "railroad-crossing-advance",
+    name: "Railroad Crossing (Advance Warning)",
+    section: "work-zone",
+    description:
+      "The advance warning sign tells you that you are nearing a railroad crossing. Be prepared to stop. Advance warning signs are placed before a railroad crossing. These signs warn you to look, listen, slow down and be prepared to stop for trains or any vehicles using the rails.",
+    imageHint: "yellow circular railroad crossing advance warning",
+  },
+  {
+    id: "railroad-crossbuck",
+    name: "Railroad Crossbuck",
+    section: "work-zone",
+    description:
+      "This sign is a warning of a railroad crossing. Look, listen, slow down and be prepared to stop for trains or any vehicles using the rails. Trains may be approaching from either direction. If there is more than one track, trains may be approaching from either direction on either track.",
+    imageHint: "white X railroad crossbuck sign",
+  },
+  {
+    id: "railroad-crossbuck-flashing",
+    name: "Railroad Crossbuck and Flashing Lights",
+    section: "work-zone",
+    description:
+      "Flashing lights may be used with crossbuck signs. Always stop when the light begins to flash and be alert for approaching trains. Do not proceed until all trains or any other vehicles using the rails have passed, the tracks are clear, and the lights are no longer flashing. Be especially alert at multi-track crossings because a second train could be approaching from the opposite direction.",
+    imageHint: "railroad crossbuck with red flashing lights",
+  },
+  {
+    id: "crossbuck-flashing-gate",
+    name: "Crossbuck, Flashing Lights and Gate",
+    section: "work-zone",
+    description:
+      "Gates are used with flashing light signals at some crossings. Stop when the lights begin to flash and before the gate lowers. Remain stopped until the gates are raised and the lights stop flashing. Do not attempt to drive around the lowered gate.",
+    imageHint: "railroad crossing with gate arm",
+  },
+  {
+    id: "rough-road-bump",
+    name: "Rough Road / Bump / Uneven Lanes",
+    section: "work-zone",
+    description:
+      "These signs are used when certain road conditions, such as loose gravel or road construction, affect the roadway surface and create potentially difficult conditions for motorists, especially motorcyclists.",
+    imageHint: "orange ROUGH ROAD, BUMP, and UNEVEN LANES diamond signs",
+  },
+  {
+    id: "road-construction-detour",
+    name: "Road Construction Ahead / Detour",
+    section: "work-zone",
+    description:
+      "These signs indicate a change in the traffic pattern or route ahead. Slow down. Unusual or potentially dangerous conditions are ahead.",
+    imageHint: "orange ROAD WORK AHEAD diamond and DETOUR rectangle signs",
+  },
+  {
+    id: "flashing-arrow-board",
+    name: "Flashing Arrow Boards",
+    section: "work-zone",
+    description:
+      "Large flashing arrow boards or flashing message signs in work zones direct drivers to proceed into different traffic lanes and inform them that part of the road ahead is closed.",
+    imageHint: "yellow flashing arrow board",
+  },
+  {
+    id: "flaggers",
+    name: "Flaggers",
+    section: "work-zone",
+    description:
+      "Flaggers are highway workers who normally wear orange or yellow vests, or yellow-green shirts or jackets. They use STOP/SLOW paddles or red flags to stop or direct traffic through the work zone, and to let other workers or construction vehicles cross the road.",
+    imageHint: "highway flagger with stop paddle illustration",
+  },
+  {
+    id: "photo-speed-enforcement",
+    name: "Photo Speed Enforcement",
+    section: "work-zone",
+    description:
+      "This sign indicates that automated photo enforcement is in place for speeding in a work zone. Always obey the posted speed limit in a work zone.",
+    imageHint: "WORK ZONE SPEED PHOTO ENFORCED sign",
+  },
+  {
+    id: "traffic-control-devices",
+    name: "Traffic Control Devices",
+    section: "work-zone",
+    description:
+      "Barricades, vertical signs, concrete barriers, drums and cones are the most common devices used to guide drivers safely through work zones. When driving near the devices, keep your vehicle in the middle of the lane and obey the posted speed limit. As you leave the work zone, stay in your lane and maintain your speed. Don't change lanes until you are completely clear of the work zone.",
+    imageHint: "orange and white barricade with cone and drum",
+  },
+  {
+    id: "rumble-strips-ahead",
+    name: "Rumble Strips Ahead",
+    section: "work-zone",
+    description:
+      "Rumble Strips Ahead signs warn motorists of black or orange strips placed across the travel lanes in advance of work zones, including a flagger or lane closure. Rumble strips should be slowly driven over, not swerved around.",
+    imageHint: "orange diamond RUMBLE STRIPS AHEAD sign",
+  },
+  {
+    id: "slow-moving-vehicles",
+    name: "Slow Moving Vehicles",
+    section: "work-zone",
+    description:
+      "Vehicles traveling at 25 MPH or less, such as farm equipment, horse-drawn vehicles or highway work vehicles, must display these signs when using a public highway. Be prepared to adjust your speed or position when you see a vehicle with one of these signs.",
+    imageHint: "orange triangle slow moving vehicle emblem",
+  },
+
+  // ── PAVEMENT MARKINGS ──
+  {
+    id: "red-markings",
+    name: "Red Markings",
+    section: "pavement-markings",
+    description:
+      "Red markings are generally not used; but, some communities do use red curbs to indicate no parking zones.",
+    imageHint: "red painted curb",
+  },
+  {
+    id: "red-reflectors",
+    name: "Red Reflectors",
+    section: "pavement-markings",
+    description:
+      "Red reflectors on the pavement show areas not to be entered or used. They are positioned on the road surface so that only traffic flowing in the wrong direction would observe them.",
+    imageHint: "red pavement reflectors",
+  },
+  {
+    id: "yellow-center-lines",
+    name: "Yellow Center Lines",
+    section: "pavement-markings",
+    description: "Yellow center lines mean two-way traffic, flowing in opposite directions.",
+    imageHint: "yellow center line on road",
+  },
+  {
+    id: "broken-yellow-center",
+    name: "Broken Yellow Center Lines",
+    section: "pavement-markings",
+    description:
+      "Broken yellow center lines mean that passing on the left is allowed in either direction when the way ahead is clear.",
+    imageHint: "broken yellow center line",
+  },
+  {
+    id: "broken-yellow-solid-yellow",
+    name: "Broken Yellow Alongside Solid Yellow",
+    section: "pavement-markings",
+    description:
+      "A broken yellow line alongside a solid yellow line means that passing is allowed from the side of the broken line, but not from the side of the solid line. Vehicles on the solid yellow line side may only cross the line to pass pedestrians, bicyclists, and riders of scooters or skateboards, when the opposite lane is clear and you can pass safely.",
+    imageHint: "broken yellow line alongside solid yellow line",
+  },
+  {
+    id: "double-solid-yellow",
+    name: "Double Solid Yellow Lines",
+    section: "pavement-markings",
+    description:
+      "Double solid yellow lines mark the center of the road and separate traffic traveling in two different directions. Passing is not allowed in either direction. You may not cross the lines unless you are making a left turn or passing pedestrians, bicyclists, and riders of scooters or skateboards, when the opposite lane is clear and you can pass safely.",
+    imageHint: "double solid yellow lines",
+  },
+  {
+    id: "broken-white-lines",
+    name: "Broken White Lines",
+    section: "pavement-markings",
+    description:
+      "Broken white lines separate lanes of traffic going in the same direction. You may change lanes with caution.",
+    imageHint: "broken white lane lines",
+  },
+  {
+    id: "dotted-white-lines",
+    name: "Dotted White Lines",
+    section: "pavement-markings",
+    description:
+      "Dotted white lines are actually small rectangles in a series where each is closely spaced to the next. They are used to show lane assignment in intersections and interchanges where there might otherwise be a tendency to drift out of a lane or an area of intended use. Often they are used to guide two turning lanes through the intersection. Dotted white lines are also used to denote the opening of a turn lane at an intersection and entrance/exit lanes at interchanges.",
+    imageHint: "dotted white lane line at intersection",
+  },
+  {
+    id: "unmarked-two-lane-roads",
+    name: "Unmarked Two-Lane Roads in Liberia",
+    section: "pavement-markings",
+    description:
+      "Many two-lane roads in Liberia do not have lane markings to separate the lanes. On an unmarked two-lane road, you may pass a slow moving vehicle on the left side if there are no signs prohibiting passing. Make sure that the way is clear.",
+    imageHint: "unmarked Liberian rural road",
+    liberiaSpecific: true,
+  },
 ];
 
-export const liberiaSpecificRules = [
-  "Liberia law prohibits right and left turns at red arrow lights.",
-  "In Liberia, U-turns are considered as two left turns and are illegal if a No Left Turn sign is posted.",
-  "Many two-lane roads in Liberia do not have lane markings. Pass slow-moving vehicles on the left only when the way is clear and no signs prohibit passing.",
-  "School buses must always stop at railroad crossings, even when the lights are not flashing.",
-  "Speeding in a highway work zone may result in a fine of up to $500. Using a handheld communications device in a work zone carries a $250 fine.",
+// Sign color reference: rendered as a callout block at the top of the page
+export const signColorMeanings = [
+  {
+    colors: "Red with white",
+    meaning:
+      "Conveys stop, yield, do not, and no. Stop signs, yield signs, do not enter or wrong way signs, the circle and slash in a no turn sign, and the restrictions in a parking sign are examples.",
+  },
+  {
+    colors: "Black with white",
+    meaning:
+      "Conveys regulatory information. Speed limit, do not pass, no turns are examples where the operation is regulated by law and the black and white sign would be found.",
+  },
+  {
+    colors: "Yellow with black",
+    meaning:
+      "Conveys a warning. Curve ahead, stop ahead, overhead clearances, slippery when wet, are all examples.",
+  },
+  {
+    colors: "Yellow-green with black",
+    meaning:
+      "A specialized class of warning signs uses a strong yellow/green color with black to advise of school zone, pedestrian and/or bicyclist activities.",
+  },
+  {
+    colors: "Green with white",
+    meaning: "Provides destination types of information.",
+  },
+  {
+    colors: "Blue with white",
+    meaning: "Informs regarding motorists services.",
+  },
+  {
+    colors: "Brown with white",
+    meaning: "Advises of historical or cultural interests that might exist in the area.",
+  },
+  {
+    colors: "Orange with black",
+    meaning:
+      "Used to advise and warn in construction (orange) areas. Used with black and white signs that convey regulations that might exist only because of the construction effort.",
+  },
+  {
+    colors: "Pink with black",
+    meaning:
+      "Used to advise and warn in incident (pink) areas. Used with black and white signs that convey regulations that might exist only because of the incident.",
+  },
 ];
+
+// Quick study sheet (also referenced by the Practice Test page)
+export const quickReferenceSigns = [
+  "no-left-turn",
+  "no-right-turn",
+  "no-u-turn",
+  "shape-octagon",
+  "shape-triangle",
+  "do-not-enter",
+  "school-zone",
+  "railroad-crossing-advance",
+  "slippery-when-wet",
+  "signal-ahead",
+  "intersection",
+  "right-curve-safe-speed",
+  "merge",
+  "added-lane",
+  "divided-highway-begins",
+] as const;

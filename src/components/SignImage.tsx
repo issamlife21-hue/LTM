@@ -1,8 +1,10 @@
-// src/data/sign-images.ts
-// Maps RoadSign.id → public-domain image URL (Wikimedia Commons).
-// Used on the /road-signs page.
+import * as React from "react";
+import Image from "next/image";
 
-export const signImageMap: Record<string, string> = {
+// Maps RoadSign.id → public-domain image URL (Wikimedia Commons MUTCD set).
+// Where no clean Wikimedia match exists, the component falls back to a
+// styled placeholder using the imageHint from the data file.
+const SIGN_IMAGE_MAP: Record<string, string> = {
   // Traffic signals
   "red-light":
     "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Traffic-light-red.svg/240px-Traffic-light-red.svg.png",
@@ -13,9 +15,9 @@ export const signImageMap: Record<string, string> = {
 
   // Sign shapes
   "shape-octagon":
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fc/MUTCD_R1-1.svg/240px-MUTCD_R1-1.svg.png", // STOP
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fc/MUTCD_R1-1.svg/240px-MUTCD_R1-1.svg.png",
   "shape-triangle":
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/MUTCD_R1-2.svg/240px-MUTCD_R1-2.svg.png", // YIELD
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/MUTCD_R1-2.svg/240px-MUTCD_R1-2.svg.png",
 
   // Regulatory
   "do-not-enter":
@@ -70,7 +72,7 @@ export const signImageMap: Record<string, string> = {
     "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/MUTCD_W11-1.svg/240px-MUTCD_W11-1.svg.png",
   "school-zone":
     "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/MUTCD_S1-1.svg/240px-MUTCD_S1-1.svg.png",
-  intersections:
+  intersection:
     "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/MUTCD_W2-1.svg/240px-MUTCD_W2-1.svg.png",
   "y-intersection":
     "https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/MUTCD_W2-5.svg/240px-MUTCD_W2-5.svg.png",
@@ -84,9 +86,9 @@ export const signImageMap: Record<string, string> = {
     "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/MUTCD_W1-5R.svg/240px-MUTCD_W1-5R.svg.png",
 
   // Railroad
-  "railroad-crossing":
+  "railroad-crossing-advance":
     "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/MUTCD_W10-1.svg/240px-MUTCD_W10-1.svg.png",
-  crossbuck:
+  "railroad-crossbuck":
     "https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/MUTCD_R15-1.svg/240px-MUTCD_R15-1.svg.png",
 
   // Work zone
@@ -94,6 +96,36 @@ export const signImageMap: Record<string, string> = {
     "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/MUTCD_W20-1.svg/240px-MUTCD_W20-1.svg.png",
 };
 
-export function getSignImage(signId: string): string | null {
-  return signImageMap[signId] ?? null;
+function SignPlaceholder({ hint }: { hint: string }) {
+  return (
+    <div
+      className="flex h-full w-full items-center justify-center rounded bg-ltm-stone p-2 text-center text-[10px] leading-tight text-ltm-muted"
+      role="img"
+      aria-label={hint}
+    >
+      <span className="line-clamp-3">{hint}</span>
+    </div>
+  );
+}
+
+export function SignImage({
+  signId,
+  hint,
+}: {
+  signId: string;
+  hint: string;
+}) {
+  const url = SIGN_IMAGE_MAP[signId];
+  if (!url) {
+    return <SignPlaceholder hint={hint} />;
+  }
+  return (
+    <Image
+      src={url}
+      alt={hint}
+      width={80}
+      height={80}
+      className="h-full w-full object-contain p-1"
+    />
+  );
 }

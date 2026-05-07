@@ -1,43 +1,25 @@
-import * as React from "react";
-import Image from "next/image";
-
-import { SignSvg } from "@/components/SignSvg";
-import { Badge } from "@/components/ui/badge";
-import type { RoadSign } from "@/data/road-signs";
-import { getSignImage } from "@/data/sign-images";
+import { type RoadSign } from "@/data/road-signs";
+import { SignImage } from "@/components/SignImage";
 
 export function SignCard({ sign }: { sign: RoadSign }) {
-  const imageUrl = getSignImage(sign.id);
-
   return (
-    <article className="relative flex flex-col gap-4 rounded-lg border border-ltm-border bg-white p-6 transition-shadow hover:shadow-md">
-      {sign.liberiaSpecific && (
-        <Badge
-          variant="warning"
-          className="absolute right-3 top-3 border border-ltm-warning/30"
-        >
-          Liberia rule
-        </Badge>
-      )}
-      <div className="mx-auto flex h-24 w-24 items-center justify-center">
-        {imageUrl ? (
-          <Image
-            src={imageUrl}
-            alt={`${sign.name} sign`}
-            width={96}
-            height={96}
-            className="h-full w-full object-contain"
-          />
-        ) : (
-          <SignSvg sign={sign} />
-        )}
+    <article className="rounded-lg border border-ltm-border bg-white p-5 transition-shadow hover:shadow-md">
+      <div className="mb-3 flex items-start gap-4">
+        <div className="flex h-20 w-20 shrink-0 items-center justify-center rounded bg-ltm-stone">
+          <SignImage signId={sign.id} hint={sign.imageHint} />
+        </div>
+        <div className="min-w-0 flex-1">
+          <h3 className="mb-1 text-base font-semibold leading-tight text-ltm-black">
+            {sign.name}
+          </h3>
+          {sign.liberiaSpecific && (
+            <span className="inline-block rounded bg-ltm-red/10 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-ltm-red">
+              Liberia-specific
+            </span>
+          )}
+        </div>
       </div>
-      <div>
-        <h3 className="text-base font-semibold text-ltm-black">{sign.name}</h3>
-        <p className="mt-2 text-sm leading-relaxed text-ltm-slate">
-          {sign.description}
-        </p>
-      </div>
+      <p className="text-sm leading-relaxed text-ltm-slate">{sign.description}</p>
     </article>
   );
 }
