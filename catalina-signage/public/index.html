@@ -217,6 +217,140 @@
         background: var(--gold);
         transform-origin: left center;
       }
+
+      .panel--weather {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 8rem 4rem 6rem;
+        gap: 2.5rem;
+        background:
+          radial-gradient(
+            ellipse at center,
+            rgba(8, 12, 16, 0.55) 0%,
+            rgba(8, 12, 16, 0.85) 100%
+          );
+      }
+
+      .weather__hero {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 0.5rem;
+      }
+
+      .weather__icon {
+        font-size: 7rem;
+        line-height: 1;
+        filter: drop-shadow(0 4px 18px rgba(0, 0, 0, 0.55));
+      }
+
+      .weather__temp {
+        font-family: 'Playfair Display', serif;
+        font-weight: 300;
+        font-size: 9rem;
+        line-height: 0.95;
+        letter-spacing: -0.02em;
+        color: var(--white);
+        margin: 0;
+        font-variant-numeric: tabular-nums;
+      }
+
+      .weather__temp-unit {
+        font-size: 4rem;
+        color: var(--gold);
+        vertical-align: super;
+        margin-left: 0.25rem;
+      }
+
+      .weather__desc {
+        font-family: 'Barlow Condensed', sans-serif;
+        font-weight: 300;
+        font-size: 1.6rem;
+        letter-spacing: 0.4em;
+        text-transform: uppercase;
+        color: var(--gold);
+        margin: 0;
+      }
+
+      .weather__details {
+        display: grid;
+        grid-template-columns: repeat(6, minmax(0, 1fr));
+        gap: 1rem;
+        width: min(1100px, 100%);
+      }
+
+      .detail {
+        background: rgba(8, 12, 16, 0.55);
+        border: 1px solid rgba(200, 169, 110, 0.25);
+        padding: 1.1rem 1rem;
+        text-align: center;
+      }
+
+      .detail__label {
+        font-family: 'Barlow Condensed', sans-serif;
+        font-weight: 400;
+        font-size: 0.78rem;
+        letter-spacing: 0.32em;
+        text-transform: uppercase;
+        color: var(--gold);
+        margin: 0 0 0.4rem;
+      }
+
+      .detail__value {
+        font-family: 'Playfair Display', serif;
+        font-weight: 400;
+        font-size: 1.6rem;
+        color: var(--white);
+        margin: 0;
+        font-variant-numeric: tabular-nums;
+      }
+
+      .weather__forecast {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 1.25rem;
+        width: min(900px, 100%);
+      }
+
+      .forecast {
+        background: rgba(8, 12, 16, 0.55);
+        border: 1px solid rgba(200, 169, 110, 0.25);
+        padding: 1.25rem 1rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .forecast__day {
+        font-family: 'Barlow Condensed', sans-serif;
+        font-weight: 400;
+        font-size: 0.85rem;
+        letter-spacing: 0.32em;
+        text-transform: uppercase;
+        color: var(--gold);
+      }
+
+      .forecast__icon {
+        font-size: 2.4rem;
+        line-height: 1;
+      }
+
+      .forecast__temps {
+        font-family: 'Playfair Display', serif;
+        font-weight: 400;
+        font-size: 1.2rem;
+        color: var(--white);
+        font-variant-numeric: tabular-nums;
+      }
+
+      .forecast__low {
+        color: rgba(244, 240, 234, 0.55);
+        margin-left: 0.4rem;
+      }
     </style>
   </head>
   <body>
@@ -238,7 +372,44 @@
       </aside>
 
       <div class="panels" id="panels">
-        <div class="panel" data-mode="weather"></div>
+        <div class="panel panel--weather" data-mode="weather">
+          <div class="weather__hero">
+            <div class="weather__icon" id="wx-icon">⛅</div>
+            <h2 class="weather__temp">
+              <span id="wx-temp">--</span><span class="weather__temp-unit">°F</span>
+            </h2>
+            <p class="weather__desc" id="wx-desc">&nbsp;</p>
+          </div>
+
+          <div class="weather__details">
+            <div class="detail">
+              <p class="detail__label">Feels Like</p>
+              <p class="detail__value"><span id="wx-feels">--</span>°</p>
+            </div>
+            <div class="detail">
+              <p class="detail__label">Humidity</p>
+              <p class="detail__value"><span id="wx-humidity">--</span>%</p>
+            </div>
+            <div class="detail">
+              <p class="detail__label">Wind</p>
+              <p class="detail__value"><span id="wx-wind">--</span> mph</p>
+            </div>
+            <div class="detail">
+              <p class="detail__label">Visibility</p>
+              <p class="detail__value"><span id="wx-vis">--</span> mi</p>
+            </div>
+            <div class="detail">
+              <p class="detail__label">UV Index</p>
+              <p class="detail__value" id="wx-uv">--</p>
+            </div>
+            <div class="detail">
+              <p class="detail__label">Pressure</p>
+              <p class="detail__value"><span id="wx-pressure">--</span> hPa</p>
+            </div>
+          </div>
+
+          <div class="weather__forecast" id="wx-forecast"></div>
+        </div>
         <div class="panel" data-mode="directory"></div>
         <div class="panel" data-mode="cnn"></div>
         <div class="panel" data-mode="bloomberg"></div>
@@ -385,6 +556,128 @@
         }
 
         activateNext();
+      })();
+
+      (function () {
+        const REFRESH_MS = 10 * 60 * 1000;
+
+        const CODE_MAP = {
+          0: { icon: '☀️', desc: 'Clear' },
+          1: { icon: '🌤️', desc: 'Mostly Clear' },
+          2: { icon: '⛅', desc: 'Partly Cloudy' },
+          3: { icon: '☁️', desc: 'Overcast' },
+          45: { icon: '🌫️', desc: 'Foggy' },
+          48: { icon: '🌫️', desc: 'Foggy' },
+          51: { icon: '🌦️', desc: 'Drizzle' },
+          53: { icon: '🌦️', desc: 'Drizzle' },
+          55: { icon: '🌦️', desc: 'Drizzle' },
+          61: { icon: '🌧️', desc: 'Rain' },
+          63: { icon: '🌧️', desc: 'Rain' },
+          65: { icon: '🌧️', desc: 'Rain' },
+          80: { icon: '🌦️', desc: 'Showers' },
+          81: { icon: '🌦️', desc: 'Showers' },
+          82: { icon: '🌦️', desc: 'Showers' },
+          95: { icon: '⛈️', desc: 'Thunderstorm' },
+          96: { icon: '⛈️', desc: 'Thunderstorm' },
+          99: { icon: '⛈️', desc: 'Thunderstorm' },
+        };
+
+        const lookup = (code) =>
+          CODE_MAP[code] || { icon: '🌡️', desc: '—' };
+
+        const round = (n) =>
+          n == null || Number.isNaN(n) ? '--' : Math.round(n);
+
+        const dayName = (iso) =>
+          new Date(iso + 'T12:00:00').toLocaleDateString('en-US', {
+            weekday: 'short',
+          });
+
+        function findCurrentHourIndex(times, currentIso) {
+          if (!times || !currentIso) return 0;
+          const target = currentIso.slice(0, 13);
+          for (let i = 0; i < times.length; i++) {
+            if (times[i].slice(0, 13) === target) return i;
+          }
+          return 0;
+        }
+
+        function render(data) {
+          const cur = data.current || {};
+          const code = cur.weather_code;
+          const meta = lookup(code);
+
+          document.getElementById('wx-icon').textContent = meta.icon;
+          document.getElementById('wx-desc').textContent = meta.desc;
+          document.getElementById('wx-temp').textContent = round(
+            cur.temperature_2m
+          );
+          document.getElementById('wx-feels').textContent = round(
+            cur.apparent_temperature
+          );
+          document.getElementById('wx-humidity').textContent = round(
+            cur.relative_humidity_2m
+          );
+          document.getElementById('wx-wind').textContent = round(
+            cur.wind_speed_10m
+          );
+          document.getElementById('wx-pressure').textContent = round(
+            cur.pressure_msl
+          );
+
+          const hourly = data.hourly || {};
+          const idx = findCurrentHourIndex(hourly.time, cur.time);
+          const visMeters = hourly.visibility ? hourly.visibility[idx] : null;
+          const visMiles =
+            visMeters == null ? '--' : (visMeters / 1609.344).toFixed(1);
+          document.getElementById('wx-vis').textContent = visMiles;
+
+          const uv = hourly.uv_index ? hourly.uv_index[idx] : null;
+          document.getElementById('wx-uv').textContent =
+            uv == null ? '--' : uv.toFixed(1);
+
+          const daily = data.daily || {};
+          const times = daily.time || [];
+          const highs = daily.temperature_2m_max || [];
+          const lows = daily.temperature_2m_min || [];
+          const codes = daily.weather_code || [];
+
+          const forecastEl = document.getElementById('wx-forecast');
+          forecastEl.innerHTML = '';
+          const start = times.length > 4 ? 1 : 0;
+          for (let i = start; i < start + 4 && i < times.length; i++) {
+            const m = lookup(codes[i]);
+            const card = document.createElement('div');
+            card.className = 'forecast';
+            card.innerHTML =
+              '<span class="forecast__day">' +
+              dayName(times[i]) +
+              '</span>' +
+              '<span class="forecast__icon">' +
+              m.icon +
+              '</span>' +
+              '<span class="forecast__temps">' +
+              round(highs[i]) +
+              '°<span class="forecast__low">' +
+              round(lows[i]) +
+              '°</span></span>';
+            forecastEl.appendChild(card);
+          }
+        }
+
+        async function load() {
+          try {
+            const res = await fetch('/api/weather', { cache: 'no-store' });
+            if (!res.ok) throw new Error('HTTP ' + res.status);
+            const data = await res.json();
+            render(data);
+          } catch (err) {
+            console.error('weather fetch failed', err);
+          }
+        }
+
+        load();
+        setInterval(load, REFRESH_MS);
       })();
 
       (function () {

@@ -9,8 +9,11 @@ const PUBLIC_DIR = path.join(__dirname, 'public');
 const WEATHER_URL =
   'https://api.open-meteo.com/v1/forecast' +
   '?latitude=33.7701&longitude=-118.1937' +
-  '&current=temperature_2m,relative_humidity_2m,apparent_temperature,is_day,precipitation,weather_code,wind_speed_10m,wind_direction_10m' +
-  '&temperature_unit=fahrenheit&wind_speed_unit=mph&precipitation_unit=inch&timezone=America%2FLos_Angeles';
+  '&current=temperature_2m,relative_humidity_2m,apparent_temperature,is_day,precipitation,weather_code,wind_speed_10m,wind_direction_10m,pressure_msl' +
+  '&hourly=visibility,uv_index' +
+  '&daily=weather_code,temperature_2m_max,temperature_2m_min' +
+  '&temperature_unit=fahrenheit&wind_speed_unit=mph&precipitation_unit=inch' +
+  '&timezone=America%2FLos_Angeles&forecast_days=5';
 
 const MIME_TYPES = {
   '.html': 'text/html; charset=utf-8',
@@ -31,8 +34,14 @@ const MIME_TYPES = {
 
 function fetchWeather() {
   return new Promise((resolve, reject) => {
+    const opts = {
+      headers: {
+        'User-Agent': 'catalina-signage/1.0',
+        Accept: 'application/json',
+      },
+    };
     https
-      .get(WEATHER_URL, (res) => {
+      .get(WEATHER_URL, opts, (res) => {
         if (res.statusCode !== 200) {
           res.resume();
           reject(new Error(`Open-Meteo responded with status ${res.statusCode}`));
