@@ -47,7 +47,7 @@ export function RoadSignsPageClient() {
               aria-hidden="true"
             />
             <div>
-              <h2 className="text-lg font-semibold text-ltm-navy">
+              <h2 className="text-lg font-semibold text-ltm-black">
                 Liberia-specific rules to remember
               </h2>
               <ul className="mt-3 list-disc space-y-1.5 pl-5 text-sm leading-relaxed text-ltm-slate">
@@ -63,15 +63,15 @@ export function RoadSignsPageClient() {
           href="https://www.liberiatraffic.com/signs-signals"
           target="_blank"
           rel="noopener noreferrer"
-          className="mb-8 block rounded-lg border border-ltm-border bg-ltm-bg p-4 transition-colors hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ltm-navy focus-visible:ring-offset-2"
+          className="mb-8 block rounded-lg border border-ltm-border bg-ltm-stone p-4 transition-colors hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ltm-navy focus-visible:ring-offset-2"
         >
           <div className="flex items-center gap-3">
             <FileText
-              className="h-5 w-5 shrink-0 text-ltm-navy"
+              className="h-5 w-5 shrink-0 text-ltm-black"
               aria-hidden="true"
             />
             <div className="flex-1">
-              <p className="font-medium text-ltm-navy">
+              <p className="font-medium text-ltm-black">
                 Official LTM Signs &amp; Signals reference
               </p>
               <p className="text-sm text-ltm-muted">
@@ -92,7 +92,7 @@ export function RoadSignsPageClient() {
             onValueChange={(v) => setActiveTab(v as SignCategory)}
             className="w-full"
           >
-            <TabsList className="mb-6 flex h-auto w-full flex-wrap justify-start gap-1 bg-ltm-bg p-1">
+            <TabsList className="mb-6 flex h-auto w-full flex-wrap justify-start gap-1 bg-ltm-stone p-1">
               {signCategories.map((cat) => (
                 <TabsTrigger
                   key={cat.id}
@@ -140,7 +140,7 @@ export function RoadSignsPageClient() {
                     className={cn(
                       "block w-full -ml-px border-l-2 px-3 py-1.5 text-left text-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ltm-navy",
                       activeTab === cat.id
-                        ? "border-ltm-navy font-semibold text-ltm-navy"
+                        ? "border-ltm-charcoal font-semibold text-ltm-black"
                         : "border-transparent text-ltm-muted hover:border-ltm-border hover:text-ltm-slate"
                     )}
                   >

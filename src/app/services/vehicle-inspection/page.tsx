@@ -25,7 +25,7 @@ const columns: PriceColumn[] = [
     label: "Charge",
     align: "right",
     render: (v) => (
-      <span className="font-semibold text-ltm-navy">
+      <span className="font-semibold text-ltm-black">
         {formatUsd(v as number)}
       </span>
     ),
@@ -86,7 +86,7 @@ export default function VehicleInspectionPage() {
       }
       extraContent={
         <div>
-          <h2 className="text-2xl font-semibold text-ltm-navy">
+          <h2 className="text-2xl font-semibold text-ltm-black">
             Our state-of-the-art inspection bays
           </h2>
           <ul className="mt-4 grid gap-4 sm:grid-cols-2">

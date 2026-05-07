@@ -97,14 +97,14 @@ export default function ServicesPage() {
               <div className="flex flex-col gap-6 md:flex-row md:gap-8">
                 <div className="flex shrink-0 items-start md:w-32 md:justify-center">
                   <span
-                    className="inline-flex h-16 w-16 items-center justify-center rounded-full bg-ltm-navy text-white md:h-20 md:w-20"
+                    className="inline-flex h-16 w-16 items-center justify-center rounded-full bg-ltm-black text-white md:h-20 md:w-20"
                     aria-hidden="true"
                   >
                     <s.icon className="h-8 w-8 md:h-10 md:w-10" />
                   </span>
                 </div>
                 <div className="flex-1">
-                  <h2 className="text-2xl font-semibold text-ltm-navy">
+                  <h2 className="text-2xl font-semibold text-ltm-black">
                     {s.title}
                   </h2>
                   <p className="mt-2 text-base leading-relaxed text-ltm-slate">

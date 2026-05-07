@@ -18,16 +18,32 @@ const config: Config = {
     extend: {
       colors: {
         ltm: {
-          navy: "#1A3A6E",
-          "navy-dark": "#122A52",
-          red: "#C8102E",
-          "red-dark": "#9A0B22",
-          cream: "#FAF6F0",
-          sand: "#F3EDE2",
-          slate: "#1F2937",
-          muted: "#64748B",
+          // Primary surfaces — matte black, like LTM's police gear
+          black: "#0E0E10",
+          charcoal: "#1C1C20",
+          graphite: "#2A2A2E",
+
+          // Page backgrounds — warm neutrals, not pure white
+          paper: "#F5F3EE",
+          stone: "#E8E4DC",
+          cream: "#F0E6D2",
+
+          // Body text
+          ink: "#1A1A1A",
+          slate: "#52525B",
+          muted: "#71717A",
+
+          // Used SPARINGLY — accent only
+          navy: "#1E3A5F", // small accent: links, focus rings, nav hover
+          red: "#BF0A30", // Liberian flag stripe only
+          sand: "#D4A574", // warm accent for hovers and callouts
+
+          // Backwards-compatible legacy keys still referenced in a
+          // handful of utility states. Routed to the new palette.
+          "navy-dark": "#0E0E10",
+          "red-dark": "#9A0826",
           border: "#E5E7EB",
-          bg: "#F8F9FB",
+          bg: "#F5F3EE",
           success: "#16A34A",
           warning: "#D97706",
         },

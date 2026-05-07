@@ -32,7 +32,7 @@ export default function StudyPage() {
 
       <section className="container-ltm py-12">
         <div className="mx-auto max-w-3xl space-y-4">
-          <div className="rounded-lg border border-ltm-border bg-ltm-bg p-4 text-sm italic leading-relaxed text-ltm-muted">
+          <div className="rounded-lg border border-ltm-border bg-ltm-stone p-4 text-sm italic leading-relaxed text-ltm-muted">
             {practiceTestMeta.disclaimer}
           </div>
 
@@ -77,7 +77,7 @@ export default function StudyPage() {
                                 "flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-xs font-bold uppercase",
                                 opt.correct
                                   ? "bg-ltm-success text-white"
-                                  : "bg-ltm-bg text-ltm-navy"
+                                  : "bg-ltm-stone text-ltm-black"
                               )}
                             >
                               {opt.label}
@@ -95,8 +95,8 @@ export default function StudyPage() {
                         ))}
                       </ul>
 
-                      <div className="rounded-md bg-ltm-bg p-3 text-sm leading-relaxed text-ltm-slate">
-                        <span className="font-semibold text-ltm-navy">
+                      <div className="rounded-md bg-ltm-stone p-3 text-sm leading-relaxed text-ltm-slate">
+                        <span className="font-semibold text-ltm-black">
                           Answer ({correctLetter}):
                         </span>{" "}
                         {q.explanation}

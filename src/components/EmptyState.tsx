@@ -26,12 +26,12 @@ export function EmptyState({
       )}
     >
       <span
-        className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-ltm-bg text-ltm-navy"
+        className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-ltm-stone text-ltm-black"
         aria-hidden="true"
       >
         <Icon className="h-6 w-6" />
       </span>
-      <h3 className="text-base font-semibold text-ltm-navy">{title}</h3>
+      <h3 className="text-base font-semibold text-ltm-black">{title}</h3>
       {description && (
         <p className="max-w-sm text-sm leading-relaxed text-ltm-muted">
           {description}

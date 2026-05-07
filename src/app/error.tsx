@@ -26,7 +26,7 @@ export default function ErrorBoundary({
       >
         <AlertTriangle className="h-7 w-7" />
       </span>
-      <h1 className="mt-4 text-3xl font-bold text-ltm-navy md:text-4xl">
+      <h1 className="mt-4 text-3xl font-bold text-ltm-black md:text-4xl">
         Something went wrong
       </h1>
       <p className="mx-auto mt-3 max-w-prose text-base leading-relaxed text-ltm-slate">

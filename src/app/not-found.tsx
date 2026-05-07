@@ -13,7 +13,7 @@ export default function NotFound() {
       <p className="text-sm font-semibold uppercase tracking-[0.2em] text-ltm-muted">
         404
       </p>
-      <h1 className="mt-3 text-4xl font-bold text-ltm-navy md:text-5xl">
+      <h1 className="mt-3 text-4xl font-bold text-ltm-black md:text-5xl">
         Page not found
       </h1>
       <p className="mx-auto mt-4 max-w-prose text-base leading-relaxed text-ltm-slate">
@@ -36,20 +36,20 @@ export default function NotFound() {
       </div>
       <p className="mx-auto mt-10 max-w-prose text-sm text-ltm-muted">
         Looking for something specific? Try the{" "}
-        <Link href="/faq" className="font-medium text-ltm-navy hover:underline">
+        <Link href="/faq" className="font-medium text-ltm-black hover:underline">
           FAQ
         </Link>
         ,{" "}
         <Link
           href="/pricing"
-          className="font-medium text-ltm-navy hover:underline"
+          className="font-medium text-ltm-black hover:underline"
         >
           Pricing
         </Link>
         , or{" "}
         <Link
           href="/contact"
-          className="font-medium text-ltm-navy hover:underline"
+          className="font-medium text-ltm-black hover:underline"
         >
           Contact
         </Link>{" "}

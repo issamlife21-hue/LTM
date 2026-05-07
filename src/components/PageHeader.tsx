@@ -30,7 +30,7 @@ export function PageHeader({
   return (
     <section
       className={cn(
-        "relative overflow-hidden bg-ltm-navy text-white",
+        "relative overflow-hidden bg-ltm-black text-white",
         className
       )}
     >
@@ -47,7 +47,7 @@ export function PageHeader({
           </div>
           <div
             aria-hidden="true"
-            className="absolute inset-0 bg-ltm-navy/65"
+            className="absolute inset-0 bg-ltm-black/65"
           />
         </>
       )}

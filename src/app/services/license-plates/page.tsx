@@ -26,7 +26,7 @@ function PlatesPricing() {
           <CardTitle>Test Plate</CardTitle>
         </CardHeader>
         <CardContent>
-          <p className="text-3xl font-bold text-ltm-navy">
+          <p className="text-3xl font-bold text-ltm-black">
             {formatUsd(licensePlateCharges.testPlate)}
           </p>
           <p className="mt-2 text-sm text-ltm-slate">
@@ -39,7 +39,7 @@ function PlatesPricing() {
           <CardTitle>Customized Plate</CardTitle>
         </CardHeader>
         <CardContent>
-          <p className="text-3xl font-bold text-ltm-navy">
+          <p className="text-3xl font-bold text-ltm-black">
             {formatUsd(licensePlateCharges.customizedPlatePerCharacter)}
             <span className="ml-2 text-base font-normal text-ltm-muted">
               per character

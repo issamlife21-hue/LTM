@@ -10,21 +10,21 @@ const buttonVariants = cva(
     variants: {
       variant: {
         default:
-          "bg-ltm-navy text-white hover:bg-ltm-navy-dark",
+          "bg-ltm-black text-white hover:bg-ltm-charcoal",
         destructive:
           "bg-ltm-red text-white hover:bg-ltm-red-dark",
         outline:
-          "border border-ltm-border bg-white text-ltm-slate hover:bg-ltm-bg",
+          "border border-ltm-border bg-white text-ltm-slate hover:bg-ltm-stone",
         secondary:
-          "bg-ltm-bg text-ltm-slate hover:bg-ltm-border",
+          "bg-ltm-stone text-ltm-slate hover:bg-ltm-border",
         ghost:
-          "text-ltm-slate hover:bg-ltm-bg",
+          "text-ltm-slate hover:bg-ltm-stone",
         link:
-          "text-ltm-navy underline-offset-4 hover:underline",
+          "text-ltm-black underline-offset-4 hover:underline",
         whitePrimary:
-          "bg-white text-ltm-navy hover:bg-ltm-bg",
+          "bg-white text-ltm-black hover:bg-ltm-stone",
         whiteOutline:
-          "border border-white bg-transparent text-white hover:bg-white hover:text-ltm-navy",
+          "border border-white bg-transparent text-white hover:bg-white hover:text-ltm-black",
       },
       size: {
         default: "h-10 px-4 py-2",

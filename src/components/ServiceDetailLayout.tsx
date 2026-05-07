@@ -109,7 +109,7 @@ export function ServiceDetailLayout({
                   <dt className="text-xs font-semibold uppercase tracking-wider text-ltm-muted">
                     Cost
                   </dt>
-                  <dd className="mt-1 text-base font-semibold text-ltm-navy">
+                  <dd className="mt-1 text-base font-semibold text-ltm-black">
                     {summary.cost}
                   </dd>
                 </div>
@@ -117,7 +117,7 @@ export function ServiceDetailLayout({
                   <dt className="text-xs font-semibold uppercase tracking-wider text-ltm-muted">
                     Visit
                   </dt>
-                  <dd className="mt-1 text-base font-semibold text-ltm-navy">
+                  <dd className="mt-1 text-base font-semibold text-ltm-black">
                     {summary.visit}
                   </dd>
                 </div>
@@ -125,7 +125,7 @@ export function ServiceDetailLayout({
                   <dt className="text-xs font-semibold uppercase tracking-wider text-ltm-muted">
                     Documents required
                   </dt>
-                  <dd className="mt-1 text-base font-semibold text-ltm-navy">
+                  <dd className="mt-1 text-base font-semibold text-ltm-black">
                     {summary.documents}
                   </dd>
                 </div>
@@ -133,7 +133,7 @@ export function ServiceDetailLayout({
                   <dt className="text-xs font-semibold uppercase tracking-wider text-ltm-muted">
                     Last reviewed
                   </dt>
-                  <dd className="mt-1 text-base font-semibold text-ltm-navy">
+                  <dd className="mt-1 text-base font-semibold text-ltm-black">
                     {summary.lastReviewed}
                   </dd>
                 </div>
@@ -141,7 +141,7 @@ export function ServiceDetailLayout({
             )}
 
             <div>
-              <h2 className="text-2xl font-semibold text-ltm-navy">
+              <h2 className="text-2xl font-semibold text-ltm-black">
                 Overview
               </h2>
               <div className="mt-4 max-w-prose space-y-4 text-[18px] leading-relaxed text-ltm-slate">
@@ -155,7 +155,7 @@ export function ServiceDetailLayout({
             </div>
 
             <div>
-              <h2 className="text-2xl font-semibold text-ltm-navy">
+              <h2 className="text-2xl font-semibold text-ltm-black">
                 What you need to bring
               </h2>
               <p className="mt-2 max-w-prose text-sm italic text-ltm-muted">
@@ -181,26 +181,26 @@ export function ServiceDetailLayout({
             </div>
 
             <div>
-              <h2 className="text-2xl font-semibold text-ltm-navy">Pricing</h2>
+              <h2 className="text-2xl font-semibold text-ltm-black">Pricing</h2>
               <div className="mt-4">
                 <PricingSection pricing={pricing} />
               </div>
             </div>
 
             <div>
-              <h2 className="text-2xl font-semibold text-ltm-navy">
+              <h2 className="text-2xl font-semibold text-ltm-black">
                 Step by step
               </h2>
               <ol className="relative mt-6 space-y-8 border-l-2 border-ltm-border pl-8">
                 {process.map((step, i) => (
                   <li key={i} className="relative">
                     <span
-                      className="absolute -left-[2.6rem] top-0 inline-flex h-12 w-12 items-center justify-center rounded-full border-2 border-ltm-navy bg-white text-base font-bold text-ltm-navy shadow-sm"
+                      className="absolute -left-[2.6rem] top-0 inline-flex h-12 w-12 items-center justify-center rounded-full border-2 border-ltm-charcoal bg-white text-base font-bold text-ltm-black shadow-sm"
                       aria-hidden="true"
                     >
                       {i + 1}
                     </span>
-                    <h3 className="text-lg font-semibold text-ltm-navy">
+                    <h3 className="text-lg font-semibold text-ltm-black">
                       {step.title}
                     </h3>
                     <p className="mt-2 text-base leading-relaxed text-ltm-slate">
@@ -231,7 +231,7 @@ export function ServiceDetailLayout({
 
             {faqs.length > 0 && (
               <div>
-                <h2 className="text-2xl font-semibold text-ltm-navy">
+                <h2 className="text-2xl font-semibold text-ltm-black">
                   Frequently asked questions
                 </h2>
                 <Accordion
@@ -265,7 +265,7 @@ export function ServiceDetailLayout({
 
           <aside className="mt-12 lg:col-span-1 lg:mt-0">
             <div className="sticky top-24 space-y-4 rounded-lg border border-ltm-border bg-white p-6 shadow-sm">
-              <h2 className="text-lg font-semibold text-ltm-navy">
+              <h2 className="text-lg font-semibold text-ltm-black">
                 Visit our service center
               </h2>
 

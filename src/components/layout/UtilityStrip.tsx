@@ -3,7 +3,7 @@ import { Mail, Phone } from "lucide-react";
 
 export function UtilityStrip() {
   return (
-    <div className="hidden bg-ltm-navy text-white md:block">
+    <div className="hidden bg-ltm-charcoal text-white/80 md:block">
       <div className="container-ltm flex h-9 items-center justify-between text-sm">
         <p className="truncate">
           Authorized by the Government of Liberia

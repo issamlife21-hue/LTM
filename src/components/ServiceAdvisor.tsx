@@ -239,7 +239,7 @@ export function ServiceAdvisor() {
     <section
       id="service-advisor"
       aria-labelledby="service-advisor-heading"
-      className="bg-ltm-cream py-16"
+      className="bg-ltm-stone py-16"
     >
       <div className="container-ltm">
         <div className="mx-auto max-w-3xl text-center">
@@ -248,7 +248,7 @@ export function ServiceAdvisor() {
           </p>
           <h2
             id="service-advisor-heading"
-            className="mt-2 text-3xl font-semibold text-ltm-navy md:text-4xl"
+            className="mt-2 text-3xl font-semibold text-ltm-black md:text-4xl"
           >
             What do you need today?
           </h2>
@@ -274,7 +274,7 @@ export function ServiceAdvisor() {
                   className={cn(
                     "flex h-6 w-6 items-center justify-center rounded-full border text-[11px]",
                     n === step
-                      ? "border-ltm-navy bg-ltm-navy text-white"
+                      ? "border-ltm-charcoal bg-ltm-black text-white"
                       : n < step
                         ? "border-ltm-success bg-ltm-success/10 text-ltm-success"
                         : "border-ltm-border text-ltm-muted"
@@ -308,7 +308,7 @@ export function ServiceAdvisor() {
             >
               <h3
                 id="advisor-step-1"
-                className="text-lg font-semibold text-ltm-navy"
+                className="text-lg font-semibold text-ltm-black"
               >
                 What are you here to do?
               </h3>
@@ -318,11 +318,11 @@ export function ServiceAdvisor() {
                     <button
                       type="button"
                       onClick={() => setServiceId(s.id)}
-                      className="flex w-full items-center gap-3 rounded-lg border border-ltm-border bg-white px-4 py-3 text-left text-sm font-medium text-ltm-slate transition-colors hover:border-ltm-navy hover:bg-ltm-bg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ltm-navy focus-visible:ring-offset-2"
+                      className="flex w-full items-center gap-3 rounded-lg border border-ltm-border bg-white px-4 py-3 text-left text-sm font-medium text-ltm-slate transition-colors hover:border-ltm-charcoal hover:bg-ltm-stone focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ltm-navy focus-visible:ring-offset-2"
                     >
                       <span
                         aria-hidden="true"
-                        className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-ltm-navy text-white"
+                        className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-ltm-black text-white"
                       >
                         <s.icon className="h-4 w-4" />
                       </span>
@@ -348,14 +348,14 @@ export function ServiceAdvisor() {
               <button
                 type="button"
                 onClick={() => setServiceId(null)}
-                className="mb-3 inline-flex items-center gap-1 text-sm font-medium text-ltm-navy hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ltm-navy focus-visible:ring-offset-2"
+                className="mb-3 inline-flex items-center gap-1 text-sm font-medium text-ltm-black hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ltm-navy focus-visible:ring-offset-2"
               >
                 <ArrowLeft className="h-4 w-4" aria-hidden="true" />
                 Back
               </button>
               <h3
                 id="advisor-step-2"
-                className="text-lg font-semibold text-ltm-navy"
+                className="text-lg font-semibold text-ltm-black"
               >
                 What&rsquo;s your situation?
               </h3>
@@ -366,7 +366,7 @@ export function ServiceAdvisor() {
                     <button
                       type="button"
                       onClick={() => setSituationId(sit.id)}
-                      className="flex w-full flex-col gap-1 rounded-lg border border-ltm-border bg-white px-4 py-3 text-left transition-colors hover:border-ltm-navy hover:bg-ltm-bg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ltm-navy focus-visible:ring-offset-2"
+                      className="flex w-full flex-col gap-1 rounded-lg border border-ltm-border bg-white px-4 py-3 text-left transition-colors hover:border-ltm-charcoal hover:bg-ltm-stone focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ltm-navy focus-visible:ring-offset-2"
                     >
                       <span className="font-medium text-ltm-slate">
                         {sit.label}
@@ -393,7 +393,7 @@ export function ServiceAdvisor() {
               </p>
               <h3
                 id="advisor-step-3"
-                className="mt-1 text-2xl font-semibold text-ltm-navy"
+                className="mt-1 text-2xl font-semibold text-ltm-black"
               >
                 {situation.label}
               </h3>
@@ -402,19 +402,19 @@ export function ServiceAdvisor() {
               </p>
 
               <dl className="mt-5 grid gap-3 sm:grid-cols-2">
-                <div className="rounded-lg border border-ltm-border bg-ltm-bg p-4">
+                <div className="rounded-lg border border-ltm-border bg-ltm-stone p-4">
                   <dt className="text-xs font-semibold uppercase tracking-wider text-ltm-muted">
                     What it costs
                   </dt>
-                  <dd className="mt-1 text-base font-semibold text-ltm-navy">
+                  <dd className="mt-1 text-base font-semibold text-ltm-black">
                     {situation.price}
                   </dd>
                 </div>
-                <div className="rounded-lg border border-ltm-border bg-ltm-bg p-4">
+                <div className="rounded-lg border border-ltm-border bg-ltm-stone p-4">
                   <dt className="text-xs font-semibold uppercase tracking-wider text-ltm-muted">
                     How long it takes
                   </dt>
-                  <dd className="mt-1 text-base font-semibold text-ltm-navy">
+                  <dd className="mt-1 text-base font-semibold text-ltm-black">
                     {situation.time}
                   </dd>
                 </div>

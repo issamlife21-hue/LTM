@@ -154,7 +154,7 @@ export function SiteSearch({
                   setOpen(false);
                   onNavigate?.();
                 }}
-                className="font-medium text-ltm-navy hover:underline"
+                className="font-medium text-ltm-black hover:underline"
               >
                 FAQ page
               </Link>
@@ -173,14 +173,14 @@ export function SiteSearch({
                       setOpen(false);
                       onNavigate?.();
                     }}
-                    className="flex flex-col gap-0.5 px-4 py-3 hover:bg-ltm-bg focus-visible:bg-ltm-bg focus-visible:outline-none"
+                    className="flex flex-col gap-0.5 px-4 py-3 hover:bg-ltm-stone focus-visible:bg-ltm-stone focus-visible:outline-none"
                   >
                     <span className="flex items-center gap-2">
                       <span className="text-[11px] font-semibold uppercase tracking-wider text-ltm-muted">
                         {hit.kind === "faq" ? "Question" : "Pricing"}
                       </span>
                     </span>
-                    <span className="text-sm font-medium text-ltm-navy">
+                    <span className="text-sm font-medium text-ltm-black">
                       {hit.title}
                     </span>
                     <span className="text-xs text-ltm-muted">

@@ -35,12 +35,12 @@ function InfoCard({
     <div className="rounded-lg border border-ltm-border bg-white p-6 shadow-sm">
       <div className="flex items-center gap-3">
         <span
-          className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-ltm-navy text-white"
+          className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-ltm-black text-white"
           aria-hidden="true"
         >
           <Icon className="h-5 w-5" />
         </span>
-        <h2 className="text-lg font-semibold text-ltm-navy">{title}</h2>
+        <h2 className="text-lg font-semibold text-ltm-black">{title}</h2>
       </div>
       <div className="mt-4 text-sm leading-relaxed text-ltm-slate">
         {children}
@@ -81,7 +81,7 @@ export default function ContactPage() {
                 href={MAPS_SEARCH_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-3 inline-flex items-center gap-1 text-sm font-medium text-ltm-navy hover:underline"
+                className="mt-3 inline-flex items-center gap-1 text-sm font-medium text-ltm-black hover:underline"
               >
                 Open in Google Maps →
               </Link>
@@ -92,7 +92,7 @@ export default function ContactPage() {
                 <li>
                   <Link
                     href="tel:+231888900070"
-                    className="hover:text-ltm-navy hover:underline"
+                    className="hover:text-ltm-black hover:underline"
                   >
                     0888 900 070
                   </Link>
@@ -100,7 +100,7 @@ export default function ContactPage() {
                 <li>
                   <Link
                     href="tel:+231770900080"
-                    className="hover:text-ltm-navy hover:underline"
+                    className="hover:text-ltm-black hover:underline"
                   >
                     0770 900 080
                   </Link>
@@ -108,7 +108,7 @@ export default function ContactPage() {
                 <li>
                   <Link
                     href="tel:+231770900090"
-                    className="hover:text-ltm-navy hover:underline"
+                    className="hover:text-ltm-black hover:underline"
                   >
                     0770 900 090
                   </Link>
@@ -123,7 +123,7 @@ export default function ContactPage() {
               <p>
                 <Link
                   href="mailto:Ltm@liberiatraffic.com"
-                  className="font-medium text-ltm-navy hover:underline"
+                  className="font-medium text-ltm-black hover:underline"
                 >
                   Ltm@liberiatraffic.com
                 </Link>
@@ -132,7 +132,7 @@ export default function ContactPage() {
                 href={FACEBOOK_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-3 inline-flex items-center gap-2 text-sm font-medium text-ltm-navy hover:underline"
+                className="mt-3 inline-flex items-center gap-2 text-sm font-medium text-ltm-black hover:underline"
               >
                 <Facebook className="h-4 w-4" aria-hidden="true" />
                 Liberia Traffic Management on Facebook

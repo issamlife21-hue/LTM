@@ -134,7 +134,7 @@ export default function HomePage() {
         }}
       />
       {/* ── Section 1 — Hero ─────────────────────────────────────── */}
-      <section className="relative h-[600px] overflow-hidden bg-ltm-navy md:h-[700px]">
+      <section className="relative h-[600px] overflow-hidden bg-ltm-black md:h-[700px]">
         <HeroCarousel />
 
         <div className="container-ltm absolute inset-x-0 bottom-0 top-0 z-10 flex flex-col justify-end pb-16 md:pb-20">
@@ -165,21 +165,21 @@ export default function HomePage() {
       </section>
 
       {/* ── Section 2 — By the numbers ───────────────────────────── */}
-      <section className="bg-white py-14" aria-label="LTM at a glance">
+      <section className="bg-ltm-paper py-14" aria-label="LTM at a glance">
         <div className="container-ltm">
           <ul className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
             {TRUST_STATS.map((stat) => (
               <li
                 key={stat.headline}
-                className="flex flex-col items-start gap-2 border-l-4 border-ltm-navy pl-4 sm:items-start"
+                className="flex flex-col items-start gap-2 border-l-4 border-ltm-charcoal pl-4 sm:items-start"
               >
                 <span
-                  className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-ltm-navy/10 text-ltm-navy"
+                  className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-ltm-black/10 text-ltm-black"
                   aria-hidden="true"
                 >
                   <stat.icon className="h-4 w-4" />
                 </span>
-                <p className="text-2xl font-bold leading-tight text-ltm-navy md:text-3xl">
+                <p className="text-2xl font-bold leading-tight text-ltm-black md:text-3xl">
                   {stat.headline}
                 </p>
                 <p className="text-sm leading-relaxed text-ltm-slate">
@@ -195,10 +195,10 @@ export default function HomePage() {
       <ServiceAdvisor />
 
       {/* ── Section 3 — Services grid ────────────────────────────── */}
-      <section className="bg-ltm-bg py-20">
+      <section className="bg-ltm-stone py-20">
         <div className="container-ltm">
           <div className="mx-auto max-w-2xl text-center">
-            <h2 className="text-3xl font-semibold text-ltm-navy md:text-4xl">
+            <h2 className="text-3xl font-semibold text-ltm-black md:text-4xl">
               Our Services
             </h2>
             <p className="mt-3 text-base text-ltm-muted md:text-lg">
@@ -214,10 +214,10 @@ export default function HomePage() {
       </section>
 
       {/* ── Section 4 — How it works ─────────────────────────────── */}
-      <section className="bg-white py-20">
+      <section className="bg-ltm-paper py-20">
         <div className="container-ltm">
           <div className="mx-auto max-w-2xl text-center">
-            <h2 className="text-3xl font-semibold text-ltm-navy md:text-4xl">
+            <h2 className="text-3xl font-semibold text-ltm-black md:text-4xl">
               How it works
             </h2>
             <p className="mt-3 text-base text-ltm-muted md:text-lg">
@@ -236,10 +236,10 @@ export default function HomePage() {
                     className="absolute left-[calc(50%+2rem)] top-8 hidden w-[calc(100%-4rem)] border-t-2 border-dashed border-ltm-border md:block"
                   />
                 )}
-                <span className="relative z-10 inline-flex h-16 w-16 items-center justify-center rounded-full bg-ltm-navy text-2xl font-bold text-white">
+                <span className="relative z-10 inline-flex h-16 w-16 items-center justify-center rounded-full bg-ltm-black text-2xl font-bold text-white">
                   {i + 1}
                 </span>
-                <h3 className="mt-4 text-lg font-semibold text-ltm-navy">
+                <h3 className="mt-4 text-lg font-semibold text-ltm-black">
                   {step.title}
                 </h3>
                 <p className="mt-2 max-w-xs text-sm leading-relaxed text-ltm-slate">
@@ -252,7 +252,7 @@ export default function HomePage() {
       </section>
 
       {/* ── Not sure where to start banner ───────────────────────── */}
-      <section className="bg-ltm-navy text-white" aria-label="Get help">
+      <section className="bg-ltm-black text-white" aria-label="Get help">
         <div className="container-ltm flex flex-col items-start gap-3 py-6 text-sm md:flex-row md:items-center md:justify-between md:text-base">
           <p className="leading-relaxed">
             Not sure which service you need?{" "}
@@ -282,16 +282,16 @@ export default function HomePage() {
       </section>
 
       {/* ── Section 5 — Quick info row ───────────────────────────── */}
-      <section className="bg-ltm-bg py-16">
+      <section className="bg-ltm-paper py-16">
         <div className="container-ltm grid gap-6 lg:grid-cols-3">
           <div className="rounded-lg border border-ltm-border bg-white p-8">
             <span
-              className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-ltm-navy text-white"
+              className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-ltm-black text-white"
               aria-hidden="true"
             >
               <Clock className="h-5 w-5" />
             </span>
-            <h3 className="mt-4 text-lg font-semibold text-ltm-navy">Hours</h3>
+            <h3 className="mt-4 text-lg font-semibold text-ltm-black">Hours</h3>
             <ul className="mt-3 space-y-1 text-sm text-ltm-slate">
               <li>Monday to Friday: 8:00 AM to 5:00 PM</li>
               <li>Saturday: 9:00 AM to 1:00 PM</li>
@@ -300,12 +300,12 @@ export default function HomePage() {
           </div>
           <div className="rounded-lg border border-ltm-border bg-white p-8">
             <span
-              className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-ltm-navy text-white"
+              className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-ltm-black text-white"
               aria-hidden="true"
             >
               <MapPin className="h-5 w-5" />
             </span>
-            <h3 className="mt-4 text-lg font-semibold text-ltm-navy">
+            <h3 className="mt-4 text-lg font-semibold text-ltm-black">
               Address
             </h3>
             <address className="mt-3 space-y-1 text-sm not-italic text-ltm-slate">
@@ -315,7 +315,7 @@ export default function HomePage() {
             </address>
             <Link
               href="/contact"
-              className="mt-3 inline-flex items-center gap-1 text-sm font-medium text-ltm-navy hover:underline"
+              className="mt-3 inline-flex items-center gap-1 text-sm font-medium text-ltm-black hover:underline"
             >
               Get directions
               <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
@@ -323,17 +323,17 @@ export default function HomePage() {
           </div>
           <div className="rounded-lg border border-ltm-border bg-white p-8">
             <span
-              className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-ltm-navy text-white"
+              className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-ltm-black text-white"
               aria-hidden="true"
             >
               <Phone className="h-5 w-5" />
             </span>
-            <h3 className="mt-4 text-lg font-semibold text-ltm-navy">Phone</h3>
+            <h3 className="mt-4 text-lg font-semibold text-ltm-black">Phone</h3>
             <ul className="mt-3 space-y-1 text-sm text-ltm-slate">
               <li>
                 <Link
                   href="tel:+231888900070"
-                  className="hover:text-ltm-navy hover:underline"
+                  className="hover:text-ltm-black hover:underline"
                 >
                   0888 900 070
                 </Link>
@@ -341,7 +341,7 @@ export default function HomePage() {
               <li>
                 <Link
                   href="tel:+231770900080"
-                  className="hover:text-ltm-navy hover:underline"
+                  className="hover:text-ltm-black hover:underline"
                 >
                   0770 900 080
                 </Link>
@@ -349,7 +349,7 @@ export default function HomePage() {
               <li>
                 <Link
                   href="tel:+231770900090"
-                  className="hover:text-ltm-navy hover:underline"
+                  className="hover:text-ltm-black hover:underline"
                 >
                   0770 900 090
                 </Link>
@@ -360,10 +360,10 @@ export default function HomePage() {
       </section>
 
       {/* ── Section 6 — Photo gallery ────────────────────────────── */}
-      <section className="bg-ltm-cream py-20">
+      <section className="bg-ltm-stone py-20">
         <div className="container-ltm">
           <div className="mx-auto max-w-2xl text-center">
-            <h2 className="text-3xl font-semibold text-ltm-navy md:text-4xl">
+            <h2 className="text-3xl font-semibold text-ltm-black md:text-4xl">
               Our facility
             </h2>
             <p className="mt-3 text-base text-ltm-muted md:text-lg">
@@ -391,10 +391,10 @@ export default function HomePage() {
       </section>
 
       {/* ── Section 7 — FAQ teaser ───────────────────────────────── */}
-      <section className="bg-ltm-bg py-20">
+      <section className="bg-ltm-stone py-20">
         <div className="container-ltm">
           <div className="mx-auto max-w-2xl text-center">
-            <h2 className="text-3xl font-semibold text-ltm-navy md:text-4xl">
+            <h2 className="text-3xl font-semibold text-ltm-black md:text-4xl">
               Common questions
             </h2>
             <p className="mt-3 text-base text-ltm-muted md:text-lg">

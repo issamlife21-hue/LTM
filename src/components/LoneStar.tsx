@@ -6,7 +6,7 @@ type Props = {
 export function LoneStar({ size = 20, className = "" }: Props) {
   return (
     <span
-      className={`inline-flex items-center justify-center bg-ltm-navy ${className}`}
+      className={`inline-flex items-center justify-center bg-ltm-black ${className}`}
       style={{ width: size, height: size }}
       aria-hidden="true"
     >

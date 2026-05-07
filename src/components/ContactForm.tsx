@@ -61,7 +61,7 @@ export function ContactForm() {
 
   return (
     <div className="rounded-lg border border-ltm-border bg-white p-6 shadow-sm sm:p-8">
-      <h2 className="text-2xl font-semibold text-ltm-navy">
+      <h2 className="text-2xl font-semibold text-ltm-black">
         Send us a message
       </h2>
       <p className="mt-1 text-sm text-ltm-muted">
@@ -79,7 +79,7 @@ export function ContactForm() {
               aria-hidden="true"
             />
             <div className="space-y-2">
-              <p className="text-base font-semibold text-ltm-navy">
+              <p className="text-base font-semibold text-ltm-black">
                 We received your message.
               </p>
               <p className="leading-relaxed">
@@ -87,7 +87,7 @@ export function ContactForm() {
                 urgent matters, call our service center at{" "}
                 <a
                   href="tel:+231770900080"
-                  className="font-semibold text-ltm-navy hover:underline"
+                  className="font-semibold text-ltm-black hover:underline"
                 >
                   0770 900 080
                 </a>{" "}
@@ -96,7 +96,7 @@ export function ContactForm() {
               <button
                 type="button"
                 onClick={() => setSubmitted(false)}
-                className="text-sm font-medium text-ltm-navy underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ltm-navy focus-visible:ring-offset-2"
+                className="text-sm font-medium text-ltm-black underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ltm-navy focus-visible:ring-offset-2"
               >
                 Send another message
               </button>

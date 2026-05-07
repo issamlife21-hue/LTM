@@ -45,7 +45,7 @@ function ProgressBar({ current, total }: { current: number; total: number }) {
       className="h-2 w-full overflow-hidden rounded-full bg-ltm-border"
     >
       <div
-        className="h-full bg-ltm-navy transition-all duration-300"
+        className="h-full bg-ltm-black transition-all duration-300"
         style={{ width: `${pct}%` }}
       />
     </div>
@@ -76,7 +76,7 @@ function OptionButton({
       className={cn(
         "flex w-full items-start gap-3 rounded-lg border-2 px-4 py-3 text-left text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ltm-navy focus-visible:ring-offset-2 sm:text-base",
         state === "idle" &&
-          "border-ltm-border bg-white text-ltm-slate hover:border-ltm-navy hover:bg-ltm-bg",
+          "border-ltm-border bg-white text-ltm-slate hover:border-ltm-charcoal hover:bg-ltm-stone",
         state === "selected-correct" &&
           "border-ltm-success bg-ltm-success/10 text-ltm-slate",
         state === "selected-wrong" &&
@@ -93,7 +93,7 @@ function OptionButton({
             ? "bg-ltm-success text-white"
             : state === "selected-wrong"
               ? "bg-ltm-red text-white"
-              : "bg-ltm-bg text-ltm-navy"
+              : "bg-ltm-stone text-ltm-black"
         )}
       >
         {letter}
@@ -113,24 +113,24 @@ function IntroScreen({ onStart }: { onStart: () => void }) {
           </CardHeader>
           <CardContent>
             <ul className="grid gap-3 sm:grid-cols-3">
-              <li className="rounded-lg border border-ltm-border bg-ltm-bg p-4 text-center">
-                <p className="text-2xl font-bold text-ltm-navy">
+              <li className="rounded-lg border border-ltm-border bg-ltm-stone p-4 text-center">
+                <p className="text-2xl font-bold text-ltm-black">
                   {practiceTestMeta.totalQuestions}
                 </p>
                 <p className="text-xs uppercase tracking-wider text-ltm-muted">
                   Questions
                 </p>
               </li>
-              <li className="rounded-lg border border-ltm-border bg-ltm-bg p-4 text-center">
-                <p className="text-base font-semibold text-ltm-navy">
+              <li className="rounded-lg border border-ltm-border bg-ltm-stone p-4 text-center">
+                <p className="text-base font-semibold text-ltm-black">
                   Multiple choice
                 </p>
                 <p className="text-xs uppercase tracking-wider text-ltm-muted">
                   Format
                 </p>
               </li>
-              <li className="rounded-lg border border-ltm-border bg-ltm-bg p-4 text-center">
-                <p className="text-base font-semibold text-ltm-navy">
+              <li className="rounded-lg border border-ltm-border bg-ltm-stone p-4 text-center">
+                <p className="text-base font-semibold text-ltm-black">
                   Instant feedback
                 </p>
                 <p className="text-xs uppercase tracking-wider text-ltm-muted">
@@ -141,7 +141,7 @@ function IntroScreen({ onStart }: { onStart: () => void }) {
           </CardContent>
         </Card>
 
-        <div className="rounded-lg border border-ltm-border bg-ltm-bg p-4 text-sm italic leading-relaxed text-ltm-muted">
+        <div className="rounded-lg border border-ltm-border bg-ltm-stone p-4 text-sm italic leading-relaxed text-ltm-muted">
           {practiceTestMeta.disclaimer}
         </div>
 
@@ -237,7 +237,7 @@ function QuizScreen({
             </div>
 
             {selected && (
-              <div className="flex items-start gap-3 rounded-lg border border-ltm-border bg-ltm-bg p-4">
+              <div className="flex items-start gap-3 rounded-lg border border-ltm-border bg-ltm-stone p-4">
                 <Lightbulb
                   className="mt-0.5 h-4 w-4 shrink-0 text-ltm-warning"
                   aria-hidden="true"
@@ -299,7 +299,7 @@ function ReviewScreen({
                 <p className="text-sm uppercase tracking-wider text-ltm-muted">
                   Your score
                 </p>
-                <p className="mt-1 text-4xl font-bold text-ltm-navy sm:text-5xl">
+                <p className="mt-1 text-4xl font-bold text-ltm-black sm:text-5xl">
                   {correct} <span className="text-ltm-muted">/</span> {total}
                 </p>
                 <p className="mt-1 text-lg text-ltm-slate">{pct}%</p>
@@ -349,7 +349,7 @@ function ReviewScreen({
               </span>
             </div>
 
-            <p className="rounded-md border border-ltm-border bg-ltm-bg p-3 text-xs italic leading-relaxed text-ltm-muted">
+            <p className="rounded-md border border-ltm-border bg-ltm-stone p-3 text-xs italic leading-relaxed text-ltm-muted">
               You answered {correct} of {total} correctly. This practice test
               is a study aid only. It does not guarantee a passing score on
               the official examination, and it is not the official examination
@@ -360,13 +360,13 @@ function ReviewScreen({
 
         <div className="space-y-3">
           <div className="flex flex-wrap items-center justify-between gap-3">
-            <h2 className="text-xl font-semibold text-ltm-navy">
+            <h2 className="text-xl font-semibold text-ltm-black">
               {showAll ? "All questions" : "Questions you missed"}
             </h2>
             <button
               type="button"
               onClick={() => setShowAll((v) => !v)}
-              className="rounded-md text-sm font-medium text-ltm-navy underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ltm-navy focus-visible:ring-offset-2"
+              className="rounded-md text-sm font-medium text-ltm-black underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ltm-navy focus-visible:ring-offset-2"
             >
               {showAll ? "Show only missed" : "Show all questions"}
             </button>
@@ -419,7 +419,7 @@ function ReviewScreen({
                         </dd>
                       </div>
                     </dl>
-                    <p className="mt-3 rounded-md bg-ltm-bg p-3 text-sm leading-relaxed text-ltm-slate">
+                    <p className="mt-3 rounded-md bg-ltm-stone p-3 text-sm leading-relaxed text-ltm-slate">
                       {q.explanation}
                     </p>
                   </li>

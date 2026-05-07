@@ -56,7 +56,7 @@ export function HeroCarousel() {
 
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ltm-navy/85 via-ltm-navy/40 to-transparent"
+        className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ltm-black/85 via-ltm-black/40 to-transparent"
       />
 
       <div className="absolute bottom-6 left-1/2 z-20 flex -translate-x-1/2 gap-2">
@@ -68,7 +68,7 @@ export function HeroCarousel() {
             aria-label={`Go to slide ${i + 1} of ${heroPhotos.length}`}
             aria-current={i === index}
             className={cn(
-              "h-2 rounded-full transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-ltm-navy",
+              "h-2 rounded-full transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-ltm-black",
               i === index
                 ? "w-8 bg-white"
                 : "w-2 bg-white/50 hover:bg-white/75"

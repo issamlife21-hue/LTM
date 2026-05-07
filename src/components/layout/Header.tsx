@@ -1,10 +1,10 @@
 "use client";
 
 import * as React from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { ChevronDown, Menu, Phone } from "lucide-react";
 
-import { LoneStar } from "@/components/LoneStar";
 import { SiteSearch } from "@/components/SiteSearch";
 import { Button } from "@/components/ui/button";
 import {
@@ -30,6 +30,9 @@ const navLinks = [
   { label: "FAQ", href: "/faq" },
   { label: "Contact", href: "/contact" },
 ];
+
+const NAV_LINK_BASE =
+  "rounded-md px-2 py-2 text-sm font-medium text-white/85 transition-colors hover:text-ltm-sand focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ltm-navy focus-visible:ring-offset-2 focus-visible:ring-offset-ltm-black";
 
 function ServicesDropdown() {
   const [open, setOpen] = React.useState(false);
@@ -57,7 +60,10 @@ function ServicesDropdown() {
         aria-haspopup="menu"
         aria-expanded={open}
         onClick={() => setOpen((v) => !v)}
-        className="inline-flex items-center gap-1 rounded-md px-2 py-2 text-sm font-medium text-ltm-slate hover:text-ltm-navy focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ltm-navy focus-visible:ring-offset-2"
+        className={cn(
+          NAV_LINK_BASE,
+          "inline-flex items-center gap-1"
+        )}
       >
         Services
         <ChevronDown
@@ -71,14 +77,14 @@ function ServicesDropdown() {
       {open && (
         <div
           role="menu"
-          className="absolute left-0 top-full z-50 mt-1 w-56 rounded-lg border border-ltm-border bg-white py-2 shadow-md"
+          className="absolute left-0 top-full z-50 mt-1 w-56 rounded-lg border border-ltm-graphite bg-ltm-charcoal py-2 text-white shadow-md"
         >
           {services.map((s) => (
             <Link
               key={s.href}
               href={s.href}
               role="menuitem"
-              className="block px-4 py-2 text-sm text-ltm-slate hover:bg-ltm-bg hover:text-ltm-navy focus-visible:bg-ltm-bg focus-visible:outline-none"
+              className="block px-4 py-2 text-sm text-white/85 transition-colors hover:text-ltm-sand focus-visible:bg-ltm-graphite focus-visible:outline-none"
               onClick={() => setOpen(false)}
             >
               {s.label}
@@ -94,20 +100,27 @@ export function Header() {
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
   return (
-    <header className="sticky top-0 z-40 border-b border-ltm-border bg-white">
+    <header className="sticky top-0 z-40 border-b border-ltm-charcoal bg-ltm-black/95 text-white backdrop-blur supports-[backdrop-filter]:bg-ltm-black/85">
       <div className="container-ltm flex h-[72px] items-center justify-between gap-4">
         <Link
           href="/"
           aria-label="Liberia Traffic Management home"
-          className="flex items-center gap-3 rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ltm-navy focus-visible:ring-offset-2"
+          className="flex items-center gap-3 rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ltm-navy focus-visible:ring-offset-2 focus-visible:ring-offset-ltm-black"
         >
-          <LoneStar size={36} className="rounded-sm" />
-          <span className="flex flex-col leading-tight">
-            <span className="text-2xl font-bold tracking-tight text-ltm-navy">
-              LTM
+          <Image
+            src="/logo/ltm-logo.svg"
+            alt="LTM official emblem"
+            width={40}
+            height={40}
+            className="h-10 w-10 object-contain"
+            priority
+          />
+          <span className="hidden flex-col leading-tight md:flex">
+            <span className="font-serif text-sm tracking-wider text-white">
+              LIBERIA TRAFFIC
             </span>
-            <span className="text-xs text-ltm-muted">
-              Liberia Traffic Management
+            <span className="font-serif text-sm tracking-wider text-white">
+              MANAGEMENT
             </span>
           </span>
         </Link>
@@ -116,41 +129,23 @@ export function Header() {
           aria-label="Primary"
           className="hidden items-center gap-1 lg:flex"
         >
-          <Link
-            href="/"
-            className="rounded-md px-2 py-2 text-sm font-medium text-ltm-slate hover:text-ltm-navy"
-          >
+          <Link href="/" className={NAV_LINK_BASE}>
             Home
           </Link>
           <ServicesDropdown />
-          <Link
-            href="/pricing"
-            className="rounded-md px-2 py-2 text-sm font-medium text-ltm-slate hover:text-ltm-navy"
-          >
+          <Link href="/pricing" className={NAV_LINK_BASE}>
             Pricing
           </Link>
-          <Link
-            href="/road-signs"
-            className="rounded-md px-2 py-2 text-sm font-medium text-ltm-slate hover:text-ltm-navy"
-          >
+          <Link href="/road-signs" className={NAV_LINK_BASE}>
             Road Signs
           </Link>
-          <Link
-            href="/practice-test"
-            className="rounded-md px-2 py-2 text-sm font-medium text-ltm-slate hover:text-ltm-navy"
-          >
+          <Link href="/practice-test" className={NAV_LINK_BASE}>
             Practice Test
           </Link>
-          <Link
-            href="/faq"
-            className="rounded-md px-2 py-2 text-sm font-medium text-ltm-slate hover:text-ltm-navy"
-          >
+          <Link href="/faq" className={NAV_LINK_BASE}>
             FAQ
           </Link>
-          <Link
-            href="/contact"
-            className="rounded-md px-2 py-2 text-sm font-medium text-ltm-slate hover:text-ltm-navy"
-          >
+          <Link href="/contact" className={NAV_LINK_BASE}>
             Contact
           </Link>
         </nav>
@@ -158,10 +153,10 @@ export function Header() {
         <div className="hidden items-center gap-3 lg:flex">
           <SiteSearch
             className="hidden w-56 xl:block"
-            inputClassName="h-9 text-sm"
+            inputClassName="h-9 border-ltm-graphite bg-ltm-charcoal text-sm text-white placeholder:text-white/60"
             placeholder="Search…"
           />
-          <Button asChild>
+          <Button asChild variant="whitePrimary">
             <Link href="tel:+231770900080">
               <Phone className="h-4 w-4" aria-hidden="true" />
               Call Us
@@ -174,7 +169,7 @@ export function Header() {
             <button
               type="button"
               aria-label="Open menu"
-              className="inline-flex h-10 w-10 items-center justify-center rounded-md text-ltm-navy hover:bg-ltm-bg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ltm-navy focus-visible:ring-offset-2 lg:hidden"
+              className="inline-flex h-10 w-10 items-center justify-center rounded-md text-white hover:text-ltm-sand focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ltm-navy focus-visible:ring-offset-2 focus-visible:ring-offset-ltm-black lg:hidden"
             >
               <Menu className="h-6 w-6" aria-hidden="true" />
             </button>
@@ -199,7 +194,7 @@ export function Header() {
                   key={l.href}
                   href={l.href}
                   onClick={() => setMobileOpen(false)}
-                  className="rounded-md px-4 py-3 text-base font-medium text-ltm-slate hover:bg-ltm-bg hover:text-ltm-navy"
+                  className="rounded-md px-4 py-3 text-base font-medium text-ltm-slate hover:bg-ltm-stone hover:text-ltm-black"
                 >
                   {l.label}
                 </Link>
@@ -212,7 +207,7 @@ export function Header() {
                   key={s.href}
                   href={s.href}
                   onClick={() => setMobileOpen(false)}
-                  className="rounded-md px-4 py-2.5 text-sm text-ltm-slate hover:bg-ltm-bg hover:text-ltm-navy"
+                  className="rounded-md px-4 py-2.5 text-sm text-ltm-slate hover:bg-ltm-stone hover:text-ltm-black"
                 >
                   {s.label}
                 </Link>
@@ -223,7 +218,7 @@ export function Header() {
                   key={l.href}
                   href={l.href}
                   onClick={() => setMobileOpen(false)}
-                  className="rounded-md px-4 py-3 text-base font-medium text-ltm-slate hover:bg-ltm-bg hover:text-ltm-navy"
+                  className="rounded-md px-4 py-3 text-base font-medium text-ltm-slate hover:bg-ltm-stone hover:text-ltm-black"
                 >
                   {l.label}
                 </Link>

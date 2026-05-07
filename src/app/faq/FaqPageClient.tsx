@@ -50,7 +50,7 @@ function FAQList({ items, query }: { items: FAQ[]; query: string }) {
             Try a different word, or{" "}
             <Link
               href="/contact"
-              className="font-medium text-ltm-navy hover:underline"
+              className="font-medium text-ltm-black hover:underline"
             >
               contact us directly
             </Link>{" "}
@@ -111,7 +111,7 @@ export function FAQPageClient() {
       />
 
       <section className="container-ltm py-10">
-        <blockquote className="mb-8 max-w-2xl border-l-4 border-ltm-red pl-4 font-display text-base italic text-ltm-navy">
+        <blockquote className="mb-8 max-w-2xl border-l-4 border-ltm-red pl-4 font-display text-base italic text-ltm-black">
           &ldquo;The Love of Liberty Brought Us Here&rdquo;
           <footer className="mt-1 text-xs not-italic text-ltm-muted">
             National motto of the Republic of Liberia, 1847.
@@ -139,7 +139,7 @@ export function FAQPageClient() {
         </div>
 
         <Tabs defaultValue="all" className="w-full">
-          <TabsList className="mb-6 flex h-auto w-full flex-wrap justify-start gap-1 bg-ltm-bg p-1">
+          <TabsList className="mb-6 flex h-auto w-full flex-wrap justify-start gap-1 bg-ltm-stone p-1">
             <TabsTrigger value="all" className="text-xs sm:text-sm">
               All
             </TabsTrigger>

@@ -217,7 +217,7 @@ export function PricingPageClient() {
         </div>
 
         <Tabs defaultValue="registration" className="w-full">
-          <TabsList className="mb-6 flex h-auto w-full flex-wrap justify-start gap-1 bg-ltm-bg p-1 print:hidden">
+          <TabsList className="mb-6 flex h-auto w-full flex-wrap justify-start gap-1 bg-ltm-stone p-1 print:hidden">
             {pricingTabs.map((tab) => (
               <TabsTrigger
                 key={tab.id}
@@ -231,7 +231,7 @@ export function PricingPageClient() {
 
           <div className="print:print-stack">
             <TabsContent value="registration" className="print:!block">
-              <h2 className="mb-4 hidden text-xl font-semibold text-ltm-navy print:block">
+              <h2 className="mb-4 hidden text-xl font-semibold text-ltm-black print:block">
                 Vehicle Registration
               </h2>
               <PriceTable
@@ -242,7 +242,7 @@ export function PricingPageClient() {
             </TabsContent>
 
             <TabsContent value="license" className="print:!block">
-              <h2 className="mb-4 hidden text-xl font-semibold text-ltm-navy print:block">
+              <h2 className="mb-4 hidden text-xl font-semibold text-ltm-black print:block">
                 Driver License
               </h2>
               <PriceTable
@@ -253,7 +253,7 @@ export function PricingPageClient() {
             </TabsContent>
 
             <TabsContent value="driving-test" className="print:!block">
-              <h2 className="mb-4 hidden text-xl font-semibold text-ltm-navy print:block">
+              <h2 className="mb-4 hidden text-xl font-semibold text-ltm-black print:block">
                 Driving Test
               </h2>
               <PriceTable
@@ -264,7 +264,7 @@ export function PricingPageClient() {
             </TabsContent>
 
             <TabsContent value="inspection" className="print:!block">
-              <h2 className="mb-4 hidden text-xl font-semibold text-ltm-navy print:block">
+              <h2 className="mb-4 hidden text-xl font-semibold text-ltm-black print:block">
                 Vehicle Inspection
               </h2>
               <PriceTable
@@ -275,7 +275,7 @@ export function PricingPageClient() {
             </TabsContent>
 
             <TabsContent value="towing" className="print:!block">
-              <h2 className="mb-4 hidden text-xl font-semibold text-ltm-navy print:block">
+              <h2 className="mb-4 hidden text-xl font-semibold text-ltm-black print:block">
                 Towing
               </h2>
               <PriceTable
@@ -287,7 +287,7 @@ export function PricingPageClient() {
             </TabsContent>
 
             <TabsContent value="impoundment" className="print:!block">
-              <h2 className="mb-4 hidden text-xl font-semibold text-ltm-navy print:block">
+              <h2 className="mb-4 hidden text-xl font-semibold text-ltm-black print:block">
                 Impoundment
               </h2>
               <PriceTable
@@ -299,7 +299,7 @@ export function PricingPageClient() {
             </TabsContent>
 
             <TabsContent value="plates" className="print:!block">
-              <h2 className="mb-4 hidden text-xl font-semibold text-ltm-navy print:block">
+              <h2 className="mb-4 hidden text-xl font-semibold text-ltm-black print:block">
                 License Plates
               </h2>
               <div className="grid gap-6 md:grid-cols-2">
@@ -308,7 +308,7 @@ export function PricingPageClient() {
                     <CardTitle>Test Plate</CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <p className="text-3xl font-bold text-ltm-navy">
+                    <p className="text-3xl font-bold text-ltm-black">
                       {formatUsd(licensePlateCharges.testPlate)}
                     </p>
                     <p className="mt-2 text-sm text-ltm-muted">
@@ -321,7 +321,7 @@ export function PricingPageClient() {
                     <CardTitle>Customized Plate</CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <p className="text-3xl font-bold text-ltm-navy">
+                    <p className="text-3xl font-bold text-ltm-black">
                       {formatUsd(licensePlateCharges.customizedPlatePerCharacter)}
                       <span className="ml-2 text-base font-normal text-ltm-muted">
                         per character

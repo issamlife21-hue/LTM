@@ -33,7 +33,7 @@ export function SignCard({ sign }: { sign: RoadSign }) {
         )}
       </div>
       <div>
-        <h3 className="text-base font-semibold text-ltm-navy">{sign.name}</h3>
+        <h3 className="text-base font-semibold text-ltm-black">{sign.name}</h3>
         <p className="mt-2 text-sm leading-relaxed text-ltm-slate">
           {sign.description}
         </p>

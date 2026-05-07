@@ -61,7 +61,7 @@ export function PriceTable({
   return (
     <div>
       {caption && (
-        <h3 className="mb-3 text-lg font-semibold text-ltm-navy">{caption}</h3>
+        <h3 className="mb-3 text-lg font-semibold text-ltm-black">{caption}</h3>
       )}
 
       {/* Desktop / tablet table */}
@@ -73,7 +73,7 @@ export function PriceTable({
                 <TableHead
                   key={col.key}
                   className={cn(
-                    "sticky top-0 z-10 bg-ltm-bg",
+                    "sticky top-0 z-10 bg-ltm-stone",
                     col.align === "right" && "text-right",
                     col.align === "center" && "text-center"
                   )}
@@ -88,8 +88,8 @@ export function PriceTable({
               <TableRow
                 key={idx}
                 className={cn(
-                  idx % 2 === 1 && "bg-ltm-bg/60",
-                  "hover:bg-ltm-bg"
+                  idx % 2 === 1 && "bg-ltm-stone/60",
+                  "hover:bg-ltm-stone"
                 )}
               >
                 {columns.map((col) => (
@@ -100,7 +100,7 @@ export function PriceTable({
                       col.align === "right" && "text-right tabular-nums",
                       col.align === "center" && "text-center",
                       col.emphasis &&
-                        "text-base font-semibold text-ltm-navy"
+                        "text-base font-semibold text-ltm-black"
                     )}
                   >
                     {col.render

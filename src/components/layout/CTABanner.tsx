@@ -8,7 +8,7 @@ const DIRECTIONS_URL =
 
 export function CTABanner() {
   return (
-    <section className="bg-ltm-navy text-white">
+    <section className="bg-ltm-black text-white">
       <div className="container-ltm flex flex-col items-start gap-6 py-12 md:flex-row md:items-center md:justify-between">
         <h2 className="text-2xl font-semibold text-white md:text-3xl">
           Have questions? Visit our service center.

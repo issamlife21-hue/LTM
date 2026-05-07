@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Source_Serif_4 } from "next/font/google";
 
+import { FlagStripe } from "@/components/layout/FlagStripe";
 import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
 import { IdentityStrip } from "@/components/layout/IdentityStrip";
@@ -74,10 +75,11 @@ export default function RootLayout({
       <body className="flex min-h-screen flex-col font-sans antialiased">
         <a
           href="#main-content"
-          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-md focus:bg-ltm-navy focus:px-4 focus:py-2 focus:text-sm focus:font-medium focus:text-white focus:shadow-md focus:outline-none focus:ring-2 focus:ring-white"
+          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-md focus:bg-ltm-black focus:px-4 focus:py-2 focus:text-sm focus:font-medium focus:text-white focus:shadow-md focus:outline-none focus:ring-2 focus:ring-white"
         >
           Skip to main content
         </a>
+        <FlagStripe />
         <IdentityStrip />
         <UtilityStrip />
         <Header />

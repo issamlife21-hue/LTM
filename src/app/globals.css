@@ -35,13 +35,13 @@
   }
 
   body {
-    @apply bg-ltm-bg text-ltm-slate;
+    @apply bg-ltm-paper text-ltm-ink;
     font-feature-settings: "rlig" 1, "calt" 1;
     line-height: 1.6;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    @apply text-ltm-navy font-semibold;
+    @apply text-ltm-black font-semibold;
     line-height: 1.25;
   }
 
