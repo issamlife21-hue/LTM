@@ -3,36 +3,147 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Catalina Signage</title>
+    <title>Catalina Landing</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400;600&family=Playfair+Display:wght@300;400;600&display=swap"
+      rel="stylesheet"
+    />
+
     <style>
-      body {
-        font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
-        margin: 0;
-        padding: 2rem;
-        background: #0b3d5c;
-        color: #fff;
+      :root {
+        --gold: #c8a96e;
+        --white: #f4f0ea;
+        --dark: #080c10;
       }
-      h1 { margin-top: 0; }
-      pre {
-        background: rgba(0, 0, 0, 0.35);
-        padding: 1rem;
-        border-radius: 8px;
-        overflow-x: auto;
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        background: var(--dark);
+        color: var(--white);
+        font-family: 'Barlow Condensed', sans-serif;
+        font-weight: 300;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+
+      .stage {
+        position: fixed;
+        inset: 0;
+        overflow: hidden;
+      }
+
+      .hud {
+        position: absolute;
+        top: 2.5rem;
+        z-index: 10;
+        line-height: 1.1;
+      }
+
+      .hud--logo {
+        left: 2.5rem;
+        text-align: left;
+      }
+
+      .hud--clock {
+        right: 2.5rem;
+        text-align: right;
+      }
+
+      .logo__title {
+        font-family: 'Playfair Display', serif;
+        font-weight: 400;
+        font-size: 2.4rem;
+        letter-spacing: 0.04em;
+        color: var(--white);
+        margin: 0;
+      }
+
+      .logo__address {
+        font-family: 'Barlow Condensed', sans-serif;
+        font-weight: 300;
+        font-size: 0.95rem;
+        letter-spacing: 0.32em;
+        text-transform: uppercase;
+        color: var(--gold);
+        margin: 0.5rem 0 0;
+      }
+
+      .clock__time {
+        font-family: 'Playfair Display', serif;
+        font-weight: 300;
+        font-size: 2.4rem;
+        letter-spacing: 0.05em;
+        color: var(--white);
+        margin: 0;
+        font-variant-numeric: tabular-nums;
+      }
+
+      .clock__date {
+        font-family: 'Barlow Condensed', sans-serif;
+        font-weight: 400;
+        font-size: 0.95rem;
+        letter-spacing: 0.32em;
+        text-transform: uppercase;
+        color: var(--gold);
+        margin: 0.5rem 0 0;
       }
     </style>
   </head>
   <body>
-    <h1>Long Beach, CA — Current Weather</h1>
-    <pre id="out">Loading…</pre>
+    <div class="stage">
+      <header class="hud hud--logo" aria-label="Property">
+        <h1 class="logo__title">Catalina Landing</h1>
+        <p class="logo__address">310 &ndash; 340 Golden Shore &middot; Long Beach</p>
+      </header>
+
+      <aside class="hud hud--clock" aria-label="Local time">
+        <p class="clock__time" id="clock-time">--:--:--</p>
+        <p class="clock__date" id="clock-date">&nbsp;</p>
+      </aside>
+    </div>
+
     <script>
-      fetch('/api/weather')
-        .then((r) => r.json())
-        .then((d) => {
-          document.getElementById('out').textContent = JSON.stringify(d, null, 2);
-        })
-        .catch((e) => {
-          document.getElementById('out').textContent = 'Error: ' + e.message;
+      (function () {
+        const timeEl = document.getElementById('clock-time');
+        const dateEl = document.getElementById('clock-date');
+
+        const timeFmt = new Intl.DateTimeFormat('en-US', {
+          hour: 'numeric',
+          minute: '2-digit',
+          second: '2-digit',
+          hour12: true,
         });
+
+        const dateFmt = new Intl.DateTimeFormat('en-US', {
+          weekday: 'long',
+          month: 'long',
+          day: 'numeric',
+          year: 'numeric',
+        });
+
+        function tick() {
+          const now = new Date();
+          timeEl.textContent = timeFmt.format(now);
+          dateEl.textContent = dateFmt.format(now);
+        }
+
+        tick();
+        setInterval(tick, 1000);
+      })();
     </script>
   </body>
 </html>
