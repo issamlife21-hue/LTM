@@ -143,6 +143,80 @@
         color: var(--gold);
         margin: 0.5rem 0 0;
       }
+
+      .panels {
+        position: absolute;
+        inset: 0;
+        z-index: 5;
+        pointer-events: none;
+      }
+
+      .panel {
+        position: absolute;
+        inset: 0;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.6s ease-in-out;
+      }
+
+      .panel.is-active {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      .tabs {
+        position: absolute;
+        left: 2.5rem;
+        bottom: 2.5rem;
+        z-index: 10;
+        display: flex;
+        gap: 2.25rem;
+        align-items: center;
+      }
+
+      .tabs__item {
+        font-family: 'Barlow Condensed', sans-serif;
+        font-weight: 400;
+        font-size: 0.95rem;
+        letter-spacing: 0.32em;
+        text-transform: uppercase;
+        color: rgba(244, 240, 234, 0.45);
+        transition: color 0.4s ease;
+        position: relative;
+        padding-bottom: 0.5rem;
+      }
+
+      .tabs__item.is-active {
+        color: var(--gold);
+      }
+
+      .tabs__item.is-active::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 1px;
+        background: var(--gold);
+      }
+
+      .progress {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 2px;
+        z-index: 10;
+        background: rgba(200, 169, 110, 0.15);
+        overflow: hidden;
+      }
+
+      .progress__fill {
+        height: 100%;
+        width: 0%;
+        background: var(--gold);
+        transform-origin: left center;
+      }
     </style>
   </head>
   <body>
@@ -162,6 +236,26 @@
         <p class="clock__time" id="clock-time">--:--:--</p>
         <p class="clock__date" id="clock-date">&nbsp;</p>
       </aside>
+
+      <div class="panels" id="panels">
+        <div class="panel" data-mode="weather"></div>
+        <div class="panel" data-mode="directory"></div>
+        <div class="panel" data-mode="cnn"></div>
+        <div class="panel" data-mode="bloomberg"></div>
+        <div class="panel" data-mode="property"></div>
+      </div>
+
+      <nav class="tabs" id="tabs" aria-label="Display modes">
+        <span class="tabs__item" data-mode="weather">Weather</span>
+        <span class="tabs__item" data-mode="directory">Directory</span>
+        <span class="tabs__item" data-mode="cnn">CNN</span>
+        <span class="tabs__item" data-mode="bloomberg">Bloomberg</span>
+        <span class="tabs__item" data-mode="property">Property</span>
+      </nav>
+
+      <div class="progress" aria-hidden="true">
+        <div class="progress__fill" id="progress-fill"></div>
+      </div>
     </div>
 
     <script>
@@ -235,6 +329,62 @@
           index = 1;
           setInterval(advance, SLIDE_MS);
         }
+      })();
+
+      (function () {
+        const MODES = [
+          { id: 'weather', duration: 25000 },
+          { id: 'directory', duration: 22000 },
+          { id: 'cnn', duration: 30000 },
+          { id: 'bloomberg', duration: 30000 },
+          { id: 'property', duration: 35000 },
+        ];
+
+        const tabs = Array.from(document.querySelectorAll('.tabs__item'));
+        const panels = Array.from(document.querySelectorAll('.panel'));
+        const fill = document.getElementById('progress-fill');
+
+        let current = -1;
+        let modeTimer = null;
+        let rafId = null;
+        let modeStart = 0;
+        let modeDuration = 0;
+
+        function setActive(id) {
+          tabs.forEach((t) =>
+            t.classList.toggle('is-active', t.dataset.mode === id)
+          );
+          panels.forEach((p) =>
+            p.classList.toggle('is-active', p.dataset.mode === id)
+          );
+        }
+
+        function animateProgress(ts) {
+          const elapsed = ts - modeStart;
+          const pct = Math.min(100, (elapsed / modeDuration) * 100);
+          fill.style.width = pct + '%';
+          if (elapsed < modeDuration) {
+            rafId = requestAnimationFrame(animateProgress);
+          }
+        }
+
+        function activateNext() {
+          current = (current + 1) % MODES.length;
+          const mode = MODES[current];
+
+          setActive(mode.id);
+
+          modeDuration = mode.duration;
+          fill.style.width = '0%';
+          if (rafId) cancelAnimationFrame(rafId);
+          modeStart = performance.now();
+          rafId = requestAnimationFrame(animateProgress);
+
+          if (modeTimer) clearTimeout(modeTimer);
+          modeTimer = setTimeout(activateNext, mode.duration);
+        }
+
+        activateNext();
       })();
 
       (function () {
