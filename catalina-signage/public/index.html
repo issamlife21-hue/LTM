@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Catalina Signage</title>
+    <style>
+      body {
+        font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+        margin: 0;
+        padding: 2rem;
+        background: #0b3d5c;
+        color: #fff;
+      }
+      h1 { margin-top: 0; }
+      pre {
+        background: rgba(0, 0, 0, 0.35);
+        padding: 1rem;
+        border-radius: 8px;
+        overflow-x: auto;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Long Beach, CA — Current Weather</h1>
+    <pre id="out">Loading…</pre>
+    <script>
+      fetch('/api/weather')
+        .then((r) => r.json())
+        .then((d) => {
+          document.getElementById('out').textContent = JSON.stringify(d, null, 2);
+        })
+        .catch((e) => {
+          document.getElementById('out').textContent = 'Error: ' + e.message;
+        });
+    </script>
+  </body>
+</html>
