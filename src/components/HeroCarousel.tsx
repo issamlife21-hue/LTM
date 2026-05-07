@@ -56,7 +56,7 @@ export function HeroCarousel() {
 
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 bg-ltm-navy/55"
+        className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ltm-navy/85 via-ltm-navy/40 to-transparent"
       />
 
       <div className="absolute bottom-6 left-1/2 z-20 flex -translate-x-1/2 gap-2">

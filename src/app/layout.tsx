@@ -10,14 +10,14 @@ import "./globals.css";
 
 const inter = Inter({
   subsets: ["latin"],
-  variable: "--font-inter",
+  variable: "--font-sans",
   display: "swap",
 });
 
 const sourceSerif = Source_Serif_4({
   subsets: ["latin"],
-  variable: "--font-source-serif",
-  weight: ["600", "700"],
+  variable: "--font-serif",
+  weight: ["400", "600", "700"],
   display: "swap",
 });
 

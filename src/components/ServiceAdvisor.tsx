@@ -239,7 +239,7 @@ export function ServiceAdvisor() {
     <section
       id="service-advisor"
       aria-labelledby="service-advisor-heading"
-      className="bg-ltm-bg py-16"
+      className="bg-ltm-cream py-16"
     >
       <div className="container-ltm">
         <div className="mx-auto max-w-3xl text-center">

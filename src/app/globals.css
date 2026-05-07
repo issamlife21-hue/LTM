@@ -45,6 +45,10 @@
     line-height: 1.25;
   }
 
+  h1, h2 {
+    font-family: var(--font-serif);
+  }
+
   h1 {
     @apply font-bold;
   }

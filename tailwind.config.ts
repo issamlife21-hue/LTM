@@ -18,10 +18,12 @@ const config: Config = {
     extend: {
       colors: {
         ltm: {
-          navy: "#003082",
-          "navy-dark": "#001E5C",
-          red: "#D21034",
-          "red-dark": "#A50D29",
+          navy: "#1A3A6E",
+          "navy-dark": "#122A52",
+          red: "#C8102E",
+          "red-dark": "#9A0B22",
+          cream: "#FAF6F0",
+          sand: "#F3EDE2",
           slate: "#1F2937",
           muted: "#64748B",
           border: "#E5E7EB",
@@ -69,12 +71,9 @@ const config: Config = {
         sm: "calc(var(--radius) - 4px)",
       },
       fontFamily: {
-        sans: ["var(--font-inter)", "system-ui", "sans-serif"],
-        display: [
-          "var(--font-source-serif)",
-          "Georgia",
-          "serif",
-        ],
+        sans: ["var(--font-sans)", "system-ui", "sans-serif"],
+        serif: ["var(--font-serif)", "Georgia", "serif"],
+        display: ["var(--font-serif)", "Georgia", "serif"],
       },
       maxWidth: {
         prose: "70ch",

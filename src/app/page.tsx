@@ -16,7 +16,6 @@ import {
 
 import { HeroCarousel } from "@/components/HeroCarousel";
 import { CTABanner } from "@/components/layout/CTABanner";
-import { LoneStar } from "@/components/LoneStar";
 import { ServiceAdvisor } from "@/components/ServiceAdvisor";
 import { ServiceCard } from "@/components/ServiceCard";
 import {
@@ -135,31 +134,32 @@ export default function HomePage() {
         }}
       />
       {/* ── Section 1 — Hero ─────────────────────────────────────── */}
-      <section className="relative overflow-hidden bg-ltm-navy">
+      <section className="relative h-[600px] overflow-hidden bg-ltm-navy md:h-[700px]">
         <HeroCarousel />
 
-        <div className="container-ltm relative z-10 flex min-h-[480px] flex-col items-center justify-center py-20 text-center text-white md:min-h-[600px] md:py-28">
-          <LoneStar size={40} className="mb-5 rounded-sm" />
-          <p className="mb-4 text-xs font-semibold uppercase tracking-[0.2em] text-white/80 sm:text-sm">
-            Authorized by the Government of Liberia
-          </p>
-          <h1 className="max-w-4xl font-display text-4xl font-bold leading-tight text-white md:text-6xl">
-            Liberia&rsquo;s Official Traffic Management Service
-          </h1>
-          <p className="mt-5 max-w-2xl text-base leading-relaxed text-white/90 md:text-lg">
-            Get your driver license, register your vehicle, pass inspection,
-            and pick up your plates, all from one trusted office in Monrovia.
-          </p>
-          <div className="mt-8 flex w-full flex-col gap-3 sm:w-auto sm:flex-row">
-            <Button asChild size="lg" variant="whitePrimary">
-              <Link href="/services">View Services</Link>
-            </Button>
-            <Button asChild size="lg" variant="whiteOutline">
-              <Link href="/contact">
-                <MapPin className="h-4 w-4" aria-hidden="true" />
-                Find Us in Monrovia
-              </Link>
-            </Button>
+        <div className="container-ltm absolute inset-x-0 bottom-0 top-0 z-10 flex flex-col justify-end pb-16 md:pb-20">
+          <div className="max-w-3xl text-white">
+            <p className="mb-4 text-xs font-semibold uppercase tracking-[0.2em] text-white/85 md:text-sm">
+              Authorized by the Government of Liberia
+            </p>
+            <h1 className="mb-5 font-serif text-4xl leading-[1.05] text-white md:text-6xl">
+              Liberia&rsquo;s Official Traffic Management Service
+            </h1>
+            <p className="mb-7 max-w-xl text-base leading-relaxed text-white/90 md:text-lg">
+              Driver licenses, vehicle registration, inspection, and license
+              plates, all from one trusted office in Monrovia.
+            </p>
+            <div className="flex flex-wrap gap-3">
+              <Button asChild size="lg" variant="whitePrimary">
+                <Link href="/services">View Services</Link>
+              </Button>
+              <Button asChild size="lg" variant="whiteOutline">
+                <Link href="/contact">
+                  <MapPin className="h-4 w-4" aria-hidden="true" />
+                  Find Us in Monrovia
+                </Link>
+              </Button>
+            </div>
           </div>
         </div>
       </section>
@@ -360,7 +360,7 @@ export default function HomePage() {
       </section>
 
       {/* ── Section 6 — Photo gallery ────────────────────────────── */}
-      <section className="bg-white py-20">
+      <section className="bg-ltm-cream py-20">
         <div className="container-ltm">
           <div className="mx-auto max-w-2xl text-center">
             <h2 className="text-3xl font-semibold text-ltm-navy md:text-4xl">
