@@ -46,6 +46,48 @@
         overflow: hidden;
       }
 
+      .slideshow {
+        position: absolute;
+        inset: 0;
+        z-index: 0;
+        background: var(--dark);
+      }
+
+      .slideshow__slide {
+        position: absolute;
+        inset: 0;
+        background-size: cover;
+        background-position: center center;
+        background-repeat: no-repeat;
+        opacity: 0;
+        transition: opacity 1.6s ease-in-out;
+        will-change: opacity;
+      }
+
+      .slideshow__slide.is-active {
+        opacity: 1;
+      }
+
+      .slideshow__overlay {
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+        pointer-events: none;
+        background:
+          linear-gradient(
+            180deg,
+            rgba(8, 12, 16, 0.78) 0%,
+            rgba(8, 12, 16, 0.35) 28%,
+            rgba(8, 12, 16, 0.35) 65%,
+            rgba(8, 12, 16, 0.85) 100%
+          ),
+          radial-gradient(
+            ellipse at center,
+            rgba(8, 12, 16, 0) 40%,
+            rgba(8, 12, 16, 0.55) 100%
+          );
+      }
+
       .hud {
         position: absolute;
         top: 2.5rem;
@@ -105,6 +147,12 @@
   </head>
   <body>
     <div class="stage">
+      <div class="slideshow" aria-hidden="true">
+        <div class="slideshow__slide" id="slide-a"></div>
+        <div class="slideshow__slide" id="slide-b"></div>
+      </div>
+      <div class="slideshow__overlay" aria-hidden="true"></div>
+
       <header class="hud hud--logo" aria-label="Property">
         <h1 class="logo__title">Catalina Landing</h1>
         <p class="logo__address">310 &ndash; 340 Golden Shore &middot; Long Beach</p>
@@ -117,6 +165,78 @@
     </div>
 
     <script>
+      (function () {
+        const BASE =
+          'https://b3250884.smushcdn.com/3250884/wp-content/uploads/2026/03/';
+        const SUFFIX = '?lossy=2&strip=1&webp=1';
+        const SLIDE_MS = 8000;
+
+        const range = (start, end) => {
+          const out = [];
+          for (let i = start; i <= end; i++) out.push(i);
+          return out;
+        };
+        const pad2 = (n) => String(n).padStart(2, '0');
+
+        const exteriors = [
+          'TheWaterfrontAtCatalinaLanding_Exterior-00.jpg',
+          ...range(1, 15).map((n) => `Exteriors-${n}.jpg`),
+        ];
+        const patios = [
+          ...range(1, 15).map(
+            (n) => `TheWaterfrontAtCatalinaLanding_Patio-${pad2(n)}.jpg`
+          ),
+          'TheWaterfrontAtCatalinaLanding_Patio-17.jpg',
+        ];
+        const seaLevel = [
+          ...range(1, 4).map(
+            (n) => `TheWaterfrontAtCatalinaLanding_SeaFloor-${n}.jpg`
+          ),
+          'TheWaterfrontAtCatalinaLanding_SeaFloor-6.jpg',
+          ...range(8, 10).map(
+            (n) => `TheWaterfrontAtCatalinaLanding_SeaFloor-${n}.jpg`
+          ),
+        ];
+
+        const images = [...exteriors, ...patios, ...seaLevel].map(
+          (name) => BASE + name + SUFFIX
+        );
+
+        const slides = [
+          document.getElementById('slide-a'),
+          document.getElementById('slide-b'),
+        ];
+
+        let index = 0;
+        let active = 0;
+
+        function showSlide(url, layer) {
+          const img = new Image();
+          img.onload = () => {
+            slides[layer].style.backgroundImage = `url("${url}")`;
+            slides[layer].classList.add('is-active');
+            slides[1 - layer].classList.remove('is-active');
+          };
+          img.onerror = () => {
+            advance();
+          };
+          img.src = url;
+        }
+
+        function advance() {
+          const url = images[index % images.length];
+          index++;
+          active = 1 - active;
+          showSlide(url, active);
+        }
+
+        if (images.length > 0) {
+          showSlide(images[0], active);
+          index = 1;
+          setInterval(advance, SLIDE_MS);
+        }
+      })();
+
       (function () {
         const timeEl = document.getElementById('clock-time');
         const dateEl = document.getElementById('clock-date');
