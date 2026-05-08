@@ -696,6 +696,52 @@
         color: #ff7a7a;
       }
 
+      .news__error {
+        grid-column: span 4;
+        background: rgba(204, 0, 0, 0.12);
+        border: 1px solid rgba(204, 0, 0, 0.6);
+        padding: 2rem;
+        text-align: center;
+        font-family: 'Playfair Display', serif;
+        font-weight: 400;
+        font-size: 1.5rem;
+        color: var(--white);
+        align-self: center;
+      }
+
+      .news__error small {
+        display: block;
+        margin-top: 0.6rem;
+        font-family: 'Barlow Condensed', sans-serif;
+        font-size: 0.85rem;
+        letter-spacing: 0.32em;
+        text-transform: uppercase;
+        color: var(--gold);
+      }
+
+      .dev-button {
+        position: fixed;
+        right: 1rem;
+        bottom: 1rem;
+        z-index: 99;
+        padding: 0.55rem 1.1rem;
+        background: rgba(8, 12, 16, 0.85);
+        border: 1px solid var(--gold);
+        color: var(--gold);
+        font-family: 'Barlow Condensed', sans-serif;
+        font-weight: 400;
+        font-size: 0.8rem;
+        letter-spacing: 0.32em;
+        text-transform: uppercase;
+        cursor: pointer;
+      }
+
+      .dev-button, .dev-button * { cursor: pointer; }
+
+      .dev-button:hover {
+        background: rgba(200, 169, 110, 0.15);
+      }
+
       .panel--property {
         display: flex;
         align-items: flex-end;
@@ -1180,10 +1226,6 @@
 
       (function () {
         const REFRESH_MS = 20 * 60 * 1000;
-        const ANTHROPIC_URL = 'https://api.anthropic.com/v1/messages';
-        const MODEL = 'claude-sonnet-4-20250514';
-        // INSERT_API_KEY — populated at deploy time. Do not commit a real key.
-        const API_KEY = '';
 
         const FALLBACK = {
           cnn: {
@@ -1268,26 +1310,6 @@
           },
         };
 
-        const PROMPTS = {
-          cnn:
-            'You generate plausible breaking news for a digital signage display. ' +
-            'Produce 5 current US/world news headlines (mix of Politics, World, Business, Tech, Health, Sports) ' +
-            'plus 8 short ticker bullets. The first story is the lead. ' +
-            'Reply with ONLY a JSON object, no prose, matching this schema:\n' +
-            '{"stories":[{"category":"...","headline":"...","time":"e.g. 35 minutes ago"}],"ticker":["..."]}\n' +
-            'Exactly 5 stories and 8 ticker items. Headlines should be concise (max 14 words). ' +
-            'Categories should be one or two words in title case.',
-          bloomberg:
-            'You generate plausible market and financial news for a digital signage display. ' +
-            'Produce 5 current finance headlines (mix of Markets, Commodities, FX, Crypto, Deals, Earnings) ' +
-            'plus 8 short market ticker items in the form "SYMBOL PRICE +/-PCT%" (e.g., "AAPL 192.45 +1.12%"). ' +
-            'Include indices (S&P 500, NASDAQ, DOW), at least one crypto (BTC), and at least one commodity (WTI or GOLD). ' +
-            'The first story is the lead. ' +
-            'Reply with ONLY a JSON object, no prose, matching this schema:\n' +
-            '{"stories":[{"category":"...","headline":"...","time":"e.g. 22 minutes ago"}],"ticker":["..."]}\n' +
-            'Exactly 5 stories and 8 ticker items. Headlines max 14 words.',
-        };
-
         function classifyTickerItem(text) {
           if (/[\s(](\+|up\s)/i.test(text) || /\+\d/.test(text)) return 'up';
           if (/[\s(](-|down\s)/i.test(text) || /-\d/.test(text)) return 'down';
@@ -1333,6 +1355,21 @@
           root.appendChild(make());
         }
 
+        function renderError(outlet, message) {
+          const root = document.getElementById(outlet + '-stories');
+          root.innerHTML = '';
+          const block = document.createElement('div');
+          block.className = 'news__error';
+          block.innerHTML =
+            '<div></div><small>' +
+            'See terminal running the server' +
+            '</small>';
+          block.firstChild.textContent = message;
+          root.appendChild(block);
+          const ticker = document.getElementById(outlet + '-ticker');
+          ticker.innerHTML = '';
+        }
+
         function render(outlet, data) {
           if (!data || !Array.isArray(data.stories) || !Array.isArray(data.ticker)) {
             data = FALLBACK[outlet];
@@ -1341,51 +1378,37 @@
           renderTicker(outlet, data.ticker);
         }
 
-        function extractJson(text) {
-          if (!text) return null;
-          const start = text.indexOf('{');
-          const end = text.lastIndexOf('}');
-          if (start < 0 || end <= start) return null;
-          try {
-            return JSON.parse(text.slice(start, end + 1));
-          } catch (_) {
-            return null;
-          }
-        }
-
         async function fetchOutlet(outlet) {
-          if (!API_KEY) return null;
           try {
-            const res = await fetch(ANTHROPIC_URL, {
+            const res = await fetch('/api/news', {
               method: 'POST',
-              headers: {
-                'content-type': 'application/json',
-                'x-api-key': API_KEY,
-                'anthropic-version': '2023-06-01',
-                'anthropic-dangerous-direct-browser-access': 'true',
-              },
-              body: JSON.stringify({
-                model: MODEL,
-                max_tokens: 1024,
-                messages: [{ role: 'user', content: PROMPTS[outlet] }],
-              }),
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ outlet }),
             });
-            if (!res.ok) throw new Error('HTTP ' + res.status);
-            const json = await res.json();
-            const text =
-              json &&
-              json.content &&
-              json.content[0] &&
-              (json.content[0].text || '');
-            return extractJson(text);
+            if (res.status === 401 || res.status === 403) {
+              return { __error: 'invalid_api_key' };
+            }
+            if (!res.ok) {
+              return { __error: 'http_' + res.status };
+            }
+            return await res.json();
           } catch (err) {
             console.error('news fetch failed (' + outlet + ')', err);
-            return null;
+            return { __error: 'network' };
           }
         }
 
         async function loadOutlet(outlet) {
           const data = await fetchOutlet(outlet);
+          if (data && data.__error === 'invalid_api_key') {
+            renderError(outlet, 'API key invalid — check console');
+            return;
+          }
+          if (data && data.__error) {
+            // network/server errors: fall back to static content
+            render(outlet, FALLBACK[outlet]);
+            return;
+          }
           render(outlet, data);
         }
 
@@ -1398,6 +1421,27 @@
         render('bloomberg', FALLBACK.bloomberg);
         loadAll();
         setInterval(loadAll, REFRESH_MS);
+
+        if (
+          location.hostname === 'localhost' ||
+          location.hostname === '127.0.0.1'
+        ) {
+          const btn = document.createElement('button');
+          btn.className = 'dev-button';
+          btn.type = 'button';
+          btn.textContent = 'Test News';
+          btn.addEventListener('click', () => {
+            btn.disabled = true;
+            btn.textContent = 'Loading…';
+            Promise.all([loadOutlet('cnn'), loadOutlet('bloomberg')]).then(
+              () => {
+                btn.disabled = false;
+                btn.textContent = 'Test News';
+              }
+            );
+          });
+          document.body.appendChild(btn);
+        }
       })();
 
       (function () {

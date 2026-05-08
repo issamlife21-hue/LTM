@@ -46,10 +46,24 @@ The signage will start cycling through the five modes immediately.
 
 ### News API key
 
-The CNN and Bloomberg panels call the Anthropic API to generate live
-headlines. Open `public/index.html`, find the comment marker
-`INSERT_API_KEY`, and paste a key into the `API_KEY` constant on the
-next line. Without a key, the panels render static fallback content.
+The CNN and Bloomberg panels call the Anthropic API server-side
+through `/api/news`. To enable live headlines:
+
+1. Get an API key from
+   [console.anthropic.com](https://console.anthropic.com) → **API Keys**.
+2. In the `catalina-signage/` folder, create a file named **`.env`**
+   (you can copy `.env.example`) with this single line:
+   ```
+   ANTHROPIC_API_KEY=sk-ant-...
+   ```
+3. Restart the server (close the terminal, double-click `start.bat`).
+
+Without a key, the panels render static fallback content. If the key is
+invalid the panels show **"API key invalid — check console"** and the
+server terminal logs the failure.
+
+The key is read by the server only and never sent to the browser.
+`.env` is in `.gitignore` so it won't be committed.
 
 ### Display sleep
 

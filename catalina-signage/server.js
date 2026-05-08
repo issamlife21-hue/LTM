@@ -6,6 +6,51 @@ const path = require('path');
 
 const PORT = 3000;
 const PUBLIC_DIR = path.join(__dirname, 'public');
+const ANTHROPIC_MODEL = 'claude-sonnet-4-20250514';
+
+function loadEnv() {
+  try {
+    const raw = fs.readFileSync(path.join(__dirname, '.env'), 'utf8');
+    for (const line of raw.split(/\r?\n/)) {
+      const trimmed = line.trim();
+      if (!trimmed || trimmed.startsWith('#')) continue;
+      const eq = trimmed.indexOf('=');
+      if (eq < 0) continue;
+      const key = trimmed.slice(0, eq).trim();
+      let value = trimmed.slice(eq + 1).trim();
+      if (
+        (value.startsWith('"') && value.endsWith('"')) ||
+        (value.startsWith("'") && value.endsWith("'"))
+      ) {
+        value = value.slice(1, -1);
+      }
+      if (!process.env[key]) process.env[key] = value;
+    }
+  } catch (_) {
+    // .env is optional
+  }
+}
+loadEnv();
+
+const NEWS_PROMPTS = {
+  cnn:
+    'You generate plausible breaking news for a digital signage display. ' +
+    'Produce 5 current US/world news headlines (mix of Politics, World, Business, Tech, Health, Sports) ' +
+    'plus 8 short ticker bullets. The first story is the lead. ' +
+    'Reply with ONLY a JSON object, no prose, matching this schema:\n' +
+    '{"stories":[{"category":"...","headline":"...","time":"e.g. 35 minutes ago"}],"ticker":["..."]}\n' +
+    'Exactly 5 stories and 8 ticker items. Headlines should be concise (max 14 words). ' +
+    'Categories should be one or two words in title case.',
+  bloomberg:
+    'You generate plausible market and financial news for a digital signage display. ' +
+    'Produce 5 current finance headlines (mix of Markets, Commodities, FX, Crypto, Deals, Earnings) ' +
+    'plus 8 short market ticker items in the form "SYMBOL PRICE +/-PCT%" (e.g., "AAPL 192.45 +1.12%"). ' +
+    'Include indices (S&P 500, NASDAQ, DOW), at least one crypto (BTC), and at least one commodity (WTI or GOLD). ' +
+    'The first story is the lead. ' +
+    'Reply with ONLY a JSON object, no prose, matching this schema:\n' +
+    '{"stories":[{"category":"...","headline":"...","time":"e.g. 22 minutes ago"}],"ticker":["..."]}\n' +
+    'Exactly 5 stories and 8 ticker items. Headlines max 14 words.',
+};
 
 const WEATHER_URL =
   'https://api.open-meteo.com/v1/forecast' +
@@ -63,6 +108,147 @@ function fetchWeather() {
   });
 }
 
+function extractJson(text) {
+  if (!text) return null;
+  const start = text.indexOf('{');
+  const end = text.lastIndexOf('}');
+  if (start < 0 || end <= start) return null;
+  try {
+    return JSON.parse(text.slice(start, end + 1));
+  } catch (_) {
+    return null;
+  }
+}
+
+function fetchNews(outlet) {
+  return new Promise((resolve, reject) => {
+    const apiKey = process.env.ANTHROPIC_API_KEY;
+    if (!apiKey) {
+      const err = new Error('missing_api_key');
+      err.statusCode = 401;
+      return reject(err);
+    }
+    const prompt = NEWS_PROMPTS[outlet];
+    if (!prompt) {
+      const err = new Error('invalid_outlet');
+      err.statusCode = 400;
+      return reject(err);
+    }
+    const body = JSON.stringify({
+      model: ANTHROPIC_MODEL,
+      max_tokens: 1024,
+      messages: [{ role: 'user', content: prompt }],
+    });
+    const opts = {
+      method: 'POST',
+      hostname: 'api.anthropic.com',
+      path: '/v1/messages',
+      headers: {
+        'content-type': 'application/json',
+        'x-api-key': apiKey,
+        'anthropic-version': '2023-06-01',
+        'content-length': Buffer.byteLength(body),
+        'User-Agent': 'catalina-signage/1.0',
+      },
+    };
+    const req = https.request(opts, (res) => {
+      let data = '';
+      res.setEncoding('utf8');
+      res.on('data', (c) => (data += c));
+      res.on('end', () => {
+        if (res.statusCode === 401 || res.statusCode === 403) {
+          const e = new Error('invalid_api_key');
+          e.statusCode = res.statusCode;
+          return reject(e);
+        }
+        if (res.statusCode !== 200) {
+          const e = new Error('upstream_status_' + res.statusCode);
+          e.statusCode = 502;
+          return reject(e);
+        }
+        try {
+          const json = JSON.parse(data);
+          const text =
+            json && json.content && json.content[0] && json.content[0].text;
+          const parsed = extractJson(text);
+          if (
+            !parsed ||
+            !Array.isArray(parsed.stories) ||
+            !Array.isArray(parsed.ticker)
+          ) {
+            const e = new Error('malformed_response');
+            e.statusCode = 502;
+            return reject(e);
+          }
+          resolve(parsed);
+        } catch (err) {
+          err.statusCode = 502;
+          reject(err);
+        }
+      });
+    });
+    req.on('error', (err) => {
+      err.statusCode = 502;
+      reject(err);
+    });
+    req.write(body);
+    req.end();
+  });
+}
+
+function readJsonBody(req, limit) {
+  return new Promise((resolve, reject) => {
+    let body = '';
+    let aborted = false;
+    req.on('data', (chunk) => {
+      if (aborted) return;
+      body += chunk;
+      if (body.length > limit) {
+        aborted = true;
+        const e = new Error('payload_too_large');
+        e.statusCode = 413;
+        reject(e);
+      }
+    });
+    req.on('end', () => {
+      if (aborted) return;
+      if (!body) return resolve({});
+      try {
+        resolve(JSON.parse(body));
+      } catch (_) {
+        const e = new Error('invalid_json');
+        e.statusCode = 400;
+        reject(e);
+      }
+    });
+    req.on('error', reject);
+  });
+}
+
+async function handleNewsProxy(req, res) {
+  try {
+    const parsed = await readJsonBody(req, 16 * 1024);
+    const outlet = String(parsed.outlet || '').toLowerCase();
+    if (outlet !== 'cnn' && outlet !== 'bloomberg') {
+      res.writeHead(400, { 'Content-Type': 'application/json; charset=utf-8' });
+      res.end(JSON.stringify({ error: 'invalid_outlet' }));
+      return;
+    }
+    const data = await fetchNews(outlet);
+    res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
+    res.end(JSON.stringify(data));
+  } catch (err) {
+    const status = err.statusCode || 500;
+    if (status === 401 || status === 403) {
+      console.error('news proxy: invalid Anthropic API key');
+    } else {
+      console.error('news proxy error:', err.message);
+    }
+    res.writeHead(status, { 'Content-Type': 'application/json; charset=utf-8' });
+    res.end(JSON.stringify({ error: err.message || 'server_error' }));
+  }
+}
+
 function serveStatic(req, res) {
   const urlPath = decodeURIComponent(req.url.split('?')[0]);
   const safePath = path
@@ -95,7 +281,9 @@ function serveStatic(req, res) {
 }
 
 const server = http.createServer(async (req, res) => {
-  if (req.method === 'GET' && req.url.split('?')[0] === '/api/weather') {
+  const reqPath = req.url.split('?')[0];
+
+  if (req.method === 'GET' && reqPath === '/api/weather') {
     try {
       const data = await fetchWeather();
       res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
@@ -107,8 +295,13 @@ const server = http.createServer(async (req, res) => {
     return;
   }
 
+  if (req.method === 'POST' && reqPath === '/api/news') {
+    handleNewsProxy(req, res);
+    return;
+  }
+
   if (req.method !== 'GET' && req.method !== 'HEAD') {
-    res.writeHead(405, { 'Content-Type': 'text/plain', Allow: 'GET, HEAD' });
+    res.writeHead(405, { 'Content-Type': 'text/plain', Allow: 'GET, HEAD, POST' });
     res.end('Method Not Allowed');
     return;
   }
@@ -139,5 +332,11 @@ server.listen(PORT, () => {
     addrs.forEach((addr) => {
       console.log(`  Network:  http://${addr}:${PORT}`);
     });
+  }
+  if (!process.env.ANTHROPIC_API_KEY) {
+    console.log(
+      '\n  Note: ANTHROPIC_API_KEY not set. Create a .env file with' +
+        ' ANTHROPIC_API_KEY=sk-ant-... to enable CNN and Bloomberg panels.'
+    );
   }
 });
