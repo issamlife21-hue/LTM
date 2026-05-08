@@ -35,14 +35,18 @@
   }
 
   body {
-    @apply bg-ltm-bg text-ltm-slate;
+    @apply bg-ltm-paper text-ltm-ink;
     font-feature-settings: "rlig" 1, "calt" 1;
     line-height: 1.6;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    @apply text-ltm-navy font-semibold;
+    @apply text-ltm-black font-semibold;
     line-height: 1.25;
+  }
+
+  h1, h2 {
+    font-family: var(--font-serif);
   }
 
   h1 {
@@ -58,5 +62,43 @@
 @layer components {
   .container-ltm {
     @apply mx-auto w-full max-w-[1200px] px-4 sm:px-6 lg:px-8;
+  }
+}
+
+@media print {
+  .print-hidden {
+    display: none !important;
+  }
+
+  .print-block {
+    display: block !important;
+  }
+
+  body {
+    background: #fff !important;
+    color: #000 !important;
+  }
+
+  header,
+  footer,
+  [role="tablist"],
+  [aria-label="Open menu"],
+  [data-print-hide] {
+    display: none !important;
+  }
+
+  /* Hide the page-header CTA block (e.g. the Print button). */
+  .container-ltm > .print\:hidden {
+    display: none !important;
+  }
+
+  a[href]::after {
+    content: "";
+  }
+
+  .print-stack > * {
+    display: block !important;
+    margin-bottom: 1.5rem;
+    page-break-inside: avoid;
   }
 }

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Stylized placeholder for the official LTM emblem.
+  TODO: Replace with the real PNG once it can be fetched. Saved at the path
+  the spec asked for so the rest of the site can already reference it.
+  Source URL (currently 403 from this sandbox):
+  https://static1.squarespace.com/static/5b3f2240f7939231db24fdab/t/5d3845afc26bee00010d9357/1563968953569/Snipped-min+-+Border.JPG
+-->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" aria-label="LTM emblem placeholder">
+  <defs>
+    <radialGradient id="ring" cx="50%" cy="50%" r="50%">
+      <stop offset="85%" stop-color="#d4a574"/>
+      <stop offset="100%" stop-color="#a3804a"/>
+    </radialGradient>
+  </defs>
+  <circle cx="50" cy="50" r="48" fill="url(#ring)"/>
+  <circle cx="50" cy="50" r="40" fill="#1A3A6E"/>
+  <circle cx="50" cy="50" r="40" fill="none" stroke="#0e0e10" stroke-width="0.8" opacity="0.5"/>
+  <text x="50" y="48" text-anchor="middle"
+        font-family="Georgia, 'Source Serif Pro', serif"
+        font-size="14" font-weight="700"
+        letter-spacing="2" fill="#ffffff">LTM</text>
+  <text x="50" y="62" text-anchor="middle"
+        font-family="Georgia, serif"
+        font-size="6" font-weight="400"
+        letter-spacing="1.5" fill="#d4a574">LIBERIA</text>
+  <text x="50" y="70" text-anchor="middle"
+        font-family="Georgia, serif"
+        font-size="6" font-weight="400"
+        letter-spacing="1.5" fill="#d4a574">TRAFFIC MGT</text>
+</svg>

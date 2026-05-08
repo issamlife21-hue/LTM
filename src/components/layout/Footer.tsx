@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { Facebook, Mail, MapPin, Phone, Clock } from "lucide-react";
 
@@ -20,16 +21,33 @@ const services = [
 
 export function Footer() {
   return (
-    <footer className="bg-ltm-navy text-slate-300">
-      <div className="container-ltm py-12">
+    <footer className="bg-ltm-charcoal text-white/85">
+      <div className="container-ltm pt-12 pb-10">
+        <div className="mb-10 flex flex-col items-center text-center">
+          <Image
+            src="/logo/ltm-logo.svg"
+            alt="LTM official emblem"
+            width={70}
+            height={70}
+            className="h-[70px] w-[70px] object-contain"
+          />
+          <p className="mt-3 font-serif text-sm italic text-white/70">
+            Authorized by the Government of the Republic of Liberia
+          </p>
+        </div>
+
         <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-4">
           <div>
             <h2 className="mb-4 text-lg font-semibold text-white">About LTM</h2>
             <p className="text-sm leading-relaxed">
-              Liberia Traffic Management is the only officially authorized
-              entity by the Government of Liberia to provide vehicle
-              registration, driver licensing, vehicle inspection, license plate,
-              and traffic violation services.
+              Liberia Traffic Management is the only entity authorized by the
+              Government of Liberia to provide vehicle registration, driver
+              licensing, vehicle inspection, license plate, and traffic
+              violation services.
+            </p>
+            <p className="mt-3 text-xs leading-relaxed text-white/60">
+              Operating under the 2018 Concession Agreement ratified by the
+              Liberian Legislature.
             </p>
           </div>
 
@@ -40,7 +58,7 @@ export function Footer() {
                 <li key={l.href}>
                   <Link
                     href={l.href}
-                    className="hover:text-white hover:underline focus-visible:text-white focus-visible:underline"
+                    className="text-white/85 transition-colors hover:text-ltm-sand focus-visible:text-ltm-sand focus-visible:underline"
                   >
                     {l.label}
                   </Link>
@@ -56,7 +74,7 @@ export function Footer() {
                 <li key={s.href}>
                   <Link
                     href={s.href}
-                    className="hover:text-white hover:underline focus-visible:text-white focus-visible:underline"
+                    className="text-white/85 transition-colors hover:text-ltm-sand focus-visible:text-ltm-sand focus-visible:underline"
                   >
                     {s.label}
                   </Link>
@@ -70,7 +88,7 @@ export function Footer() {
             <ul className="space-y-3 text-sm">
               <li className="flex items-start gap-2">
                 <MapPin
-                  className="mt-0.5 h-4 w-4 shrink-0 text-slate-400"
+                  className="mt-0.5 h-4 w-4 shrink-0 text-white/60"
                   aria-hidden="true"
                 />
                 <address className="not-italic leading-relaxed">
@@ -83,25 +101,25 @@ export function Footer() {
               </li>
               <li className="flex items-start gap-2">
                 <Phone
-                  className="mt-0.5 h-4 w-4 shrink-0 text-slate-400"
+                  className="mt-0.5 h-4 w-4 shrink-0 text-white/60"
                   aria-hidden="true"
                 />
                 <div className="space-y-0.5">
                   <Link
                     href="tel:+231888900070"
-                    className="block hover:text-white hover:underline"
+                    className="block transition-colors hover:text-ltm-sand"
                   >
                     0888 900 070
                   </Link>
                   <Link
                     href="tel:+231770900080"
-                    className="block hover:text-white hover:underline"
+                    className="block transition-colors hover:text-ltm-sand"
                   >
                     0770 900 080
                   </Link>
                   <Link
                     href="tel:+231770900090"
-                    className="block hover:text-white hover:underline"
+                    className="block transition-colors hover:text-ltm-sand"
                   >
                     0770 900 090
                   </Link>
@@ -109,27 +127,27 @@ export function Footer() {
               </li>
               <li className="flex items-start gap-2">
                 <Mail
-                  className="mt-0.5 h-4 w-4 shrink-0 text-slate-400"
+                  className="mt-0.5 h-4 w-4 shrink-0 text-white/60"
                   aria-hidden="true"
                 />
                 <Link
                   href="mailto:Ltm@liberiatraffic.com"
-                  className="hover:text-white hover:underline"
+                  className="transition-colors hover:text-ltm-sand"
                 >
                   Ltm@liberiatraffic.com
                 </Link>
               </li>
               <li className="flex items-start gap-2">
                 <Clock
-                  className="mt-0.5 h-4 w-4 shrink-0 text-slate-400"
+                  className="mt-0.5 h-4 w-4 shrink-0 text-white/60"
                   aria-hidden="true"
                 />
                 <div className="leading-relaxed">
-                  Mon–Fri 8AM–5PM
+                  Monday to Friday 8AM to 5PM
                   <br />
-                  Sat 9AM–1PM
+                  Saturday 9AM to 1PM
                   <br />
-                  Sun closed
+                  Sunday closed
                 </div>
               </li>
               <li className="pt-2">
@@ -138,7 +156,7 @@ export function Footer() {
                   aria-label="Visit LTM on Facebook"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-slate-500 text-slate-300 transition-colors hover:border-white hover:text-white"
+                  className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/30 text-white/80 transition-colors hover:border-ltm-sand hover:text-ltm-sand"
                 >
                   <Facebook className="h-4 w-4" aria-hidden="true" />
                 </Link>
@@ -146,12 +164,38 @@ export function Footer() {
             </ul>
           </div>
         </div>
+      </div>
 
-        <div className="mt-10 border-t border-white/10 pt-6 text-xs leading-relaxed text-slate-400">
-          <p>
-            © Liberia Traffic Management. All rights reserved. The content of
-            this website is for general information and use only. It is subject
-            to change without notice.
+      <div className="border-t border-ltm-graphite bg-ltm-black">
+        <div className="container-ltm py-6 text-xs leading-relaxed text-white/60">
+          <div className="flex flex-col items-start gap-4 sm:flex-row sm:items-center">
+            {/* Inline <img> so the SVG inherits currentColor for monochrome
+                white rendering on the dark bottom strip. */}
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/coat-of-arms.svg"
+              alt="Coat of arms of the Republic of Liberia"
+              width={40}
+              height={48}
+              className="h-12 w-10 shrink-0"
+              style={{ color: "#ffffff" }}
+            />
+            <p>
+              © Liberia Traffic Management. All fees and procedures listed on
+              this site are set by the Government of Liberia and are accurate
+              as of the date last reviewed on each page. For the most current
+              information, contact our service center at{" "}
+              <a
+                href="tel:+231770900080"
+                className="font-medium text-white hover:text-ltm-sand"
+              >
+                0770 900 080
+              </a>
+              .
+            </p>
+          </div>
+          <p className="mt-4 text-center font-serif text-sm italic text-white/60">
+            &ldquo;The Love of Liberty Brought Us Here&rdquo;
           </p>
         </div>
       </div>

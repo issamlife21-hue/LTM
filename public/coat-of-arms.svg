@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Stylized shield representing the Republic of Liberia.
+  TODO: Replace with the official coat of arms from Wikimedia Commons
+  (https://commons.wikimedia.org/wiki/File:Coat_of_arms_of_Liberia.svg).
+  This placeholder is monochrome white so it can sit on the navy footer
+  and on the contact page hero without color clashes.
+-->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 120" role="img" aria-label="Coat of arms of the Republic of Liberia (placeholder)">
+  <g fill="none" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round">
+    <!-- Shield outline -->
+    <path d="M50 6 L92 14 L92 60 Q92 92 50 114 Q8 92 8 60 L8 14 Z" />
+    <!-- Inner field divider -->
+    <path d="M8 60 Q50 72 92 60" opacity="0.45" />
+  </g>
+  <g fill="currentColor">
+    <!-- Rising sun -->
+    <circle cx="50" cy="36" r="8" />
+    <g stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+      <line x1="50" y1="22" x2="50" y2="18" />
+      <line x1="36" y1="36" x2="32" y2="36" />
+      <line x1="64" y1="36" x2="68" y2="36" />
+      <line x1="40" y1="26" x2="37" y2="23" />
+      <line x1="60" y1="26" x2="63" y2="23" />
+    </g>
+    <!-- Palm tree (left) -->
+    <rect x="22" y="58" width="3" height="22" rx="1" />
+    <g stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round">
+      <path d="M23 58 Q15 52 12 56" />
+      <path d="M23 58 Q31 52 34 56" />
+      <path d="M23 58 Q18 50 14 50" />
+      <path d="M23 58 Q28 50 32 50" />
+    </g>
+    <!-- Ship (right) -->
+    <path d="M58 78 L82 78 L78 86 L62 86 Z" />
+    <rect x="68" y="60" width="2" height="18" />
+    <path d="M70 62 L80 70 L70 70 Z" />
+    <!-- 1847 banner -->
+    <rect x="30" y="92" width="40" height="10" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.5" />
+  </g>
+  <text x="50" y="100" text-anchor="middle"
+        font-family="Georgia, 'Source Serif Pro', serif"
+        font-size="7" font-weight="700"
+        fill="currentColor">1847</text>
+</svg>
