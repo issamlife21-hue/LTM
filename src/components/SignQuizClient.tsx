@@ -158,7 +158,7 @@ export function SignQuizClient() {
           <Card>
             <CardContent className="space-y-5 p-6">
               <div className="flex flex-col items-center gap-6 rounded-lg bg-ltm-cream p-8">
-                <div className="flex h-40 w-40 items-center justify-center rounded-lg bg-white p-4 md:h-48 md:w-48">
+                <div className="relative h-44 w-44 overflow-hidden rounded-lg bg-white shadow-sm md:h-52 md:w-52">
                   <SignImage sign={q.sign} />
                 </div>
                 <h2 className="text-center font-serif text-xl text-ltm-black md:text-2xl">
@@ -305,7 +305,7 @@ export function SignQuizClient() {
                   className="rounded-lg border border-ltm-border bg-white p-5 shadow-sm"
                 >
                   <div className="flex items-start gap-4">
-                    <div className="flex h-20 w-20 shrink-0 items-center justify-center rounded bg-ltm-stone p-2">
+                    <div className="relative h-24 w-24 shrink-0 overflow-hidden rounded bg-ltm-stone">
                       <SignImage sign={q.sign} />
                     </div>
                     <div className="flex-1">

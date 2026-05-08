@@ -2,15 +2,21 @@ import Image from "next/image";
 
 import { type RoadSign } from "@/data/road-signs";
 
+// Renders into a parent that must be `position: relative` (and ideally
+// square / sized via h-* w-*). The image always uses next/image fill +
+// object-contain so it stays centered both horizontally and vertically
+// inside the frame, never crops, and never gets the awkward intrinsic-
+// size override fight with Tailwind h-full / w-full.
+
 export function SignImage({ sign }: { sign: RoadSign }) {
   if (sign.imageUrl) {
     return (
       <Image
         src={sign.imageUrl}
         alt={sign.imageHint}
-        width={240}
-        height={240}
-        className="h-full w-full object-contain"
+        fill
+        sizes="(max-width: 640px) 96px, (max-width: 1024px) 160px, 240px"
+        className="object-contain"
       />
     );
   }
@@ -24,7 +30,7 @@ export function SignImage({ sign }: { sign: RoadSign }) {
 
   return (
     <div
-      className={`flex h-full w-full items-center justify-center rounded ${fallbackBg}`}
+      className={`absolute inset-0 flex items-center justify-center rounded ${fallbackBg}`}
       role="img"
       aria-label={sign.imageHint}
     >
