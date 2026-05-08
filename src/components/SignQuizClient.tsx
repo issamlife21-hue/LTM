@@ -22,6 +22,7 @@ import { cn } from "@/lib/utils";
 type Mode = "intro" | "quiz" | "review";
 type Answer = { signId: string; correct: boolean; selectedText: string };
 
+
 const QUESTION_COUNT = 20;
 
 function ProgressBar({ current, total }: { current: number; total: number }) {
@@ -101,7 +102,7 @@ export function SignQuizClient() {
       setSelected(text);
       setAnswers((prev) => [
         ...prev,
-        { signId: q.signId, correct: opt.correct, selectedText: text },
+        { signId: q.sign.id, correct: opt.correct, selectedText: text },
       ]);
     },
     [questions, current, selected]
@@ -156,11 +157,11 @@ export function SignQuizClient() {
 
           <Card>
             <CardContent className="space-y-5 p-6">
-              <div className="flex flex-col items-center gap-3 rounded-lg bg-ltm-stone p-6">
-                <div className="flex h-32 w-32 items-center justify-center">
-                  <SignImage signId={q.signId} hint={q.signImageHint} />
+              <div className="flex flex-col items-center gap-6 rounded-lg bg-ltm-cream p-8">
+                <div className="flex h-40 w-40 items-center justify-center rounded-lg bg-white p-4 md:h-48 md:w-48">
+                  <SignImage sign={q.sign} />
                 </div>
-                <h2 className="text-center text-lg font-semibold text-ltm-slate sm:text-xl">
+                <h2 className="text-center font-serif text-xl text-ltm-black md:text-2xl">
                   What does this sign mean?
                 </h2>
               </div>
@@ -202,9 +203,9 @@ export function SignQuizClient() {
                   />
                   <p className="text-sm leading-relaxed text-ltm-slate">
                     <span className="font-semibold text-ltm-black">
-                      {q.signName}.
+                      {q.sign.name}.
                     </span>{" "}
-                    {q.description}
+                    {q.sign.description}
                   </p>
                 </div>
               )}
@@ -300,16 +301,16 @@ export function SignQuizClient() {
             <ul className="space-y-3">
               {missed.map(({ q, a }) => (
                 <li
-                  key={q.signId}
+                  key={q.sign.id}
                   className="rounded-lg border border-ltm-border bg-white p-5 shadow-sm"
                 >
                   <div className="flex items-start gap-4">
-                    <div className="flex h-20 w-20 shrink-0 items-center justify-center rounded bg-ltm-stone">
-                      <SignImage signId={q.signId} hint={q.signImageHint} />
+                    <div className="flex h-20 w-20 shrink-0 items-center justify-center rounded bg-ltm-stone p-2">
+                      <SignImage sign={q.sign} />
                     </div>
                     <div className="flex-1">
                       <h3 className="text-base font-semibold text-ltm-black">
-                        {q.signName}
+                        {q.sign.name}
                       </h3>
                       <dl className="mt-2 space-y-1 text-sm">
                         <div className="flex flex-col gap-0.5 sm:flex-row sm:gap-2">
@@ -322,11 +323,11 @@ export function SignQuizClient() {
                           <dt className="font-medium text-ltm-success">
                             Correct answer:
                           </dt>
-                          <dd className="text-ltm-slate">{q.signName}</dd>
+                          <dd className="text-ltm-slate">{q.sign.name}</dd>
                         </div>
                       </dl>
                       <p className="mt-3 rounded-md bg-ltm-stone p-3 text-sm leading-relaxed text-ltm-slate">
-                        {q.description}
+                        {q.sign.description}
                       </p>
                     </div>
                   </div>

@@ -6,10 +6,7 @@ export type SignQuizOption = {
 };
 
 export type SignQuizQuestion = {
-  signId: string;
-  signName: string;
-  signImageHint: string;
-  description: string;
+  sign: RoadSign;
   options: SignQuizOption[];
 };
 
@@ -18,10 +15,6 @@ const QUIZABLE_SECTIONS: SignSection[] = [
   "warning",
   "sign-shapes",
 ];
-
-function shortAnswer(sign: RoadSign): string {
-  return sign.name;
-}
 
 function shuffle<T>(arr: T[]): T[] {
   const a = arr.slice();
@@ -33,7 +26,11 @@ function shuffle<T>(arr: T[]): T[] {
 }
 
 export function generateSignQuiz(count = 20): SignQuizQuestion[] {
-  const pool = roadSigns.filter((s) => QUIZABLE_SECTIONS.includes(s.section));
+  // Only include signs that have a real image so a question never shows
+  // a placeholder where the user is being asked to identify the sign.
+  const pool = roadSigns.filter(
+    (s) => s.imageUrl !== "" && QUIZABLE_SECTIONS.includes(s.section)
+  );
   const selected = shuffle(pool).slice(0, count);
 
   return selected.map((sign) => {
@@ -43,16 +40,11 @@ export function generateSignQuiz(count = 20): SignQuizQuestion[] {
     const distractors = shuffle(sameSectionPool).slice(0, 3);
 
     const options: SignQuizOption[] = shuffle([
-      { text: shortAnswer(sign), correct: true },
-      ...distractors.map((d) => ({ text: shortAnswer(d), correct: false })),
+      { text: sign.name, correct: true },
+      ...distractors.map((d) => ({ text: d.name, correct: false })),
     ]);
 
-    return {
-      signId: sign.id,
-      signName: sign.name,
-      signImageHint: sign.imageHint,
-      description: sign.description,
-      options,
-    };
+    return { sign, options };
   });
 }
+
