@@ -3,9 +3,11 @@ const https = require('https');
 const fs = require('fs');
 const os = require('os');
 const path = require('path');
+const crypto = require('crypto');
 
 const PORT = 3000;
 const PUBLIC_DIR = path.join(__dirname, 'public');
+const EVENTS_FILE = path.join(__dirname, 'events.json');
 const ANTHROPIC_MODEL = 'claude-sonnet-4-20250514';
 
 function loadEnv() {
@@ -249,6 +251,105 @@ async function handleNewsProxy(req, res) {
   }
 }
 
+function readEvents() {
+  try {
+    const raw = fs.readFileSync(EVENTS_FILE, 'utf8');
+    const parsed = JSON.parse(raw);
+    return Array.isArray(parsed) ? parsed : [];
+  } catch (_) {
+    return [];
+  }
+}
+
+function writeEvents(events) {
+  const tmp = EVENTS_FILE + '.tmp';
+  fs.writeFileSync(tmp, JSON.stringify(events, null, 2));
+  fs.renameSync(tmp, EVENTS_FILE);
+}
+
+function ensureEventsFile() {
+  if (!fs.existsSync(EVENTS_FILE)) writeEvents([]);
+}
+
+function sanitizeStr(s, max) {
+  if (typeof s !== 'string') return '';
+  return s.replace(/[\r\n]+/g, ' ').slice(0, max).trim();
+}
+
+function buildEventFromBody(body) {
+  const name = sanitizeStr(body.name, 200);
+  if (!name) return null;
+  return {
+    name: name,
+    date: sanitizeStr(body.date, 120),
+    time: sanitizeStr(body.time, 60),
+    description: sanitizeStr(body.description, 800),
+    location: sanitizeStr(body.location, 200),
+  };
+}
+
+function jsonResponse(res, status, payload) {
+  res.writeHead(status, { 'Content-Type': 'application/json; charset=utf-8' });
+  res.end(JSON.stringify(payload));
+}
+
+async function handleEventsApi(req, res, reqPath) {
+  // GET /api/events
+  if (req.method === 'GET' && reqPath === '/api/events') {
+    return jsonResponse(res, 200, readEvents());
+  }
+
+  // POST /api/events  (create)
+  if (req.method === 'POST' && reqPath === '/api/events') {
+    try {
+      const body = await readJsonBody(req, 16 * 1024);
+      const fields = buildEventFromBody(body);
+      if (!fields) return jsonResponse(res, 400, { error: 'name_required' });
+      const events = readEvents();
+      const event = Object.assign({ id: crypto.randomUUID() }, fields);
+      events.push(event);
+      writeEvents(events);
+      return jsonResponse(res, 201, event);
+    } catch (err) {
+      return jsonResponse(res, err.statusCode || 500, { error: err.message || 'server_error' });
+    }
+  }
+
+  // /api/events/:id (PUT, DELETE)
+  const idMatch = reqPath.match(/^\/api\/events\/([A-Za-z0-9_-]+)$/);
+  if (idMatch) {
+    const id = idMatch[1];
+
+    if (req.method === 'PUT') {
+      try {
+        const body = await readJsonBody(req, 16 * 1024);
+        const fields = buildEventFromBody(body);
+        if (!fields) return jsonResponse(res, 400, { error: 'name_required' });
+        const events = readEvents();
+        const i = events.findIndex((e) => e.id === id);
+        if (i < 0) return jsonResponse(res, 404, { error: 'not_found' });
+        events[i] = Object.assign({ id: id }, fields);
+        writeEvents(events);
+        return jsonResponse(res, 200, events[i]);
+      } catch (err) {
+        return jsonResponse(res, err.statusCode || 500, { error: err.message || 'server_error' });
+      }
+    }
+
+    if (req.method === 'DELETE') {
+      const events = readEvents();
+      const next = events.filter((e) => e.id !== id);
+      if (next.length === events.length) return jsonResponse(res, 404, { error: 'not_found' });
+      writeEvents(next);
+      res.writeHead(204);
+      res.end();
+      return;
+    }
+  }
+
+  return jsonResponse(res, 405, { error: 'method_not_allowed' });
+}
+
 function serveStatic(req, res) {
   const urlPath = decodeURIComponent(req.url.split('?')[0]);
   const safePath = path
@@ -300,8 +401,23 @@ const server = http.createServer(async (req, res) => {
     return;
   }
 
+  if (reqPath === '/api/events' || reqPath.startsWith('/api/events/')) {
+    handleEventsApi(req, res, reqPath);
+    return;
+  }
+
+  if ((req.method === 'GET' || req.method === 'HEAD') &&
+      (reqPath === '/admin' || reqPath === '/admin/')) {
+    req.url = '/admin.html';
+    serveStatic(req, res);
+    return;
+  }
+
   if (req.method !== 'GET' && req.method !== 'HEAD') {
-    res.writeHead(405, { 'Content-Type': 'text/plain', Allow: 'GET, HEAD, POST' });
+    res.writeHead(405, {
+      'Content-Type': 'text/plain',
+      Allow: 'GET, HEAD, POST, PUT, DELETE',
+    });
     res.end('Method Not Allowed');
     return;
   }
@@ -321,6 +437,8 @@ function getNetworkAddresses() {
   }
   return out;
 }
+
+ensureEventsFile();
 
 server.listen(PORT, () => {
   console.log('catalina-signage server listening');

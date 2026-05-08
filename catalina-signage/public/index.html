@@ -520,20 +520,24 @@
         margin: 0 0.85rem;
       }
 
-      /* ---------- Events panel (placeholder) ---------- */
+      /* ---------- Events panel ---------- */
       .panel--events {
         display: flex;
+        flex-direction: column;
         align-items: center;
         justify-content: center;
-        padding: 0 4rem;
+        padding: 7rem 4rem 6rem;
+        gap: 1.75rem;
       }
-      .events__caption {
+
+      /* Coming-soon splash (shown when events list is empty) */
+      .events__splash {
         text-align: center;
         margin: 0;
         padding-top: 1.25rem;
         position: relative;
       }
-      .events__caption::before {
+      .events__splash::before {
         content: '';
         position: absolute;
         top: 0; left: 50%;
@@ -568,6 +572,89 @@
         text-transform: uppercase;
         color: var(--gold);
         margin: 1rem 0 0;
+      }
+
+      /* Populated events list */
+      .panel--events.has-events { padding: 6rem 4rem 5rem; }
+      .panel--events.has-events .events__splash { display: none; }
+      .panel--events:not(.has-events) .events__list-wrap { display: none; }
+
+      .events__list-wrap {
+        width: min(1100px, 100%);
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+      }
+      .events__list {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: grid;
+        gap: 1rem;
+      }
+      .events__list[data-count="1"] { grid-template-columns: minmax(0, 720px); justify-content: center; }
+      .events__list[data-count="2"] { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .events__list[data-count="3"],
+      .events__list[data-count="4"] {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+      .event-card {
+        background: rgba(8, 12, 16, 0.55);
+        border: 1px solid rgba(200, 169, 110, 0.28);
+        backdrop-filter: blur(14px) saturate(140%);
+        -webkit-backdrop-filter: blur(14px) saturate(140%);
+        padding: 1.4rem 1.6rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.55rem;
+        position: relative;
+        overflow: hidden;
+      }
+      .event-card::before {
+        content: '';
+        position: absolute;
+        top: 0; left: 0;
+        bottom: 0;
+        width: 2px;
+        background: var(--gold);
+      }
+      .event-card__meta {
+        font-family: var(--sans);
+        font-weight: 500;
+        font-size: 0.78rem;
+        letter-spacing: 0.34em;
+        text-transform: uppercase;
+        color: var(--gold);
+        margin: 0;
+      }
+      .event-card__name {
+        font-family: var(--serif);
+        font-weight: 500;
+        font-size: 1.55rem;
+        line-height: 1.2;
+        color: var(--white);
+        margin: 0;
+      }
+      .event-card__location {
+        font-family: var(--sans);
+        font-weight: 400;
+        font-size: 0.85rem;
+        letter-spacing: 0.28em;
+        text-transform: uppercase;
+        color: var(--dim);
+        margin: 0;
+      }
+      .event-card__desc {
+        font-family: var(--serif);
+        font-weight: 400;
+        font-size: 0.98rem;
+        line-height: 1.45;
+        color: rgba(244, 240, 234, 0.78);
+        margin: 0;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
       }
 
       /* ---------- Property panel ---------- */
@@ -844,10 +931,14 @@
 
         <!-- Events -->
         <div class="panel panel--events" data-mode="events">
-          <div class="events__caption" data-stagger style="--i:0">
+          <div class="events__splash" data-stagger style="--i:0">
             <p class="events__eyebrow">Events</p>
             <h2 class="events__title">Coming Soon</h2>
             <p class="events__subtitle">Catalina Landing &middot; Long Beach</p>
+          </div>
+          <div class="events__list-wrap">
+            <p class="eyebrow" data-stagger style="--i:0">Upcoming Events</p>
+            <ul class="events__list" id="events-list" data-stagger style="--i:1"></ul>
           </div>
         </div>
 
@@ -1190,6 +1281,83 @@
           if (e.detail && e.detail.id === 'weather' && lastTempShown != null) {
             animateTemp(lastTempShown);
           }
+        });
+
+        load();
+        setInterval(load, REFRESH_MS);
+      })();
+
+      // ============================================================
+      //   EVENTS (from /api/events, edited via /admin)
+      // ============================================================
+      (function () {
+        const REFRESH_MS = 60 * 1000;
+        const MAX_VISIBLE = 4;
+        const panel = document.querySelector('.panel--events');
+        const listEl = document.getElementById('events-list');
+
+        function makeCard(ev) {
+          const li = document.createElement('li');
+          li.className = 'event-card';
+
+          const metaParts = [];
+          if (ev.date) metaParts.push(ev.date);
+          if (ev.time) metaParts.push(ev.time);
+          if (metaParts.length) {
+            const meta = document.createElement('p');
+            meta.className = 'event-card__meta';
+            meta.textContent = metaParts.join(' · ');
+            li.appendChild(meta);
+          }
+
+          const name = document.createElement('h3');
+          name.className = 'event-card__name';
+          name.textContent = ev.name || '';
+          li.appendChild(name);
+
+          if (ev.location) {
+            const loc = document.createElement('p');
+            loc.className = 'event-card__location';
+            loc.textContent = ev.location;
+            li.appendChild(loc);
+          }
+          if (ev.description) {
+            const desc = document.createElement('p');
+            desc.className = 'event-card__desc';
+            desc.textContent = ev.description;
+            li.appendChild(desc);
+          }
+          return li;
+        }
+
+        function render(events) {
+          listEl.innerHTML = '';
+          if (!Array.isArray(events) || events.length === 0) {
+            panel.classList.remove('has-events');
+            listEl.removeAttribute('data-count');
+            return;
+          }
+          const visible = events.slice(0, MAX_VISIBLE);
+          listEl.setAttribute('data-count', String(visible.length));
+          visible.forEach((ev) => listEl.appendChild(makeCard(ev)));
+          panel.classList.add('has-events');
+        }
+
+        async function load() {
+          try {
+            const res = await fetch('/api/events', { cache: 'no-store' });
+            if (!res.ok) throw new Error('HTTP ' + res.status);
+            render(await res.json());
+          } catch (err) {
+            console.error('events fetch failed', err);
+            render([]); // fall back to splash
+          }
+        }
+
+        // Reload whenever the Events panel becomes active so admin
+        // edits show on the next rotation.
+        window.addEventListener('mode-activated', (e) => {
+          if (e.detail && e.detail.id === 'events') load();
         });
 
         load();
