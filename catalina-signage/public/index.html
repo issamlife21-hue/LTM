@@ -520,214 +520,55 @@
         margin: 0 0.85rem;
       }
 
-      /* ---------- News (CNN + Bloomberg) ---------- */
-      .panel--news {
-        padding: 6.5rem 3.5rem 0;
-        display: flex;
-        flex-direction: column;
-      }
-      .news__header {
+      /* ---------- Events panel (placeholder) ---------- */
+      .panel--events {
         display: flex;
         align-items: center;
-        gap: 1.25rem;
-        margin-bottom: 1.5rem;
+        justify-content: center;
+        padding: 0 4rem;
       }
-
-      .news__logo {
-        font-weight: 700;
-        font-size: 2rem;
-        line-height: 1;
-        letter-spacing: -0.02em;
-      }
-      .news__logo--cnn {
-        background: var(--red);
-        color: #fff;
-        font-family: 'Arial Black', 'Helvetica Neue', sans-serif;
-        padding: 0.35rem 0.85rem 0.3rem;
-        box-shadow: 0 0 0 0 rgba(204,0,0,0.5);
-        animation: cnn-pulse 2s ease-in-out infinite;
-      }
-      @keyframes cnn-pulse {
-        0%, 100% { box-shadow: 0 0 22px 0 rgba(204,0,0,0.45); }
-        50%      { box-shadow: 0 0 38px 4px rgba(204,0,0,0.7); }
-      }
-      .news__logo--bloomberg {
-        font-family: var(--serif);
-        font-weight: 600;
-        font-size: 2.1rem;
-        color: var(--white);
-        letter-spacing: -0.01em;
-      }
-      .news__logo--bloomberg em {
-        font-style: normal;
-        color: var(--gold);
-      }
-
-      .news__live {
-        display: inline-flex;
-        align-items: center;
-        gap: 0.55rem;
-        padding: 0.35rem 0.75rem;
-        border: 1px solid rgba(204,0,0,0.55);
-        font-family: var(--sans);
-        font-weight: 600;
-        font-size: 0.78rem;
-        letter-spacing: 0.4em;
-        text-transform: uppercase;
-        color: var(--white);
-      }
-      .news__live-dot {
-        width: 8px; height: 8px; border-radius: 50%;
-        background: var(--red);
-        animation: news-pulse 1.4s ease-in-out infinite;
-      }
-      @keyframes news-pulse {
-        0%   { opacity: 1;   box-shadow: 0 0 0 0 rgba(204,0,0,0.6); }
-        70%  { opacity: 0.45; box-shadow: 0 0 0 8px rgba(204,0,0,0); }
-        100% { opacity: 1;   box-shadow: 0 0 0 0 rgba(204,0,0,0); }
-      }
-
-      .news__layout {
-        flex: 1 1 auto;
-        display: grid;
-        grid-template-rows: 40% 1fr;
-        gap: 1rem;
-        min-height: 0;
-      }
-
-      .story {
-        background: rgba(8,12,16,0.62);
-        border: 1px solid rgba(200,169,110,0.25);
-        padding: 1.15rem 1.25rem;
-        display: flex;
-        flex-direction: column;
-        gap: 0.5rem;
-        overflow: hidden;
+      .events__caption {
+        text-align: center;
+        margin: 0;
+        padding-top: 1.25rem;
         position: relative;
       }
-
-      .story--lead {
-        padding: 1.7rem 2rem;
-        gap: 0.9rem;
-        border-color: rgba(200,169,110,0.4);
-        border-left-width: 0;
-      }
-      .panel--cnn .story--lead { border-left: 3px solid var(--red); }
-      .panel--bloomberg .story--lead { border-left: 3px solid var(--gold); }
-
-      .story__category {
-        display: inline-flex;
-        align-items: center;
-        gap: 0.5rem;
-        font-family: var(--sans);
-        font-weight: 500;
-        font-size: 0.72rem;
-        letter-spacing: 0.4em;
-        text-transform: uppercase;
-        color: var(--gold);
-      }
-      .story--lead .story__category::before {
+      .events__caption::before {
         content: '';
-        width: 18px; height: 1px;
+        position: absolute;
+        top: 0; left: 50%;
+        transform: translateX(-50%);
+        width: 110px;
+        height: 1px;
         background: var(--gold);
       }
-      .story__headline {
-        font-family: var(--serif);
-        font-weight: 400;
-        font-size: 1.05rem;
-        line-height: 1.32;
-        color: var(--white);
-        margin: 0;
-      }
-      .story--lead .story__headline {
-        font-size: 2rem;
-        font-weight: 600;
-        line-height: 1.18;
-      }
-      .story__time {
+      .events__eyebrow {
         font-family: var(--sans);
-        font-weight: 300;
-        font-size: 0.72rem;
-        letter-spacing: 0.34em;
-        text-transform: uppercase;
-        color: var(--dim);
-        margin-top: auto;
-      }
-
-      .news__sub {
-        display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        grid-template-rows: repeat(2, minmax(0, 1fr));
-        gap: 0.85rem;
-        min-height: 0;
-      }
-
-      /* News error state */
-      .news__error {
-        background: rgba(204,0,0,0.12);
-        border: 1px solid rgba(204,0,0,0.55);
-        padding: 2rem;
-        text-align: center;
-        font-family: var(--serif);
-        font-weight: 400;
-        font-size: 1.4rem;
-        color: var(--white);
-        align-self: center;
-        justify-self: center;
-        width: 100%;
-      }
-      .news__error small {
-        display: block;
-        margin-top: 0.65rem;
-        font-family: var(--sans);
-        font-size: 0.8rem;
-        letter-spacing: 0.34em;
+        font-weight: 500;
+        font-size: 0.78rem;
+        letter-spacing: 0.5em;
         text-transform: uppercase;
         color: var(--gold);
+        margin: 0 0 1.25rem;
       }
-
-      /* Ticker */
-      .ticker {
-        margin: 1.4rem -3.5rem 0;
-        border-top: 1px solid rgba(200,169,110,0.32);
-        border-bottom: 1px solid rgba(200,169,110,0.32);
-        background: rgba(0,0,0,0.78);
-        overflow: hidden;
-        padding: 0.7rem 0;
+      .events__title {
+        font-family: var(--serif);
+        font-weight: 400;
+        font-size: 4.5rem;
+        letter-spacing: 0.06em;
+        color: var(--white);
+        margin: 0;
+        line-height: 1;
       }
-      .ticker__track {
-        display: inline-flex;
-        white-space: nowrap;
-        animation: ticker-scroll 80s linear infinite;
-        will-change: transform;
-      }
-      .ticker__group {
-        display: inline-flex;
-        gap: 3rem;
-        padding-right: 3rem;
-      }
-      @keyframes ticker-scroll {
-        from { transform: translateX(0); }
-        to   { transform: translateX(-50%); }
-      }
-      .ticker__item {
+      .events__subtitle {
         font-family: var(--sans);
         font-weight: 400;
         font-size: 0.95rem;
-        letter-spacing: 0.18em;
+        letter-spacing: 0.45em;
         text-transform: uppercase;
-        color: var(--white);
-        display: inline-flex;
-        align-items: baseline;
-        gap: 0.4rem;
+        color: var(--gold);
+        margin: 1rem 0 0;
       }
-      .panel--cnn .ticker__item { color: var(--gold); }
-      .panel--bloomberg .ticker__item { letter-spacing: 0.22em; }
-      .ticker__arrow { font-size: 0.8em; }
-      .ticker__item--up   .ticker__arrow,
-      .ticker__item--up   .ticker__delta { color: var(--up); }
-      .ticker__item--down .ticker__arrow,
-      .ticker__item--down .ticker__delta { color: var(--down); }
 
       /* ---------- Property panel ---------- */
       .panel--property {
@@ -829,25 +670,6 @@
         box-shadow: 0 0 12px rgba(200,169,110,0.55);
       }
 
-      /* ---------- Dev button ---------- */
-      .dev-button {
-        position: fixed;
-        right: 1rem;
-        bottom: 1rem;
-        z-index: 99;
-        padding: 0.55rem 1.1rem;
-        background: rgba(8,12,16,0.85);
-        border: 1px solid var(--gold);
-        color: var(--gold);
-        font-family: var(--sans);
-        font-weight: 500;
-        font-size: 0.78rem;
-        letter-spacing: 0.34em;
-        text-transform: uppercase;
-        cursor: pointer;
-      }
-      .dev-button, .dev-button * { cursor: pointer; }
-      .dev-button:hover { background: rgba(200,169,110,0.15); }
     </style>
   </head>
 
@@ -1020,39 +842,12 @@
           </p>
         </div>
 
-        <!-- CNN -->
-        <div class="panel panel--news panel--cnn" data-mode="cnn">
-          <header class="news__header" data-stagger style="--i:0">
-            <span class="news__logo news__logo--cnn">CNN</span>
-            <span class="news__live">
-              <span class="news__live-dot" aria-hidden="true"></span>
-              <span>Live</span>
-            </span>
-          </header>
-          <div class="news__layout">
-            <div id="cnn-lead" data-stagger style="--i:1"></div>
-            <div class="news__sub" id="cnn-sub" data-stagger style="--i:2"></div>
-          </div>
-          <div class="ticker" aria-hidden="true" data-stagger style="--i:3">
-            <div class="ticker__track" id="cnn-ticker"></div>
-          </div>
-        </div>
-
-        <!-- Bloomberg -->
-        <div class="panel panel--news panel--bloomberg" data-mode="bloomberg">
-          <header class="news__header" data-stagger style="--i:0">
-            <span class="news__logo news__logo--bloomberg">Bloom<em>berg</em></span>
-            <span class="news__live">
-              <span class="news__live-dot" aria-hidden="true"></span>
-              <span>Markets Live</span>
-            </span>
-          </header>
-          <div class="news__layout">
-            <div id="bloomberg-lead" data-stagger style="--i:1"></div>
-            <div class="news__sub" id="bloomberg-sub" data-stagger style="--i:2"></div>
-          </div>
-          <div class="ticker" aria-hidden="true" data-stagger style="--i:3">
-            <div class="ticker__track" id="bloomberg-ticker"></div>
+        <!-- Events -->
+        <div class="panel panel--events" data-mode="events">
+          <div class="events__caption" data-stagger style="--i:0">
+            <p class="events__eyebrow">Events</p>
+            <h2 class="events__title">Coming Soon</h2>
+            <p class="events__subtitle">Catalina Landing &middot; Long Beach</p>
           </div>
         </div>
 
@@ -1069,8 +864,7 @@
       <nav class="tabs" id="tabs" aria-label="Display modes">
         <button type="button" class="tabs__item" data-mode="weather">Weather</button>
         <button type="button" class="tabs__item" data-mode="directory">Directory</button>
-        <button type="button" class="tabs__item" data-mode="cnn">CNN</button>
-        <button type="button" class="tabs__item" data-mode="bloomberg">Bloomberg</button>
+        <button type="button" class="tabs__item" data-mode="events">Events</button>
         <button type="button" class="tabs__item" data-mode="property">Property</button>
       </nav>
 
@@ -1156,11 +950,10 @@
       //   MODE ROTATION (with click-to-jump)
       // ============================================================
       const MODES = [
-        { id: 'weather',   duration: 25000 },
-        { id: 'directory', duration: 22000 },
-        { id: 'cnn',       duration: 30000 },
-        { id: 'bloomberg', duration: 30000 },
-        { id: 'property',  duration: 35000 },
+        { id: 'weather',   duration: 10000 },
+        { id: 'directory', duration: 15000 },
+        { id: 'events',    duration: 12000 },
+        { id: 'property',  duration: 12000 },
       ];
 
       (function () {
@@ -1403,193 +1196,6 @@
         setInterval(load, REFRESH_MS);
       })();
 
-      // ============================================================
-      //   NEWS (CNN + Bloomberg via /api/news proxy)
-      // ============================================================
-      (function () {
-        const REFRESH_MS = 20 * 60 * 1000;
-
-        const FALLBACK = {
-          cnn: {
-            stories: [
-              { category: 'Top Story', headline: 'Federal Reserve signals patience on rate cuts as inflation cools',           time: '38 minutes ago' },
-              { category: 'Politics',  headline: 'Senate advances bipartisan infrastructure package',                          time: '1 hour ago' },
-              { category: 'World',     headline: 'EU leaders convene emergency summit on energy security',                     time: '2 hours ago' },
-              { category: 'Business',  headline: 'Major airline reports record summer travel bookings',                        time: '3 hours ago' },
-              { category: 'Tech',      headline: 'AI startup valuations hit new high in Q2 funding round',                     time: '4 hours ago' },
-            ],
-            ticker: [
-              'BREAKING: Markets close higher on strong earnings',
-              'White House announces new climate initiative',
-              'Storm system tracks toward Gulf Coast',
-              'Tech earnings beat expectations across the board',
-              'Supreme Court to hear major case next month',
-              'Global summit on AI safety opens in Geneva',
-              'Auto industry pivots to next-gen EV platforms',
-              'Health officials issue updated travel guidance',
-            ],
-          },
-          bloomberg: {
-            stories: [
-              { category: 'Markets',     headline: 'S&P 500 closes at record high as tech rally extends to fourth session', time: '22 minutes ago' },
-              { category: 'Commodities', headline: 'Crude oil retreats from recent highs on demand outlook',                time: '1 hour ago' },
-              { category: 'FX',          headline: 'Dollar slips against yen after BOJ policy hint',                        time: '2 hours ago' },
-              { category: 'Crypto',      headline: 'Bitcoin steadies near $68K as ETF inflows accelerate',                  time: '3 hours ago' },
-              { category: 'Deals',       headline: 'Private equity firm nears $12B take-private deal',                     time: '4 hours ago' },
-            ],
-            ticker: [
-              'S&P 500 5,341.62 +0.58%',
-              'NASDAQ 17,892.44 +0.81%',
-              'DOW 39,512.18 +0.22%',
-              'AAPL 192.45 +1.12%',
-              'MSFT 421.83 +0.74%',
-              'NVDA 1,184.20 -0.48%',
-              'BTC 68,432 +1.85%',
-              'WTI 78.42 -0.92%',
-            ],
-          },
-        };
-
-        function makeStory(s, lead) {
-          const card = document.createElement('article');
-          card.className = 'story' + (lead ? ' story--lead' : '');
-          card.innerHTML =
-            '<span class="story__category"></span>' +
-            '<h3 class="story__headline"></h3>' +
-            '<span class="story__time"></span>';
-          card.querySelector('.story__category').textContent = s.category || '';
-          card.querySelector('.story__headline').textContent = s.headline || '';
-          card.querySelector('.story__time').textContent     = s.time || '';
-          return card;
-        }
-
-        function classifyTickerItem(text) {
-          if (/\+\s*\d/.test(text)) return 'up';
-          if (/-\s*\d/.test(text))  return 'down';
-          return null;
-        }
-
-        function makeTickerItem(text, outlet) {
-          const span = document.createElement('span');
-          span.className = 'ticker__item';
-          const dir = classifyTickerItem(text);
-          if (outlet === 'bloomberg' && dir) {
-            span.classList.add('ticker__item--' + dir);
-            const arrow = document.createElement('span');
-            arrow.className = 'ticker__arrow';
-            arrow.textContent = dir === 'up' ? '▲' : '▼';
-            const label = document.createElement('span');
-            label.textContent = text;
-            span.appendChild(arrow);
-            span.appendChild(label);
-          } else {
-            span.textContent = text;
-            if (dir) span.classList.add('ticker__item--' + dir);
-          }
-          return span;
-        }
-
-        function renderStories(outlet, stories) {
-          const lead = document.getElementById(outlet + '-lead');
-          const sub  = document.getElementById(outlet + '-sub');
-          lead.innerHTML = '';
-          sub.innerHTML = '';
-          if (!stories || !stories.length) return;
-          lead.appendChild(makeStory(stories[0], true));
-          stories.slice(1, 5).forEach((s) => sub.appendChild(makeStory(s, false)));
-        }
-
-        function renderTicker(outlet, items) {
-          const root = document.getElementById(outlet + '-ticker');
-          root.innerHTML = '';
-          const make = () => {
-            const group = document.createElement('div');
-            group.className = 'ticker__group';
-            (items || []).slice(0, 8).forEach((t) =>
-              group.appendChild(makeTickerItem(t, outlet))
-            );
-            return group;
-          };
-          root.appendChild(make());
-          root.appendChild(make());
-        }
-
-        function renderError(outlet, msg) {
-          const lead = document.getElementById(outlet + '-lead');
-          const sub  = document.getElementById(outlet + '-sub');
-          lead.innerHTML = '';
-          sub.innerHTML  = '';
-          const block = document.createElement('div');
-          block.className = 'news__error';
-          block.innerHTML = '<div></div><small>See terminal running the server</small>';
-          block.firstChild.textContent = msg;
-          sub.appendChild(block);
-          document.getElementById(outlet + '-ticker').innerHTML = '';
-        }
-
-        function render(outlet, data) {
-          if (!data || !Array.isArray(data.stories) || !Array.isArray(data.ticker)) {
-            data = FALLBACK[outlet];
-          }
-          renderStories(outlet, data.stories);
-          renderTicker(outlet, data.ticker);
-        }
-
-        async function fetchOutlet(outlet) {
-          try {
-            const res = await fetch('/api/news', {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({ outlet: outlet }),
-            });
-            if (res.status === 401 || res.status === 403) return { __error: 'invalid_api_key' };
-            if (!res.ok) return { __error: 'http_' + res.status };
-            return await res.json();
-          } catch (err) {
-            console.error('news fetch failed (' + outlet + ')', err);
-            return { __error: 'network' };
-          }
-        }
-
-        async function loadOutlet(outlet) {
-          const data = await fetchOutlet(outlet);
-          if (data && data.__error === 'invalid_api_key') {
-            renderError(outlet, 'API key invalid — check console');
-            return;
-          }
-          if (data && data.__error) {
-            render(outlet, FALLBACK[outlet]);
-            return;
-          }
-          render(outlet, data);
-        }
-
-        function loadAll() {
-          loadOutlet('cnn');
-          loadOutlet('bloomberg');
-        }
-
-        render('cnn',       FALLBACK.cnn);
-        render('bloomberg', FALLBACK.bloomberg);
-        loadAll();
-        setInterval(loadAll, REFRESH_MS);
-
-        if (location.hostname === 'localhost' || location.hostname === '127.0.0.1') {
-          const btn = document.createElement('button');
-          btn.className = 'dev-button';
-          btn.type = 'button';
-          btn.textContent = 'Test News';
-          btn.addEventListener('click', () => {
-            btn.disabled = true;
-            btn.textContent = 'Loading…';
-            Promise.all([loadOutlet('cnn'), loadOutlet('bloomberg')]).then(() => {
-              btn.disabled = false;
-              btn.textContent = 'Test News';
-            });
-          });
-          document.body.appendChild(btn);
-        }
-      })();
     </script>
   </body>
 </html>
