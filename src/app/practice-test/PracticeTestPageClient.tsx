@@ -387,7 +387,7 @@ function ReviewScreen({
                 return (
                   <li
                     key={q.id}
-                    className="rounded-lg border border-ltm-border bg-white p-5 shadow-sm"
+                    className="rounded-lg border border-ltm-border bg-white p-5"
                   >
                     <p className="text-xs font-semibold uppercase tracking-wider text-ltm-muted">
                       Question {q.id}

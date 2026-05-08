@@ -19,7 +19,7 @@ export default function ErrorBoundary({
   }, [error]);
 
   return (
-    <section className="container-ltm py-20 text-center md:py-28">
+    <section className="container-ltm py-16 text-center md:py-20">
       <span
         className="mx-auto inline-flex h-14 w-14 items-center justify-center rounded-full bg-ltm-red/10 text-ltm-red"
         aria-hidden="true"

@@ -53,7 +53,7 @@ export function ServiceAdvisor() {
         <div className="mx-auto max-w-3xl text-center">
           <h2
             id="service-advisor-heading"
-            className="text-3xl text-ltm-black md:text-4xl"
+            className="text-2xl text-ltm-black md:text-3xl"
           >
             What do you need today?
           </h2>

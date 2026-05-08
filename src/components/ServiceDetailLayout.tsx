@@ -264,7 +264,7 @@ export function ServiceDetailLayout({
           </div>
 
           <aside className="mt-12 lg:col-span-1 lg:mt-0">
-            <div className="sticky top-24 space-y-4 rounded-lg border border-ltm-border bg-white p-6 shadow-sm">
+            <div className="sticky top-24 space-y-4 rounded-lg border border-ltm-border bg-white p-6">
               <h2 className="text-lg font-semibold text-ltm-black">
                 Visit our service center
               </h2>

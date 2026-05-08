@@ -100,7 +100,7 @@ export function RoadSignsBody() {
               )}
             >
               <div className="container-ltm">
-                <h2 className="mb-3 font-serif text-3xl md:text-4xl">
+                <h2 className="mb-2 font-serif text-2xl md:text-3xl">
                   {meta.title}
                 </h2>
                 <p className="mb-8 max-w-3xl leading-relaxed text-ltm-slate">

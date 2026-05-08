@@ -65,7 +65,7 @@ export function PriceTable({
       )}
 
       {/* Desktop / tablet table */}
-      <div className="hidden overflow-hidden rounded-lg border border-ltm-border bg-white shadow-sm md:block print:block">
+      <div className="hidden overflow-hidden rounded-lg border border-ltm-border bg-white md:block print:block">
         <Table>
           <TableHeader>
             <TableRow>
@@ -119,7 +119,7 @@ export function PriceTable({
         {filtered.map((row, idx) => (
           <div
             key={idx}
-            className="rounded-lg border border-ltm-border bg-white p-4 shadow-sm"
+            className="rounded-lg border border-ltm-border bg-white p-4"
           >
             <dl className="space-y-2">
               {columns.map((col) => (

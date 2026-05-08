@@ -302,7 +302,7 @@ export function SignQuizClient() {
               {missed.map(({ q, a }) => (
                 <li
                   key={q.sign.id}
-                  className="rounded-lg border border-ltm-border bg-white p-5 shadow-sm"
+                  className="rounded-lg border border-ltm-border bg-white p-5"
                 >
                   <div className="flex items-start gap-4">
                     <div className="relative h-24 w-24 shrink-0 overflow-hidden rounded bg-ltm-stone">

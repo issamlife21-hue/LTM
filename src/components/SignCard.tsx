@@ -3,7 +3,7 @@ import { SignImage } from "@/components/SignImage";
 
 export function SignCard({ sign }: { sign: RoadSign }) {
   return (
-    <article className="rounded-lg border border-ltm-border bg-white p-5 transition-shadow hover:shadow-md">
+    <article className="rounded-md border border-ltm-border bg-white p-4">
       <div className="mb-3 flex items-start gap-4">
         <div className="relative h-24 w-24 shrink-0 overflow-hidden rounded bg-ltm-stone">
           <SignImage sign={sign} />
