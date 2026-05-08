@@ -1,6 +1,7 @@
 const http = require('http');
 const https = require('https');
 const fs = require('fs');
+const os = require('os');
 const path = require('path');
 
 const PORT = 3000;
@@ -115,6 +116,28 @@ const server = http.createServer(async (req, res) => {
   serveStatic(req, res);
 });
 
+function getNetworkAddresses() {
+  const out = [];
+  const ifaces = os.networkInterfaces();
+  for (const name of Object.keys(ifaces)) {
+    for (const iface of ifaces[name] || []) {
+      if (iface.family === 'IPv4' && !iface.internal) {
+        out.push(iface.address);
+      }
+    }
+  }
+  return out;
+}
+
 server.listen(PORT, () => {
-  console.log(`catalina-signage server listening on http://localhost:${PORT}`);
+  console.log('catalina-signage server listening');
+  console.log(`  Local:    http://localhost:${PORT}`);
+  const addrs = getNetworkAddresses();
+  if (addrs.length === 0) {
+    console.log('  Network:  (no LAN interface detected)');
+  } else {
+    addrs.forEach((addr) => {
+      console.log(`  Network:  http://${addr}:${PORT}`);
+    });
+  }
 });
