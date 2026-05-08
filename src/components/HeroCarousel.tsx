@@ -7,10 +7,12 @@ import { heroPhotos } from "@/data/photos";
 import { cn } from "@/lib/utils";
 
 const INTERVAL_MS = 3200;
+const SWIPE_THRESHOLD_PX = 40;
 
 export function HeroCarousel() {
   const [index, setIndex] = React.useState(0);
   const [reduceMotion, setReduceMotion] = React.useState(false);
+  const touchStartX = React.useRef<number | null>(null);
 
   React.useEffect(() => {
     const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -28,12 +30,29 @@ export function HeroCarousel() {
     return () => window.clearInterval(id);
   }, [reduceMotion, index]);
 
-  const handleDotClick = (i: number) => {
-    setIndex(i);
+  const goTo = (i: number) => {
+    const next = ((i % heroPhotos.length) + heroPhotos.length) % heroPhotos.length;
+    setIndex(next);
+  };
+
+  const onTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+  };
+
+  const onTouchEnd = (e: React.TouchEvent) => {
+    if (touchStartX.current === null) return;
+    const dx = e.changedTouches[0].clientX - touchStartX.current;
+    touchStartX.current = null;
+    if (Math.abs(dx) < SWIPE_THRESHOLD_PX) return;
+    goTo(dx < 0 ? index + 1 : index - 1);
   };
 
   return (
-    <div className="absolute inset-0 h-full w-full overflow-hidden">
+    <div
+      className="absolute inset-0 h-full w-full overflow-hidden touch-pan-y"
+      onTouchStart={onTouchStart}
+      onTouchEnd={onTouchEnd}
+    >
       {heroPhotos.map((photo, i) => (
         <div
           key={photo.id}
@@ -48,6 +67,7 @@ export function HeroCarousel() {
             alt={photo.alt}
             fill
             priority={i === 0}
+            loading={i === 0 ? "eager" : "lazy"}
             sizes="100vw"
             className="object-cover"
           />
@@ -59,21 +79,26 @@ export function HeroCarousel() {
         className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ltm-black/85 via-ltm-black/40 to-transparent"
       />
 
-      <div className="absolute bottom-6 left-1/2 z-20 flex -translate-x-1/2 gap-2">
+      <div className="absolute bottom-6 left-1/2 z-20 flex -translate-x-1/2 gap-3">
         {heroPhotos.map((photo, i) => (
           <button
             key={photo.id}
             type="button"
-            onClick={() => handleDotClick(i)}
+            onClick={() => goTo(i)}
             aria-label={`Go to slide ${i + 1} of ${heroPhotos.length}`}
             aria-current={i === index}
             className={cn(
-              "h-2 rounded-full transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-ltm-black",
-              i === index
-                ? "w-8 bg-white"
-                : "w-2 bg-white/50 hover:bg-white/75"
+              "flex h-11 w-11 items-center justify-center focus-visible:outline-none",
+              "focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-ltm-black"
             )}
-          />
+          >
+            <span
+              className={cn(
+                "block h-2 rounded-full transition-all duration-300",
+                i === index ? "w-8 bg-white" : "w-2 bg-white/50"
+              )}
+            />
+          </button>
         ))}
       </div>
     </div>

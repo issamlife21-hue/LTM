@@ -32,12 +32,28 @@
 
   html {
     -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+    /* Smooth momentum scroll on iOS for any internal scrollers. */
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Form controls render at 16px min so iOS Safari does not auto-zoom
+     when the field receives focus. Desktop visual size still flows from
+     Tailwind classes on each component. */
+  @media (max-width: 640px) {
+    input,
+    select,
+    textarea {
+      font-size: 16px;
+    }
   }
 
   body {
     @apply bg-ltm-paper text-ltm-ink;
     font-feature-settings: "rlig" 1, "calt" 1;
     line-height: 1.6;
+    /* Avoid horizontal page scroll if a child overflows by a hair. */
+    overflow-x: hidden;
   }
 
   h1, h2, h3, h4, h5, h6 {

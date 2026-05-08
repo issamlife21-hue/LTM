@@ -79,7 +79,7 @@ export default function HomePage() {
             <p className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-white/85">
               Authorized by the Government of Liberia
             </p>
-            <h1 className="mb-4 font-serif text-3xl leading-tight text-white md:text-5xl">
+            <h1 className="mb-4 font-serif text-4xl leading-[1.1] text-white sm:text-5xl">
               Liberia&rsquo;s Official Traffic Management Service
             </h1>
             <p className="mb-6 max-w-xl text-base leading-relaxed text-white/90">
