@@ -474,6 +474,198 @@
         color: rgba(200, 169, 110, 0.5);
         margin: 0 0.75rem;
       }
+
+      .panel--news {
+        display: flex;
+        flex-direction: column;
+        padding: 6rem 3.5rem 0;
+      }
+
+      .news__header {
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+        margin-bottom: 1.75rem;
+      }
+
+      .news__logo {
+        font-weight: 700;
+        font-size: 2.1rem;
+        line-height: 1;
+        letter-spacing: -0.02em;
+      }
+
+      .news__logo--cnn {
+        background: #cc0000;
+        color: #fff;
+        font-family: 'Arial Black', 'Helvetica Neue', sans-serif;
+        padding: 0.35rem 0.85rem 0.3rem;
+      }
+
+      .news__logo--bloomberg {
+        color: var(--white);
+        font-family: 'Playfair Display', serif;
+        font-weight: 600;
+        font-size: 2rem;
+        position: relative;
+        padding-left: 1.1rem;
+      }
+
+      .news__logo--bloomberg::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0.15rem;
+        bottom: 0.15rem;
+        width: 4px;
+        background: var(--gold);
+      }
+
+      .news__live {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.55rem;
+        padding: 0.35rem 0.75rem;
+        border: 1px solid rgba(204, 0, 0, 0.55);
+        font-family: 'Barlow Condensed', sans-serif;
+        font-weight: 600;
+        font-size: 0.8rem;
+        letter-spacing: 0.4em;
+        text-transform: uppercase;
+        color: var(--white);
+      }
+
+      .news__live-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: #cc0000;
+        box-shadow: 0 0 0 0 rgba(204, 0, 0, 0.55);
+        animation: news-pulse 1.4s ease-in-out infinite;
+      }
+
+      @keyframes news-pulse {
+        0% {
+          opacity: 1;
+          box-shadow: 0 0 0 0 rgba(204, 0, 0, 0.6);
+        }
+        70% {
+          opacity: 0.45;
+          box-shadow: 0 0 0 8px rgba(204, 0, 0, 0);
+        }
+        100% {
+          opacity: 1;
+          box-shadow: 0 0 0 0 rgba(204, 0, 0, 0);
+        }
+      }
+
+      .news__stories {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        grid-auto-rows: 1fr;
+        gap: 1.1rem;
+        flex: 1 1 auto;
+        min-height: 0;
+      }
+
+      .story {
+        background: rgba(8, 12, 16, 0.62);
+        border: 1px solid rgba(200, 169, 110, 0.25);
+        padding: 1.1rem 1.25rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.55rem;
+        overflow: hidden;
+      }
+
+      .story--lead {
+        grid-column: span 4;
+        padding: 1.6rem 2rem;
+        gap: 0.85rem;
+        border-color: rgba(200, 169, 110, 0.45);
+      }
+
+      .story__category {
+        font-family: 'Barlow Condensed', sans-serif;
+        font-weight: 400;
+        font-size: 0.75rem;
+        letter-spacing: 0.4em;
+        text-transform: uppercase;
+        color: var(--gold);
+      }
+
+      .story__headline {
+        font-family: 'Playfair Display', serif;
+        font-weight: 400;
+        font-size: 1.1rem;
+        line-height: 1.32;
+        color: var(--white);
+        margin: 0;
+      }
+
+      .story--lead .story__headline {
+        font-size: 2rem;
+        font-weight: 600;
+        line-height: 1.18;
+      }
+
+      .story__time {
+        font-family: 'Barlow Condensed', sans-serif;
+        font-weight: 300;
+        font-size: 0.75rem;
+        letter-spacing: 0.32em;
+        text-transform: uppercase;
+        color: rgba(244, 240, 234, 0.5);
+        margin-top: auto;
+      }
+
+      .ticker {
+        margin: 1.5rem -3.5rem 0;
+        border-top: 1px solid rgba(200, 169, 110, 0.3);
+        border-bottom: 1px solid rgba(200, 169, 110, 0.3);
+        background: rgba(8, 12, 16, 0.7);
+        overflow: hidden;
+        padding: 0.65rem 0;
+      }
+
+      .ticker__track {
+        display: inline-flex;
+        white-space: nowrap;
+        animation: ticker-scroll 80s linear infinite;
+        will-change: transform;
+      }
+
+      .ticker__group {
+        display: inline-flex;
+        gap: 2.75rem;
+        padding-right: 2.75rem;
+      }
+
+      @keyframes ticker-scroll {
+        from {
+          transform: translateX(0);
+        }
+        to {
+          transform: translateX(-50%);
+        }
+      }
+
+      .ticker__item {
+        font-family: 'Barlow Condensed', sans-serif;
+        font-weight: 400;
+        font-size: 0.9rem;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--white);
+      }
+
+      .ticker__item--up {
+        color: #6fdc8c;
+      }
+
+      .ticker__item--down {
+        color: #ff7a7a;
+      }
     </style>
   </head>
   <body>
@@ -624,8 +816,33 @@
             (424) 477-3816
           </p>
         </div>
-        <div class="panel" data-mode="cnn"></div>
-        <div class="panel" data-mode="bloomberg"></div>
+        <div class="panel panel--news panel--cnn" data-mode="cnn">
+          <header class="news__header">
+            <span class="news__logo news__logo--cnn">CNN</span>
+            <span class="news__live">
+              <span class="news__live-dot" aria-hidden="true"></span>
+              <span>Live</span>
+            </span>
+          </header>
+          <div class="news__stories" id="cnn-stories" data-outlet="cnn"></div>
+          <div class="ticker" aria-hidden="true">
+            <div class="ticker__track" id="cnn-ticker"></div>
+          </div>
+        </div>
+
+        <div class="panel panel--news panel--bloomberg" data-mode="bloomberg">
+          <header class="news__header">
+            <span class="news__logo news__logo--bloomberg">Bloomberg</span>
+            <span class="news__live">
+              <span class="news__live-dot" aria-hidden="true"></span>
+              <span>Markets Live</span>
+            </span>
+          </header>
+          <div class="news__stories" id="bloomberg-stories" data-outlet="bloomberg"></div>
+          <div class="ticker" aria-hidden="true">
+            <div class="ticker__track" id="bloomberg-ticker"></div>
+          </div>
+        </div>
         <div class="panel" data-mode="property"></div>
       </div>
 
@@ -891,6 +1108,228 @@
 
         load();
         setInterval(load, REFRESH_MS);
+      })();
+
+      (function () {
+        const REFRESH_MS = 20 * 60 * 1000;
+        const ANTHROPIC_URL = 'https://api.anthropic.com/v1/messages';
+        const MODEL = 'claude-sonnet-4-20250514';
+        // INSERT_API_KEY — populated at deploy time. Do not commit a real key.
+        const API_KEY = '';
+
+        const FALLBACK = {
+          cnn: {
+            stories: [
+              {
+                category: 'Top Story',
+                headline:
+                  'Federal Reserve signals patience on rate cuts as inflation cools',
+                time: '38 minutes ago',
+              },
+              {
+                category: 'Politics',
+                headline: 'Senate advances bipartisan infrastructure package',
+                time: '1 hour ago',
+              },
+              {
+                category: 'World',
+                headline: 'EU leaders convene emergency summit on energy security',
+                time: '2 hours ago',
+              },
+              {
+                category: 'Business',
+                headline: 'Major airline reports record summer travel bookings',
+                time: '3 hours ago',
+              },
+              {
+                category: 'Tech',
+                headline: 'AI startup valuations hit new high in Q2 funding round',
+                time: '4 hours ago',
+              },
+            ],
+            ticker: [
+              'BREAKING: Markets close higher on strong earnings',
+              'White House announces new climate initiative',
+              'Storm system tracks toward Gulf Coast',
+              'Tech earnings beat expectations across the board',
+              'Supreme Court to hear major case next month',
+              'Global summit on AI safety opens in Geneva',
+              'Auto industry pivots to next-gen EV platforms',
+              'Health officials issue updated travel guidance',
+            ],
+          },
+          bloomberg: {
+            stories: [
+              {
+                category: 'Markets',
+                headline:
+                  'S&P 500 closes at record high as tech rally extends to fourth session',
+                time: '22 minutes ago',
+              },
+              {
+                category: 'Commodities',
+                headline: 'Crude oil retreats from recent highs on demand outlook',
+                time: '1 hour ago',
+              },
+              {
+                category: 'FX',
+                headline: 'Dollar slips against yen after BOJ policy hint',
+                time: '2 hours ago',
+              },
+              {
+                category: 'Crypto',
+                headline: 'Bitcoin steadies near $68K as ETF inflows accelerate',
+                time: '3 hours ago',
+              },
+              {
+                category: 'Deals',
+                headline: 'Private equity firm nears $12B take-private deal',
+                time: '4 hours ago',
+              },
+            ],
+            ticker: [
+              'S&P 500 5,341.62 +0.58%',
+              'NASDAQ 17,892.44 +0.81%',
+              'DOW 39,512.18 +0.22%',
+              'AAPL 192.45 +1.12%',
+              'MSFT 421.83 +0.74%',
+              'NVDA 1,184.20 -0.48%',
+              'BTC 68,432 +1.85%',
+              'WTI 78.42 -0.92%',
+            ],
+          },
+        };
+
+        const PROMPTS = {
+          cnn:
+            'You generate plausible breaking news for a digital signage display. ' +
+            'Produce 5 current US/world news headlines (mix of Politics, World, Business, Tech, Health, Sports) ' +
+            'plus 8 short ticker bullets. The first story is the lead. ' +
+            'Reply with ONLY a JSON object, no prose, matching this schema:\n' +
+            '{"stories":[{"category":"...","headline":"...","time":"e.g. 35 minutes ago"}],"ticker":["..."]}\n' +
+            'Exactly 5 stories and 8 ticker items. Headlines should be concise (max 14 words). ' +
+            'Categories should be one or two words in title case.',
+          bloomberg:
+            'You generate plausible market and financial news for a digital signage display. ' +
+            'Produce 5 current finance headlines (mix of Markets, Commodities, FX, Crypto, Deals, Earnings) ' +
+            'plus 8 short market ticker items in the form "SYMBOL PRICE +/-PCT%" (e.g., "AAPL 192.45 +1.12%"). ' +
+            'Include indices (S&P 500, NASDAQ, DOW), at least one crypto (BTC), and at least one commodity (WTI or GOLD). ' +
+            'The first story is the lead. ' +
+            'Reply with ONLY a JSON object, no prose, matching this schema:\n' +
+            '{"stories":[{"category":"...","headline":"...","time":"e.g. 22 minutes ago"}],"ticker":["..."]}\n' +
+            'Exactly 5 stories and 8 ticker items. Headlines max 14 words.',
+        };
+
+        function classifyTickerItem(text) {
+          if (/[\s(](\+|up\s)/i.test(text) || /\+\d/.test(text)) return 'up';
+          if (/[\s(](-|down\s)/i.test(text) || /-\d/.test(text)) return 'down';
+          return null;
+        }
+
+        function renderStories(outlet, stories) {
+          const root = document.getElementById(outlet + '-stories');
+          root.innerHTML = '';
+          stories.slice(0, 5).forEach((s, i) => {
+            const card = document.createElement('article');
+            card.className = 'story' + (i === 0 ? ' story--lead' : '');
+            card.innerHTML =
+              '<span class="story__category"></span>' +
+              '<h3 class="story__headline"></h3>' +
+              '<span class="story__time"></span>';
+            card.querySelector('.story__category').textContent =
+              s.category || '';
+            card.querySelector('.story__headline').textContent =
+              s.headline || '';
+            card.querySelector('.story__time').textContent = s.time || '';
+            root.appendChild(card);
+          });
+        }
+
+        function renderTicker(outlet, items) {
+          const root = document.getElementById(outlet + '-ticker');
+          root.innerHTML = '';
+          const make = () => {
+            const group = document.createElement('div');
+            group.className = 'ticker__group';
+            items.slice(0, 8).forEach((text) => {
+              const span = document.createElement('span');
+              span.className = 'ticker__item';
+              const dir = classifyTickerItem(text);
+              if (dir) span.classList.add('ticker__item--' + dir);
+              span.textContent = text;
+              group.appendChild(span);
+            });
+            return group;
+          };
+          root.appendChild(make());
+          root.appendChild(make());
+        }
+
+        function render(outlet, data) {
+          if (!data || !Array.isArray(data.stories) || !Array.isArray(data.ticker)) {
+            data = FALLBACK[outlet];
+          }
+          renderStories(outlet, data.stories);
+          renderTicker(outlet, data.ticker);
+        }
+
+        function extractJson(text) {
+          if (!text) return null;
+          const start = text.indexOf('{');
+          const end = text.lastIndexOf('}');
+          if (start < 0 || end <= start) return null;
+          try {
+            return JSON.parse(text.slice(start, end + 1));
+          } catch (_) {
+            return null;
+          }
+        }
+
+        async function fetchOutlet(outlet) {
+          if (!API_KEY) return null;
+          try {
+            const res = await fetch(ANTHROPIC_URL, {
+              method: 'POST',
+              headers: {
+                'content-type': 'application/json',
+                'x-api-key': API_KEY,
+                'anthropic-version': '2023-06-01',
+                'anthropic-dangerous-direct-browser-access': 'true',
+              },
+              body: JSON.stringify({
+                model: MODEL,
+                max_tokens: 1024,
+                messages: [{ role: 'user', content: PROMPTS[outlet] }],
+              }),
+            });
+            if (!res.ok) throw new Error('HTTP ' + res.status);
+            const json = await res.json();
+            const text =
+              json &&
+              json.content &&
+              json.content[0] &&
+              (json.content[0].text || '');
+            return extractJson(text);
+          } catch (err) {
+            console.error('news fetch failed (' + outlet + ')', err);
+            return null;
+          }
+        }
+
+        async function loadOutlet(outlet) {
+          const data = await fetchOutlet(outlet);
+          render(outlet, data);
+        }
+
+        function loadAll() {
+          loadOutlet('cnn');
+          loadOutlet('bloomberg');
+        }
+
+        render('cnn', FALLBACK.cnn);
+        render('bloomberg', FALLBACK.bloomberg);
+        loadAll();
+        setInterval(loadAll, REFRESH_MS);
       })();
 
       (function () {
