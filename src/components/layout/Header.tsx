@@ -101,7 +101,7 @@ export function Header() {
 
   return (
     <header className="sticky top-0 z-40 border-b border-ltm-charcoal bg-ltm-black/95 text-white backdrop-blur supports-[backdrop-filter]:bg-ltm-black/85">
-      <div className="container-ltm flex h-[72px] items-center justify-between gap-4">
+      <div className="container-ltm flex h-14 items-center justify-between gap-3 md:h-[72px]">
         <Link
           href="/"
           aria-label="Liberia Traffic Management home"
@@ -112,7 +112,7 @@ export function Header() {
             alt="LTM official emblem"
             width={40}
             height={40}
-            className="h-10 w-10 object-contain"
+            className="h-9 w-9 object-contain md:h-10 md:w-10"
             priority
           />
           <span className="hidden flex-col leading-tight md:flex">
@@ -164,12 +164,20 @@ export function Header() {
           </Button>
         </div>
 
-        <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
-          <SheetTrigger asChild>
+        <div className="flex items-center gap-1 lg:hidden">
+          <Link
+            href="tel:+231770900080"
+            aria-label="Call LTM service center"
+            className="inline-flex h-11 w-11 items-center justify-center rounded-md text-white hover:text-ltm-sand focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ltm-navy focus-visible:ring-offset-2 focus-visible:ring-offset-ltm-black active:scale-[0.96]"
+          >
+            <Phone className="h-5 w-5" aria-hidden="true" />
+          </Link>
+          <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
+            <SheetTrigger asChild>
             <button
               type="button"
               aria-label="Open menu"
-              className="inline-flex h-10 w-10 items-center justify-center rounded-md text-white hover:text-ltm-sand focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ltm-navy focus-visible:ring-offset-2 focus-visible:ring-offset-ltm-black lg:hidden"
+              className="inline-flex h-11 w-11 items-center justify-center rounded-md text-white hover:text-ltm-sand focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ltm-navy focus-visible:ring-offset-2 focus-visible:ring-offset-ltm-black active:scale-[0.96]"
             >
               <Menu className="h-6 w-6" aria-hidden="true" />
             </button>
@@ -237,6 +245,7 @@ export function Header() {
             </nav>
           </SheetContent>
         </Sheet>
+        </div>
       </div>
     </header>
   );

@@ -29,11 +29,11 @@ export function RoadSignsBody() {
   return (
     <>
       {/* Sticky jump-to-section bar with search */}
-      <div className="sticky top-[72px] z-30 border-y border-ltm-border bg-ltm-paper/95 backdrop-blur supports-[backdrop-filter]:bg-ltm-paper/80">
+      <div className="sticky top-14 z-30 border-y border-ltm-border bg-ltm-paper/95 backdrop-blur supports-[backdrop-filter]:bg-ltm-paper/80 md:top-[72px]">
         <div className="container-ltm flex flex-col gap-3 py-3 lg:flex-row lg:items-center lg:justify-between">
           <nav
             aria-label="Jump to section"
-            className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs"
+            className="hidden flex-wrap items-center gap-x-4 gap-y-1 text-xs md:flex"
           >
             <span className="font-semibold uppercase tracking-wider text-ltm-muted">
               Jump to:
@@ -95,7 +95,7 @@ export function RoadSignsBody() {
               key={section}
               id={section}
               className={cn(
-                "scroll-mt-32 py-12 md:py-16",
+                "scroll-mt-28 py-10 md:scroll-mt-32 md:py-16",
                 i % 2 === 0 ? "bg-ltm-paper" : "bg-ltm-stone"
               )}
             >
