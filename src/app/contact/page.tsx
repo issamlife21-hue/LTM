@@ -32,17 +32,12 @@ function InfoCard({
   children: React.ReactNode;
 }) {
   return (
-    <div className="rounded-lg border border-ltm-border bg-white p-6 shadow-sm">
-      <div className="flex items-center gap-3">
-        <span
-          className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-ltm-black text-white"
-          aria-hidden="true"
-        >
-          <Icon className="h-5 w-5" />
-        </span>
-        <h2 className="text-lg font-semibold text-ltm-black">{title}</h2>
+    <div className="rounded-md border border-ltm-border bg-white p-5">
+      <div className="flex items-center gap-2">
+        <Icon className="h-4 w-4 text-ltm-black" aria-hidden="true" />
+        <h2 className="text-base font-semibold text-ltm-black">{title}</h2>
       </div>
-      <div className="mt-4 text-sm leading-relaxed text-ltm-slate">
+      <div className="mt-3 text-sm leading-relaxed text-ltm-slate">
         {children}
       </div>
     </div>

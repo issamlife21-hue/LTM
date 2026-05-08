@@ -60,7 +60,7 @@ export function ContactForm() {
   }
 
   return (
-    <div className="rounded-lg border border-ltm-border bg-white p-6 shadow-sm sm:p-8">
+    <div className="rounded-lg border border-ltm-border bg-white p-6 sm:p-8">
       <h2 className="text-2xl font-semibold text-ltm-black">
         Send us a message
       </h2>

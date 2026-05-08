@@ -53,7 +53,7 @@ export function PageHeader({
       )}
       <div
         className={cn(
-          "container-ltm relative flex flex-col gap-4 py-12 md:py-16",
+          "container-ltm relative flex flex-col gap-3 py-10 md:py-14",
           align === "center"
             ? "items-center text-center"
             : "md:flex-row md:items-end md:justify-between"
@@ -67,7 +67,7 @@ export function PageHeader({
         >
           {crest && (
             // Inline <img> so the SVG inherits currentColor for monochrome
-            // rendering on the navy hero. Optimizing this small SVG via
+            // rendering on the dark hero. Optimizing this small SVG via
             // next/image provides no meaningful savings.
             // eslint-disable-next-line @next/next/no-img-element
             <img
@@ -75,11 +75,13 @@ export function PageHeader({
               alt={crest.alt}
               width={80}
               height={96}
-              className="mb-4 h-20 w-auto text-white"
+              className="mb-3 h-16 w-auto text-white"
               style={{ color: "#ffffff" }}
             />
           )}
-          <h1 className="text-3xl font-bold text-white md:text-4xl">{title}</h1>
+          <h1 className="font-serif text-3xl text-white md:text-4xl">
+            {title}
+          </h1>
           {estimatedTime && (
             <p className="mt-3 inline-flex items-center gap-1.5 rounded-full border border-white/30 bg-white/10 px-3 py-1 text-xs font-medium text-white">
               <Clock className="h-3.5 w-3.5" aria-hidden="true" />
@@ -87,12 +89,12 @@ export function PageHeader({
             </p>
           )}
           {subtitle && (
-            <p className="mt-3 text-base leading-relaxed text-slate-200 md:text-lg">
+            <p className="mt-2 text-base leading-relaxed text-slate-200 md:text-lg">
               {subtitle}
             </p>
           )}
           {note && (
-            <p className="mt-3 text-sm italic text-slate-300">{note}</p>
+            <p className="mt-2 text-sm italic text-slate-300">{note}</p>
           )}
         </div>
         {actions && (

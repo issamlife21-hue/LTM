@@ -15,7 +15,7 @@ export default function RoadSignsPage() {
       {/* Page header */}
       <section className="bg-ltm-black py-12 text-white md:py-16">
         <div className="container-ltm">
-          <h1 className="mb-3 font-serif text-4xl text-white md:text-5xl">
+          <h1 className="mb-3 font-serif text-3xl text-white md:text-4xl">
             Road Signs &amp; Pavement Markings
           </h1>
           <p className="max-w-3xl text-lg text-white/80">

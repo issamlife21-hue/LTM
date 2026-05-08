@@ -92,7 +92,7 @@ export default function ServicesPage() {
           {SERVICES.map((s) => (
             <li
               key={s.href}
-              className="rounded-lg border border-ltm-border bg-white p-6 shadow-sm md:p-8"
+              className="rounded-lg border border-ltm-border bg-white p-6 md:p-8"
             >
               <div className="flex flex-col gap-6 md:flex-row md:gap-8">
                 <div className="flex shrink-0 items-start md:w-32 md:justify-center">
