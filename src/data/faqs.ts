@@ -26,31 +26,18 @@ export const faqs: FAQ[] = [
       "LTM is the entity authorized by the Government of Liberia to handle vehicle inspection, vehicle registration, license plates, driver licenses, and traffic violations.",
   },
   {
-    id: "q3",
-    category: "general",
-    question: "Where is LTM located?",
-    answer:
-      "On SKD Boulevard, Monrovia, adjacent to SKD Stadium at Elwa Junction.",
-  },
-  {
     id: "q4",
     category: "general",
     question: "Do you have other branches?",
-    answer: "Currently this is the only branch. More are planned.",
+    answer:
+      "More service centers are planned. The current list lives on the Find a Service Center page.",
   },
   {
     id: "q5",
     category: "general",
     question: "How can I contact LTM?",
     answer:
-      "Call 0888 900 070, 0770 900 080, or 0770 900 090. Email Ltm@liberiatraffic.com.",
-  },
-  {
-    id: "q6",
-    category: "general",
-    question: "What are your working hours?",
-    answer:
-      "Monday to Friday, 8:00 AM to 5:00 PM. Saturday, 9:00 AM to 1:00 PM. Closed Sunday.",
+      "Visit an LTM service center. Phone numbers, address, and hours for each location are on the Find a Service Center page.",
   },
   {
     id: "q8",

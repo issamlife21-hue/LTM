@@ -1,6 +1,6 @@
 import * as React from "react";
 import Link from "next/link";
-import { Check, Clock, MapPin, Phone } from "lucide-react";
+import { Check, MapPin } from "lucide-react";
 
 import { PageHeader } from "@/components/PageHeader";
 import { PriceTable, type PriceColumn } from "@/components/PriceTable";
@@ -12,9 +12,6 @@ import {
 } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
 import type { FAQ } from "@/data/faqs";
-
-const DIRECTIONS_URL =
-  "https://www.google.com/maps/dir/?api=1&destination=SKD+Boulevard+Monrovia+Liberia";
 
 export type ProcessStep = {
   title: string;
@@ -258,55 +255,19 @@ export function ServiceDetailLayout({
           </div>
 
           <aside className="mt-12 lg:col-span-1 lg:mt-0">
-            <div className="sticky top-24 space-y-4 rounded-lg border border-ltm-border bg-white p-6">
-              <h2 className="text-lg font-semibold text-ltm-black">
-                Visit our service center
+            <div className="sticky top-24 rounded-lg border border-ltm-border bg-white p-6">
+              <h2 className="font-serif text-lg text-ltm-black">
+                Ready to start?
               </h2>
-
-              <div className="flex items-start gap-3 text-sm text-ltm-slate">
-                <MapPin
-                  className="mt-0.5 h-4 w-4 shrink-0 text-ltm-muted"
-                  aria-hidden="true"
-                />
-                <address className="not-italic leading-relaxed">
-                  LTM Compound, SKD Boulevard
-                  <br />
-                  Adjacent to SKD Stadium
-                  <br />
-                  Monrovia, Liberia
-                </address>
-              </div>
-
-              <div className="flex items-start gap-3 text-sm text-ltm-slate">
-                <Clock
-                  className="mt-0.5 h-4 w-4 shrink-0 text-ltm-muted"
-                  aria-hidden="true"
-                />
-                <div className="leading-relaxed">
-                  Monday to Friday: 8AM to 5PM
-                  <br />
-                  Saturday: 9AM to 1PM
-                </div>
-              </div>
-
-              <div className="flex flex-col gap-2 pt-2">
-                <Button asChild className="w-full">
-                  <Link href="tel:+231770900080">
-                    <Phone className="h-4 w-4" aria-hidden="true" />
-                    Call Us
-                  </Link>
-                </Button>
-                <Button asChild variant="outline" className="w-full">
-                  <Link
-                    href={DIRECTIONS_URL}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <MapPin className="h-4 w-4" aria-hidden="true" />
-                    Get Directions
-                  </Link>
-                </Button>
-              </div>
+              <p className="mt-3 text-sm leading-relaxed text-ltm-slate">
+                No appointment needed. Bring the documents listed above.
+              </p>
+              <Button asChild className="mt-5 w-full">
+                <Link href="/contact">
+                  <MapPin className="h-4 w-4" aria-hidden="true" />
+                  Visit an LTM service center
+                </Link>
+              </Button>
             </div>
           </aside>
         </div>

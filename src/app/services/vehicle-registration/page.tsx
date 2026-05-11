@@ -71,8 +71,8 @@ export default function VehicleRegistrationPage() {
           body: "Inspection is mandatory before we can register your vehicle. The inspector checks lights, brakes, and windshield wipers.",
         },
         {
-          title: "Walk in to our Monrovia office",
-          body: "Bring the vehicle and your documents to our SKD Boulevard service center.",
+          title: "Visit an LTM service center",
+          body: "Bring the vehicle and your documents.",
         },
         {
           title: "Submit your documents",

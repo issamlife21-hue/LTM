@@ -86,44 +86,13 @@ export function Footer() {
           <div>
             <h2 className="mb-4 text-lg font-semibold text-white">Contact</h2>
             <ul className="space-y-3 text-sm">
-              <li className="flex items-start gap-2">
-                <MapPin
-                  className="mt-0.5 h-4 w-4 shrink-0 text-white/60"
-                  aria-hidden="true"
-                />
-                <address className="not-italic leading-relaxed">
-                  LTM Compound, SKD Boulevard,
-                  <br />
-                  Adjacent to SKD Stadium,
-                  <br />
-                  Monrovia, Liberia
-                </address>
-              </li>
-              <li className="flex items-start gap-2">
-                <Phone
-                  className="mt-0.5 h-4 w-4 shrink-0 text-white/60"
-                  aria-hidden="true"
-                />
-                <div className="space-y-0.5">
-                  <Link
-                    href="tel:+231888900070"
-                    className="block transition-colors hover:text-ltm-sand"
-                  >
-                    0888 900 070
-                  </Link>
-                  <Link
-                    href="tel:+231770900080"
-                    className="block transition-colors hover:text-ltm-sand"
-                  >
-                    0770 900 080
-                  </Link>
-                  <Link
-                    href="tel:+231770900090"
-                    className="block transition-colors hover:text-ltm-sand"
-                  >
-                    0770 900 090
-                  </Link>
-                </div>
+              <li>
+                <Link
+                  href="/contact"
+                  className="transition-colors hover:text-ltm-sand"
+                >
+                  Visit an LTM service center
+                </Link>
               </li>
               <li className="flex items-start gap-2">
                 <Mail
@@ -136,19 +105,6 @@ export function Footer() {
                 >
                   Ltm@liberiatraffic.com
                 </Link>
-              </li>
-              <li className="flex items-start gap-2">
-                <Clock
-                  className="mt-0.5 h-4 w-4 shrink-0 text-white/60"
-                  aria-hidden="true"
-                />
-                <div className="leading-relaxed">
-                  Monday to Friday 8AM to 5PM
-                  <br />
-                  Saturday 9AM to 1PM
-                  <br />
-                  Sunday closed
-                </div>
               </li>
               <li className="pt-2">
                 <Link
@@ -184,13 +140,13 @@ export function Footer() {
               © Liberia Traffic Management. All fees and procedures listed on
               this site are set by the Government of Liberia and are accurate
               as of the date last reviewed on each page. For the most current
-              information, contact our service center at{" "}
-              <a
-                href="tel:+231770900080"
+              information,{" "}
+              <Link
+                href="/contact"
                 className="font-medium text-white hover:text-ltm-sand"
               >
-                0770 900 080
-              </a>
+                visit an LTM service center
+              </Link>
               .
             </p>
           </div>

@@ -57,8 +57,8 @@ export default function DriverLicensePage() {
       }}
       process={[
         {
-          title: "Walk in to our Monrovia office",
-          body: "Visit our SKD Boulevard service center during working hours. No appointment needed.",
+          title: "Visit an LTM service center",
+          body: "Walk in during working hours. No appointment needed.",
         },
         {
           title: "Pick up and complete the application form",

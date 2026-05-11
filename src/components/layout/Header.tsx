@@ -3,7 +3,7 @@
 import * as React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ChevronDown, Menu, Phone } from "lucide-react";
+import { ChevronDown, MapPin, Menu } from "lucide-react";
 
 import { SiteSearch } from "@/components/SiteSearch";
 import { Button } from "@/components/ui/button";
@@ -157,20 +157,20 @@ export function Header() {
             placeholder="Search…"
           />
           <Button asChild variant="whitePrimary">
-            <Link href="tel:+231770900080">
-              <Phone className="h-4 w-4" aria-hidden="true" />
-              Call Us
+            <Link href="/contact">
+              <MapPin className="h-4 w-4" aria-hidden="true" />
+              Service Centers
             </Link>
           </Button>
         </div>
 
         <div className="flex items-center gap-1 lg:hidden">
           <Link
-            href="tel:+231770900080"
-            aria-label="Call LTM service center"
+            href="/contact"
+            aria-label="Find an LTM service center"
             className="inline-flex h-11 w-11 items-center justify-center rounded-md text-white hover:text-ltm-sand focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ltm-navy focus-visible:ring-offset-2 focus-visible:ring-offset-ltm-black active:scale-[0.96]"
           >
-            <Phone className="h-5 w-5" aria-hidden="true" />
+            <MapPin className="h-5 w-5" aria-hidden="true" />
           </Link>
           <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
             <SheetTrigger asChild>
@@ -234,11 +234,11 @@ export function Header() {
               <div className="px-4 pt-4">
                 <Button asChild className="w-full">
                   <Link
-                    href="tel:+231770900080"
+                    href="/contact"
                     onClick={() => setMobileOpen(false)}
                   >
-                    <Phone className="h-4 w-4" aria-hidden="true" />
-                    Call Us
+                    <MapPin className="h-4 w-4" aria-hidden="true" />
+                    Service Centers
                   </Link>
                 </Button>
               </div>
