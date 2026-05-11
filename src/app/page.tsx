@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Script from "next/script";
-import { Car, Hash, IdCard, MapPin, Wrench } from "lucide-react";
+import { Car, Hash, IdCard, Wrench } from "lucide-react";
 
 import { HeroCarousel } from "@/components/HeroCarousel";
 import { CTABanner } from "@/components/layout/CTABanner";
@@ -11,29 +11,25 @@ const SERVICES = [
   {
     icon: IdCard,
     title: "Driver License",
-    description:
-      "Apply for or renew your motorcycle, car, or commercial driver license.",
+    description: "Apply for or renew a motorcycle, car, or commercial license.",
     href: "/services/driver-license",
   },
   {
     icon: Car,
     title: "Vehicle Registration",
-    description:
-      "Register a new vehicle, renew your registration, or transfer ownership.",
+    description: "Register, renew, or transfer ownership.",
     href: "/services/vehicle-registration",
   },
   {
     icon: Wrench,
     title: "Vehicle Inspection",
-    description:
-      "Mandatory annual inspection covering lights, brakes, and windshield wipers.",
+    description: "Annual check: lights, brakes, windshield wipers.",
     href: "/services/vehicle-inspection",
   },
   {
     icon: Hash,
     title: "License Plates",
-    description:
-      "Standard plates are included with registration. Test and customized plates also available.",
+    description: "Standard, test, and customized plates.",
     href: "/services/license-plates",
   },
 ];
@@ -76,42 +72,29 @@ export default function HomePage() {
 
         <div className="container-ltm absolute inset-x-0 bottom-0 top-0 z-10 flex flex-col justify-end pb-14 md:pb-16">
           <div className="max-w-3xl text-white">
-            <p className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-white/85">
+            <p className="mb-4 text-xs font-semibold uppercase tracking-[0.2em] text-white/85">
               Authorized by the Government of Liberia
             </p>
-            <h1 className="mb-4 font-serif text-4xl leading-[1.1] text-white sm:text-5xl">
+            <h1 className="mb-5 font-serif text-4xl leading-[1.1] text-white sm:text-5xl">
               Liberia&rsquo;s Official Traffic Management Service
             </h1>
-            <p className="mb-6 max-w-xl text-base leading-relaxed text-white/90">
-              Driver licenses, vehicle registration, inspection, and license
-              plates, all from one trusted office in Monrovia.
+            <p className="mb-7 max-w-xl text-base leading-relaxed text-white/90">
+              Driver licenses, vehicle registration, inspection, and plates.
+              SKD Boulevard, Monrovia.
             </p>
-            <div className="flex flex-wrap gap-3">
-              <Button asChild size="lg" variant="whitePrimary">
-                <Link href="/services">View Services</Link>
-              </Button>
-              <Button asChild size="lg" variant="whiteOutline">
-                <Link href="/contact">
-                  <MapPin className="h-4 w-4" aria-hidden="true" />
-                  Find Us in Monrovia
-                </Link>
-              </Button>
-            </div>
+            <Button asChild size="lg" variant="whitePrimary">
+              <Link href="/services">View Services</Link>
+            </Button>
           </div>
         </div>
       </section>
 
-      {/* Services grid */}
-      <section className="bg-ltm-paper py-12 md:py-16">
+      {/* Services */}
+      <section className="bg-ltm-paper py-16 md:py-24">
         <div className="container-ltm">
-          <div className="mb-8 max-w-2xl">
-            <h2 className="text-2xl text-ltm-black md:text-3xl">
-              Our services
-            </h2>
-            <p className="mt-2 text-base text-ltm-slate">
-              Everything you need to keep your vehicle and license up to date.
-            </p>
-          </div>
+          <h2 className="mb-10 text-2xl text-ltm-black md:text-3xl">
+            Our services
+          </h2>
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {SERVICES.map((s) => (
               <ServiceCard key={s.href} {...s} />
@@ -120,7 +103,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Single CTA */}
       <CTABanner />
     </>
   );

@@ -6,7 +6,7 @@ import { RoadSignsBody } from "./RoadSignsBody";
 export const metadata = {
   title: "Road Signs & Pavement Markings",
   description:
-    "The complete official reference for traffic signals, signs, and pavement markings in Liberia. Updated from the LTM Signals, Signs and Pavement Markings document.",
+    "Official reference for traffic signals, signs, and pavement markings in Liberia.",
 };
 
 export default function RoadSignsPage() {
@@ -15,25 +15,19 @@ export default function RoadSignsPage() {
       {/* Page header */}
       <section className="bg-ltm-black py-12 text-white md:py-16">
         <div className="container-ltm">
-          <h1 className="mb-3 font-serif text-3xl text-white md:text-4xl">
+          <h1 className="font-serif text-3xl text-white md:text-4xl">
             Road Signs &amp; Pavement Markings
           </h1>
-          <p className="max-w-3xl text-lg text-white/80">
-            The complete official reference for traffic signals, signs, and
-            pavement markings in Liberia.
-          </p>
         </div>
       </section>
 
-      {/* Sign colors callout */}
-      <section className="bg-ltm-cream py-12 md:py-16">
+      {/* Sign colors */}
+      <section className="bg-ltm-paper py-14 md:py-20">
         <div className="container-ltm">
           <div className="max-w-4xl">
-            <h2 className="mb-2 font-serif text-2xl md:text-3xl">Sign colors</h2>
-            <p className="mb-6 text-ltm-slate">
-              The color of a sign tells you its purpose before you can read
-              it. Recognize the color and you already know the message.
-            </p>
+            <h2 className="mb-8 font-serif text-2xl md:text-3xl">
+              Sign colors
+            </h2>
             <div className="grid gap-4 sm:grid-cols-2">
               {signColorMeanings.map((c) => (
                 <div

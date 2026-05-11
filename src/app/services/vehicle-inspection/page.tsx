@@ -39,7 +39,7 @@ export default function VehicleInspectionPage() {
     <ServiceDetailLayout
       title="Vehicle Inspection"
       subtitle="Mandatory annual inspection. Required before registration."
-      overview="Vehicle inspection is mandatory under Liberian law. You will be in violation if you do not have a passing inspection report. For 2025, inspection criteria are limited to three things: lights, brakes, and windshield wipers. If your vehicle fails on the first attempt, you have a 45-day grace period to make repairs and re-inspect. After that grace period, you risk serious traffic penalties."
+      overview="Inspection is mandatory before registration. The 2025 check covers three things: lights, brakes, and windshield wipers. If you fail, you have 45 days to repair and re-inspect."
       whatToBring={[
         "The vehicle being inspected",
         "Valid ID",
