@@ -52,7 +52,7 @@ export default function VehicleRegistrationPage() {
     <ServiceDetailLayout
       title="Vehicle Registration"
       subtitle="Register, renew, or transfer ownership of your vehicle."
-      overview="All vehicles operating in Liberia must be registered with LTM. We handle new registrations, renewals, and ownership transfers. Vehicle inspection is required before registration; you must have a passing inspection report. Vehicle insurance is also mandatory by law, but you can complete your registration first and obtain insurance separately."
+      overview="All vehicles in Liberia must be registered with LTM. Inspection is required first. Insurance is mandatory by law but can be purchased after registration."
       whatToBring={[
         "Valid ID",
         "Personal information",

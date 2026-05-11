@@ -60,7 +60,7 @@ export default function LicensePlatesPage() {
     <ServiceDetailLayout
       title="License Plates"
       subtitle="Standard, test, and customized license plates."
-      overview="Standard license plates are included with your vehicle registration. We also offer test plates for newly imported or temporary-use vehicles, and customized license plates where you choose your own letter/number combination, priced per character."
+      overview="Standard plates come with registration. Test plates are for newly imported or temporary-use vehicles. Customized plates let you pick the combination, priced per character."
       whatToBring={[
         "Valid vehicle registration",
         "Valid ID",

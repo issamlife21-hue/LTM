@@ -180,8 +180,6 @@ export function PricingPageClient() {
     <>
       <PageHeader
         title="Pricing"
-        subtitle="Official rates for all LTM services. All prices in USD."
-        note="Prices are fixed government rates. No discounts apply for volume applications."
         actions={
           <Button
             variant="whitePrimary"
@@ -195,7 +193,7 @@ export function PricingPageClient() {
         }
       />
 
-      <section className="container-ltm py-10">
+      <section className="container-ltm py-12 md:py-16">
         <div className="mb-6 print:hidden">
           <label htmlFor="pricing-search" className="sr-only">
             Search pricing categories
@@ -337,11 +335,9 @@ export function PricingPageClient() {
           </div>
         </Tabs>
 
-        <p className="mt-8 text-xs leading-relaxed text-ltm-muted">
-          Fees are set by the Government of Liberia. LTM does not have
-          authority to discount, waive, or negotiate published fees. Last
-          reviewed:{" "}
-          <time dateTime="2025-11-01">November 1, 2025</time>.
+        <p className="mt-10 text-xs leading-relaxed text-ltm-muted">
+          Fees are set by the Government of Liberia. LTM cannot discount or
+          waive them.
         </p>
 
         <p className="mt-3 hidden text-xs text-ltm-muted print:block">

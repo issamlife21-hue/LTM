@@ -104,45 +104,12 @@ function OptionButton({
 
 function IntroScreen({ onStart }: { onStart: () => void }) {
   return (
-    <section className="container-ltm py-12">
+    <section className="container-ltm py-14">
       <div className="mx-auto max-w-2xl space-y-6">
-        <Card>
-          <CardHeader>
-            <CardTitle className="text-xl">What to expect</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <ul className="grid gap-3 sm:grid-cols-3">
-              <li className="rounded-lg border border-ltm-border bg-ltm-stone p-4 text-center">
-                <p className="text-2xl font-bold text-ltm-black">
-                  {practiceTestMeta.totalQuestions}
-                </p>
-                <p className="text-xs uppercase tracking-wider text-ltm-muted">
-                  Questions
-                </p>
-              </li>
-              <li className="rounded-lg border border-ltm-border bg-ltm-stone p-4 text-center">
-                <p className="text-base font-semibold text-ltm-black">
-                  Multiple choice
-                </p>
-                <p className="text-xs uppercase tracking-wider text-ltm-muted">
-                  Format
-                </p>
-              </li>
-              <li className="rounded-lg border border-ltm-border bg-ltm-stone p-4 text-center">
-                <p className="text-base font-semibold text-ltm-black">
-                  Instant feedback
-                </p>
-                <p className="text-xs uppercase tracking-wider text-ltm-muted">
-                  Per question
-                </p>
-              </li>
-            </ul>
-          </CardContent>
-        </Card>
-
-        <div className="rounded-lg border border-ltm-border bg-ltm-stone p-4 text-sm italic leading-relaxed text-ltm-muted">
-          {practiceTestMeta.disclaimer}
-        </div>
+        <p className="text-base leading-relaxed text-ltm-slate">
+          {practiceTestMeta.totalQuestions} multiple-choice questions with
+          instant feedback. Study aid only, not the official examination.
+        </p>
 
         <div className="flex flex-col gap-3 sm:flex-row">
           <Button size="lg" onClick={onStart} className="flex-1">

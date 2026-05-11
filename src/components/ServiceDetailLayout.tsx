@@ -100,11 +100,11 @@ export function ServiceDetailLayout({
         estimatedTime={estimatedTime}
       />
 
-      <section className="container-ltm py-12 md:py-16">
-        <div className="lg:grid lg:grid-cols-3 lg:gap-10">
-          <div className="space-y-12 lg:col-span-2">
+      <section className="container-ltm py-16 md:py-20">
+        <div className="lg:grid lg:grid-cols-3 lg:gap-12">
+          <div className="space-y-14 lg:col-span-2">
             {summary && (
-              <dl className="grid grid-cols-1 gap-4 rounded-lg border border-ltm-border bg-white p-4 sm:grid-cols-2 sm:p-5">
+              <dl className="grid grid-cols-1 gap-5 rounded-lg border border-ltm-border bg-white p-5 sm:grid-cols-2 sm:p-6">
                 <div>
                   <dt className="text-xs font-semibold uppercase tracking-wider text-ltm-muted">
                     Cost
@@ -123,7 +123,7 @@ export function ServiceDetailLayout({
                 </div>
                 <div>
                   <dt className="text-xs font-semibold uppercase tracking-wider text-ltm-muted">
-                    Documents required
+                    Documents
                   </dt>
                   <dd className="mt-1 text-base font-semibold text-ltm-black">
                     {summary.documents}
@@ -141,10 +141,8 @@ export function ServiceDetailLayout({
             )}
 
             <div>
-              <h2 className="text-2xl font-semibold text-ltm-black">
-                Overview
-              </h2>
-              <div className="mt-4 max-w-prose space-y-4 text-[18px] leading-relaxed text-ltm-slate">
+              <h2 className="font-serif text-2xl text-ltm-black">Overview</h2>
+              <div className="mt-5 max-w-prose space-y-4 text-[17px] leading-relaxed text-ltm-slate">
                 {typeof overview === "string" ? <p>{overview}</p> : overview}
               </div>
               {source && (
@@ -155,14 +153,10 @@ export function ServiceDetailLayout({
             </div>
 
             <div>
-              <h2 className="text-2xl font-semibold text-ltm-black">
-                What you need to bring
+              <h2 className="font-serif text-2xl text-ltm-black">
+                What to bring
               </h2>
-              <p className="mt-2 max-w-prose text-sm italic text-ltm-muted">
-                Please bring everything below. Missing documents are the most
-                common reason a visit can&rsquo;t be completed in one trip.
-              </p>
-              <ul className="mt-4 space-y-3">
+              <ul className="mt-5 space-y-3">
                 {whatToBring.map((item, i) => (
                   <li
                     key={i}
@@ -181,14 +175,14 @@ export function ServiceDetailLayout({
             </div>
 
             <div>
-              <h2 className="text-2xl font-semibold text-ltm-black">Pricing</h2>
-              <div className="mt-4">
+              <h2 className="font-serif text-2xl text-ltm-black">Pricing</h2>
+              <div className="mt-5">
                 <PricingSection pricing={pricing} />
               </div>
             </div>
 
             <div>
-              <h2 className="text-2xl font-semibold text-ltm-black">
+              <h2 className="font-serif text-2xl text-ltm-black">
                 Step by step
               </h2>
               <ol className="relative mt-6 space-y-8 border-l-2 border-ltm-border pl-8">
@@ -231,8 +225,8 @@ export function ServiceDetailLayout({
 
             {faqs.length > 0 && (
               <div>
-                <h2 className="text-2xl font-semibold text-ltm-black">
-                  Frequently asked questions
+                <h2 className="font-serif text-2xl text-ltm-black">
+                  Common questions
                 </h2>
                 <Accordion
                   type="single"

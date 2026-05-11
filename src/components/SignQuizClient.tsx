@@ -121,10 +121,9 @@ export function SignQuizClient() {
     return (
       <section className="py-12">
         <div className="mx-auto max-w-2xl space-y-6">
-          <p className="text-ltm-slate">
-            Practice recognizing road signs. Each round picks {QUESTION_COUNT}{" "}
-            random signs from the regulatory, warning, and sign-shape sections
-            and asks what each one means. Instant feedback after every answer.
+          <p className="text-base leading-relaxed text-ltm-slate">
+            {QUESTION_COUNT} random signs with instant feedback. Study aid
+            only, not the official examination.
           </p>
           <Button size="lg" onClick={startQuiz}>
             Start sign quiz

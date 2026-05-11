@@ -44,7 +44,7 @@ export default function DriverLicensePage() {
     <ServiceDetailLayout
       title="Driver License"
       subtitle="Apply for, renew, or upgrade your license."
-      overview="LTM is the only authorized entity to issue driver licenses in Liberia. We offer licenses for motorcycles, tricycles, private cars, heavy-duty vehicles, and commercial chauffeurs. For your first visit, you must be present in person so we can take your live photo and biometrics. After that, you can delegate someone else to handle renewals on your behalf."
+      overview="LTM issues the driver license. We cover motorcycle, tricycle, private car, heavy-duty, and chauffeur categories. First-time applicants must come in person for photo and biometrics; renewals can be delegated."
       whatToBring={[
         "Valid ID (national ID, passport, or previous driving license)",
         "Completed application form (fill on arrival)",
