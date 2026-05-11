@@ -27,14 +27,13 @@ export const metadata: Metadata = {
     template: "%s | Liberia Traffic Management",
   },
   description:
-    "Liberia Traffic Management (LTM) is the official government concessionaire for vehicle registration, driver licensing, vehicle inspection, and license plates in Liberia. Visit our SKD Boulevard service center in Monrovia.",
+    "Liberia Traffic Management (LTM) is the official government concessionaire for vehicle registration, driver licensing, vehicle inspection, and license plates in Liberia.",
   keywords: [
     "Liberia Traffic Management",
     "LTM",
     "Liberia driver license",
     "Liberia vehicle registration",
     "Liberia vehicle inspection",
-    "Monrovia traffic services",
     "license plates Liberia",
   ],
   authors: [{ name: "Liberia Traffic Management" }],

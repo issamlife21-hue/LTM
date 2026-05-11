@@ -1,5 +1,4 @@
 import Link from "next/link";
-import Script from "next/script";
 import { Car, Hash, IdCard, Wrench } from "lucide-react";
 
 import { HeroCarousel } from "@/components/HeroCarousel";
@@ -34,38 +33,9 @@ const SERVICES = [
   },
 ];
 
-const ORGANIZATION_JSON_LD = {
-  "@context": "https://schema.org",
-  "@type": "GovernmentOrganization",
-  name: "Liberia Traffic Management",
-  alternateName: "LTM",
-  url: "https://www.liberiatraffic.com",
-  telephone: ["+231-888-900070", "+231-770-900080", "+231-770-900090"],
-  email: "Ltm@liberiatraffic.com",
-  address: {
-    "@type": "PostalAddress",
-    streetAddress: "SKD Boulevard, Adjacent to SKD Stadium",
-    addressLocality: "Monrovia",
-    addressCountry: "LR",
-  },
-  openingHours: ["Mo-Fr 08:00-17:00", "Sa 09:00-13:00"],
-  sameAs: [
-    "https://www.facebook.com/Liberia-Traffic-Management-103333742243540/",
-  ],
-};
-
 export default function HomePage() {
   return (
     <>
-      <Script
-        id="ltm-organization-jsonld"
-        type="application/ld+json"
-        strategy="afterInteractive"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(ORGANIZATION_JSON_LD),
-        }}
-      />
-
       {/* Hero */}
       <section className="relative h-[520px] overflow-hidden bg-ltm-black md:h-[600px]">
         <HeroCarousel />
@@ -80,7 +50,6 @@ export default function HomePage() {
             </h1>
             <p className="mb-7 max-w-xl text-base leading-relaxed text-white/90">
               Driver licenses, vehicle registration, inspection, and plates.
-              SKD Boulevard, Monrovia.
             </p>
             <Button asChild size="lg" variant="whitePrimary">
               <Link href="/services">View Services</Link>

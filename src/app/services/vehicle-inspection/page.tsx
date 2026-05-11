@@ -52,8 +52,8 @@ export default function VehicleInspectionPage() {
       }}
       process={[
         {
-          title: "Bring your vehicle to our Monrovia office",
-          body: "Drive to our SKD Boulevard service center. No appointment required, walk-ins welcome.",
+          title: "Bring your vehicle to an LTM service center",
+          body: "Walk in during working hours. No appointment needed.",
         },
         {
           title: "Our inspector runs the check",
