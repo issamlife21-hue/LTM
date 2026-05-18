@@ -6,7 +6,7 @@ import Image from "next/image";
 import { heroPhotos } from "@/data/photos";
 import { cn } from "@/lib/utils";
 
-const INTERVAL_MS = 3200;
+const INTERVAL_MS = 6000;
 const SWIPE_THRESHOLD_PX = 40;
 
 export function HeroCarousel() {
@@ -28,7 +28,7 @@ export function HeroCarousel() {
       setIndex((i) => (i + 1) % heroPhotos.length);
     }, INTERVAL_MS);
     return () => window.clearInterval(id);
-  }, [reduceMotion, index]);
+  }, [reduceMotion]);
 
   const goTo = (i: number) => {
     const next = ((i % heroPhotos.length) + heroPhotos.length) % heroPhotos.length;

@@ -17,19 +17,23 @@ export function RoadSignsBody() {
   const [query, setQuery] = React.useState("");
 
   const q = query.trim().toLowerCase();
-  const filtered = q
-    ? roadSigns.filter(
-        (s) =>
-          s.name.toLowerCase().includes(q) ||
-          s.description.toLowerCase().includes(q)
-      )
-    : roadSigns;
+  const filtered = React.useMemo(
+    () =>
+      q
+        ? roadSigns.filter(
+            (s) =>
+              s.name.toLowerCase().includes(q) ||
+              s.description.toLowerCase().includes(q)
+          )
+        : roadSigns,
+    [q]
+  );
   const totalMatches = filtered.length;
 
   return (
     <>
       {/* Sticky jump-to-section bar with search */}
-      <div className="sticky top-14 z-30 border-y border-ltm-border bg-ltm-paper/95 backdrop-blur supports-[backdrop-filter]:bg-ltm-paper/80 md:top-[72px]">
+      <div className="sticky top-[108px] z-30 border-y border-ltm-border bg-ltm-paper/95 backdrop-blur supports-[backdrop-filter]:bg-ltm-paper/80 lg:top-[72px]">
         <div className="container-ltm flex flex-col gap-3 py-3 lg:flex-row lg:items-center lg:justify-between">
           <nav
             aria-label="Jump to section"

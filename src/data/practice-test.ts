@@ -69,29 +69,3 @@ export const practiceQuestions: PracticeQuestion[] = [
   { id: 44, question: "You may open your vehicle's door on the traffic side", options: [{ label: "a", text: "At any time while parked", correct: false }, { label: "b", text: "To leave but not to enter your vehicle", correct: false }, { label: "c", text: "Only when it is safe", correct: true }], explanation: "Always check for oncoming traffic and cyclists before opening a door on the traffic side." },
   { id: 45, question: "If you are the first person to stop to give assistance at a collision scene, you should drive to the side of the road", options: [{ label: "a", text: "After you have passed the collision scene", correct: true }, { label: "b", text: "Before you reach the collision scene", correct: false }, { label: "c", text: "Next to the collision scene", correct: false }], explanation: "Pulling over after the scene avoids further blocking traffic and keeps the scene clear for emergency responders." },
 ];
-
-export type SignStudyItem = {
-  id: string;
-  name: string;
-  description: string;
-  note?: string;
-};
-
-export const signStudySheet: SignStudyItem[] = [
-  { id: "no-left-turn", name: "No Left Turn", description: "Left turns are not permitted at this intersection." },
-  { id: "no-right-turn", name: "No Right Turn", description: "Right turns are not permitted at this intersection." },
-  { id: "no-u-turn", name: "No U-Turn", description: "U-turns are not permitted at this intersection." },
-  { id: "no-trucks", name: "No Trucks", description: "Trucks are not permitted on this road." },
-  { id: "stop", name: "Stop Sign", description: "You must wait until crossing vehicles and pedestrians have cleared. Stop at the stop line if one is present, even if it is past the stop sign." },
-  { id: "yield", name: "Yield Sign", description: "A yield sign is triangular, red and white with red letters. Slow down and yield right-of-way to traffic in the intersection or roadway you are entering." },
-  { id: "do-not-enter", name: "Do Not Enter Sign", description: "When you see this sign at roadway openings, do not enter that road." },
-  { id: "school-crossing", name: "School Crossing", description: "Slow down. Watch for children crossing the road.", note: "This sign is being transitioned to neon green. The transition will take effect within the next 10 years." },
-  { id: "railroad-crossing", name: "Railroad Crossing", description: "The advance warning sign tells you that you are nearing a railroad crossing. Be prepared to stop." },
-  { id: "slippery-when-wet", name: "Slippery When Wet", description: "The road ahead becomes unusually slippery in wet weather. Drive carefully in these conditions." },
-  { id: "signal-ahead", name: "Signal Ahead", description: "There is a traffic light signal ahead on the road you are on. Be ready to stop." },
-  { id: "intersection", name: "Intersection", description: "Another road crosses the road you are on. Watch carefully for traffic crossing your path." },
-  { id: "curve-sign", name: "Curve Sign", description: "A curve sign warns of a curve where the recommended speed is less than the posted speed limit for the highway." },
-  { id: "merge", name: "Merge", description: "Traffic from another road may be entering the road you are on. Be prepared for vehicles to move into your lane." },
-  { id: "added-lane", name: "Added Lane", description: "Traffic from another road will be entering the road you are on. No merging is necessary because a lane has been added." },
-  { id: "begin-divided-roadway", name: "Begin Divided Roadway", description: "The road will soon become two-way traffic divided by a median or barrier." },
-];

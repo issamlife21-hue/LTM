@@ -891,22 +891,3 @@ export const signColorMeanings = [
       "Used to advise and warn in incident (pink) areas. Used with black and white signs that convey regulations that might exist only because of the incident.",
   },
 ];
-
-// Quick study sheet (also referenced by the Practice Test page)
-export const quickReferenceSigns = [
-  "no-left-turn",
-  "no-right-turn",
-  "no-u-turn",
-  "shape-octagon",
-  "shape-triangle",
-  "do-not-enter",
-  "school-zone",
-  "railroad-crossing-advance",
-  "slippery-when-wet",
-  "signal-ahead",
-  "intersection",
-  "right-curve-safe-speed",
-  "merge",
-  "added-lane",
-  "divided-highway-begins",
-] as const;

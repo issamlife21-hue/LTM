@@ -14,9 +14,10 @@ import {
 } from "lucide-react";
 
 import { EmptyState } from "@/components/EmptyState";
+import { QuizProgressBar } from "@/components/QuizProgressBar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import {
   practiceQuestions,
   practiceTestMeta,
@@ -31,25 +32,6 @@ type Answer = {
   selected: "a" | "b" | "c";
   correct: boolean;
 };
-
-function ProgressBar({ current, total }: { current: number; total: number }) {
-  const pct = Math.round((current / total) * 100);
-  return (
-    <div
-      role="progressbar"
-      aria-valuenow={current}
-      aria-valuemin={0}
-      aria-valuemax={total}
-      aria-label={`Question ${current} of ${total}`}
-      className="h-2 w-full overflow-hidden rounded-full bg-ltm-border"
-    >
-      <div
-        className="h-full bg-ltm-black transition-all duration-300"
-        style={{ width: `${pct}%` }}
-      />
-    </div>
-  );
-}
 
 function OptionButton({
   letter,
@@ -157,7 +139,7 @@ function QuizScreen({
               {Math.round(((current + 1) / total) * 100)}%
             </span>
           </div>
-          <ProgressBar current={current + 1} total={total} />
+          <QuizProgressBar current={current + 1} total={total} />
         </div>
 
         <Card>

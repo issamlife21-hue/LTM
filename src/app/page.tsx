@@ -72,6 +72,33 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* Legal basis / authority */}
+      <section className="border-y border-ltm-border bg-white py-14 md:py-20">
+        <div className="container-ltm flex flex-col items-center gap-6 md:flex-row md:items-center md:gap-10">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/coat-of-arms.svg"
+            alt="Coat of arms of the Republic of Liberia"
+            width={72}
+            height={86}
+            className="h-20 w-auto shrink-0 text-ltm-black"
+            style={{ color: "#0E0E10" }}
+          />
+          <div className="max-w-3xl text-center md:text-left">
+            <h2 className="font-serif text-2xl text-ltm-black md:text-3xl">
+              Authorized by the Government of Liberia
+            </h2>
+            <p className="mt-3 text-base leading-relaxed text-ltm-slate">
+              Liberia Traffic Management is the sole entity authorized under
+              the 2018 Concession Agreement, ratified by the Liberian
+              Legislature, to operate vehicle registration, driver licensing,
+              vehicle inspection, license plates, and traffic violation
+              services on behalf of the Republic.
+            </p>
+          </div>
+        </div>
+      </section>
+
       <CTABanner />
     </>
   );

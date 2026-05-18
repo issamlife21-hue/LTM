@@ -1,6 +1,6 @@
 import * as React from "react";
 import Link from "next/link";
-import { Check, MapPin } from "lucide-react";
+import { Check, MapPin, Phone } from "lucide-react";
 
 import { PageHeader } from "@/components/PageHeader";
 import { PriceTable, type PriceColumn } from "@/components/PriceTable";
@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
 import type { FAQ } from "@/data/faqs";
+import { serviceCenters } from "@/data/service-centers";
 
 export type ProcessStep = {
   title: string;
@@ -88,6 +89,8 @@ export function ServiceDetailLayout({
   summary,
   source,
 }: ServiceDetailLayoutProps) {
+  const primaryPhone = serviceCenters[0]?.phones[0];
+
   return (
     <>
       <PageHeader
@@ -268,6 +271,21 @@ export function ServiceDetailLayout({
                   Visit an LTM service center
                 </Link>
               </Button>
+
+              {primaryPhone && (
+                <div className="mt-5 border-t border-ltm-border pt-5">
+                  <p className="text-xs font-semibold uppercase tracking-wider text-ltm-muted">
+                    Have a question?
+                  </p>
+                  <Link
+                    href={`tel:${primaryPhone.dial}`}
+                    className="mt-1 inline-flex items-center gap-2 text-base font-semibold text-ltm-black hover:underline"
+                  >
+                    <Phone className="h-4 w-4" aria-hidden="true" />
+                    {primaryPhone.display}
+                  </Link>
+                </div>
+              )}
             </div>
           </aside>
         </div>

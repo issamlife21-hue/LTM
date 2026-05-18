@@ -3,33 +3,17 @@
 import * as React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ChevronDown, MapPin, Menu } from "lucide-react";
+import { ChevronDown, Menu } from "lucide-react";
 
 import { SiteSearch } from "@/components/SiteSearch";
-import { Button } from "@/components/ui/button";
 import {
   Sheet,
   SheetContent,
   SheetTrigger,
   SheetTitle,
 } from "@/components/ui/sheet";
+import { PRIMARY_NAV_LINKS, SERVICE_LINKS } from "@/data/navigation";
 import { cn } from "@/lib/utils";
-
-const services = [
-  { label: "Driver License", href: "/services/driver-license" },
-  { label: "Vehicle Registration", href: "/services/vehicle-registration" },
-  { label: "Vehicle Inspection", href: "/services/vehicle-inspection" },
-  { label: "License Plates", href: "/services/license-plates" },
-];
-
-const navLinks = [
-  { label: "Home", href: "/" },
-  { label: "Pricing", href: "/pricing" },
-  { label: "Road Signs", href: "/road-signs" },
-  { label: "Practice Test", href: "/practice-test" },
-  { label: "FAQ", href: "/faq" },
-  { label: "Contact", href: "/contact" },
-];
 
 const NAV_LINK_BASE =
   "rounded-md px-2 py-2 text-sm font-medium text-white/85 transition-colors hover:text-ltm-sand focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ltm-navy focus-visible:ring-offset-2 focus-visible:ring-offset-ltm-black";
@@ -60,17 +44,11 @@ function ServicesDropdown() {
         aria-haspopup="menu"
         aria-expanded={open}
         onClick={() => setOpen((v) => !v)}
-        className={cn(
-          NAV_LINK_BASE,
-          "inline-flex items-center gap-1"
-        )}
+        className={cn(NAV_LINK_BASE, "inline-flex items-center gap-1")}
       >
         Services
         <ChevronDown
-          className={cn(
-            "h-4 w-4 transition-transform",
-            open && "rotate-180"
-          )}
+          className={cn("h-4 w-4 transition-transform", open && "rotate-180")}
           aria-hidden="true"
         />
       </button>
@@ -79,7 +57,7 @@ function ServicesDropdown() {
           role="menu"
           className="absolute left-0 top-full z-50 mt-1 w-56 rounded-lg border border-ltm-graphite bg-ltm-charcoal py-2 text-white shadow-md"
         >
-          {services.map((s) => (
+          {SERVICE_LINKS.map((s) => (
             <Link
               key={s.href}
               href={s.href}
@@ -115,11 +93,11 @@ export function Header() {
             className="h-9 w-9 object-contain md:h-10 md:w-10"
             priority
           />
-          <span className="hidden flex-col leading-tight md:flex">
-            <span className="font-serif text-sm tracking-wider text-white">
+          <span className="flex flex-col leading-tight">
+            <span className="font-serif text-[11px] tracking-wider text-white sm:text-sm">
               LIBERIA TRAFFIC
             </span>
-            <span className="font-serif text-sm tracking-wider text-white">
+            <span className="font-serif text-[11px] tracking-wider text-white sm:text-sm">
               MANAGEMENT
             </span>
           </span>
@@ -129,55 +107,33 @@ export function Header() {
           aria-label="Primary"
           className="hidden items-center gap-1 lg:flex"
         >
-          <Link href="/" className={NAV_LINK_BASE}>
-            Home
-          </Link>
+          {PRIMARY_NAV_LINKS.slice(0, 1).map((l) => (
+            <Link key={l.href} href={l.href} className={NAV_LINK_BASE}>
+              {l.label}
+            </Link>
+          ))}
           <ServicesDropdown />
-          <Link href="/pricing" className={NAV_LINK_BASE}>
-            Pricing
-          </Link>
-          <Link href="/road-signs" className={NAV_LINK_BASE}>
-            Road Signs
-          </Link>
-          <Link href="/practice-test" className={NAV_LINK_BASE}>
-            Practice Test
-          </Link>
-          <Link href="/faq" className={NAV_LINK_BASE}>
-            FAQ
-          </Link>
-          <Link href="/contact" className={NAV_LINK_BASE}>
-            Contact
-          </Link>
+          {PRIMARY_NAV_LINKS.slice(1).map((l) => (
+            <Link key={l.href} href={l.href} className={NAV_LINK_BASE}>
+              {l.label}
+            </Link>
+          ))}
         </nav>
 
-        <div className="hidden items-center gap-3 lg:flex">
+        <div className="hidden lg:block">
           <SiteSearch
-            className="hidden w-56 xl:block"
+            className="w-56"
             inputClassName="h-9 border-ltm-graphite bg-ltm-charcoal text-sm text-white placeholder:text-white/60"
             placeholder="Search…"
           />
-          <Button asChild variant="whitePrimary">
-            <Link href="/contact">
-              <MapPin className="h-4 w-4" aria-hidden="true" />
-              Service Centers
-            </Link>
-          </Button>
         </div>
 
-        <div className="flex items-center gap-1 lg:hidden">
-          <Link
-            href="/contact"
-            aria-label="Find an LTM service center"
-            className="inline-flex h-11 w-11 items-center justify-center rounded-md text-white hover:text-ltm-sand focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ltm-navy focus-visible:ring-offset-2 focus-visible:ring-offset-ltm-black active:scale-[0.96]"
-          >
-            <MapPin className="h-5 w-5" aria-hidden="true" />
-          </Link>
-          <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
-            <SheetTrigger asChild>
+        <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
+          <SheetTrigger asChild>
             <button
               type="button"
               aria-label="Open menu"
-              className="inline-flex h-11 w-11 items-center justify-center rounded-md text-white hover:text-ltm-sand focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ltm-navy focus-visible:ring-offset-2 focus-visible:ring-offset-ltm-black active:scale-[0.96]"
+              className="inline-flex h-11 w-11 items-center justify-center rounded-md text-white hover:text-ltm-sand focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ltm-navy focus-visible:ring-offset-2 focus-visible:ring-offset-ltm-black active:scale-[0.96] lg:hidden"
             >
               <Menu className="h-6 w-6" aria-hidden="true" />
             </button>
@@ -186,18 +142,11 @@ export function Header() {
             <div className="border-b border-ltm-border px-6 py-4">
               <SheetTitle className="text-base">Menu</SheetTitle>
             </div>
-            <div className="border-b border-ltm-border px-4 py-3">
-              <SiteSearch
-                inputClassName="h-9 text-sm"
-                placeholder="Search…"
-                onNavigate={() => setMobileOpen(false)}
-              />
-            </div>
             <nav
               aria-label="Mobile"
               className="flex flex-col gap-1 px-2 py-4"
             >
-              {navLinks.slice(0, 1).map((l) => (
+              {PRIMARY_NAV_LINKS.slice(0, 1).map((l) => (
                 <Link
                   key={l.href}
                   href={l.href}
@@ -210,7 +159,7 @@ export function Header() {
               <div className="px-4 pb-1 pt-3 text-xs font-semibold uppercase tracking-wider text-ltm-muted">
                 Services
               </div>
-              {services.map((s) => (
+              {SERVICE_LINKS.map((s) => (
                 <Link
                   key={s.href}
                   href={s.href}
@@ -221,7 +170,7 @@ export function Header() {
                 </Link>
               ))}
               <div className="my-2 border-t border-ltm-border" />
-              {navLinks.slice(1).map((l) => (
+              {PRIMARY_NAV_LINKS.slice(1).map((l) => (
                 <Link
                   key={l.href}
                   href={l.href}
@@ -231,21 +180,17 @@ export function Header() {
                   {l.label}
                 </Link>
               ))}
-              <div className="px-4 pt-4">
-                <Button asChild className="w-full">
-                  <Link
-                    href="/contact"
-                    onClick={() => setMobileOpen(false)}
-                  >
-                    <MapPin className="h-4 w-4" aria-hidden="true" />
-                    Service Centers
-                  </Link>
-                </Button>
-              </div>
             </nav>
           </SheetContent>
         </Sheet>
-        </div>
+      </div>
+
+      <div className="border-t border-ltm-charcoal bg-ltm-black/95 px-4 py-2 sm:px-6 lg:hidden">
+        <SiteSearch
+          inputClassName="h-9 border-ltm-graphite bg-ltm-charcoal text-sm text-white placeholder:text-white/60"
+          placeholder="Search FAQs, services, pricing…"
+          onNavigate={() => setMobileOpen(false)}
+        />
       </div>
     </header>
   );

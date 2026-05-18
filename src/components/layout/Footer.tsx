@@ -1,25 +1,13 @@
 import Image from "next/image";
 import Link from "next/link";
-import { Facebook, Mail, MapPin, Phone, Clock } from "lucide-react";
+import { Clock, Facebook, Mail, MapPin, Phone } from "lucide-react";
 
-const quickLinks = [
-  { label: "Home", href: "/" },
-  { label: "Services", href: "/services" },
-  { label: "Pricing", href: "/pricing" },
-  { label: "Road Signs", href: "/road-signs" },
-  { label: "Practice Test", href: "/practice-test" },
-  { label: "FAQ", href: "/faq" },
-  { label: "Contact", href: "/contact" },
-];
-
-const services = [
-  { label: "Driver License", href: "/services/driver-license" },
-  { label: "Vehicle Registration", href: "/services/vehicle-registration" },
-  { label: "Vehicle Inspection", href: "/services/vehicle-inspection" },
-  { label: "License Plates", href: "/services/license-plates" },
-];
+import { FOOTER_QUICK_LINKS, SERVICE_LINKS } from "@/data/navigation";
+import { serviceCenters } from "@/data/service-centers";
 
 export function Footer() {
+  const center = serviceCenters[0];
+
   return (
     <footer className="bg-ltm-charcoal text-white/85">
       <div className="container-ltm pt-12 pb-10">
@@ -54,7 +42,7 @@ export function Footer() {
           <div>
             <h2 className="mb-4 text-lg font-semibold text-white">Quick Links</h2>
             <ul className="space-y-2 text-sm">
-              {quickLinks.map((l) => (
+              {FOOTER_QUICK_LINKS.map((l) => (
                 <li key={l.href}>
                   <Link
                     href={l.href}
@@ -70,7 +58,7 @@ export function Footer() {
           <div>
             <h2 className="mb-4 text-lg font-semibold text-white">Services</h2>
             <ul className="space-y-2 text-sm">
-              {services.map((s) => (
+              {SERVICE_LINKS.map((s) => (
                 <li key={s.href}>
                   <Link
                     href={s.href}
@@ -86,27 +74,69 @@ export function Footer() {
           <div>
             <h2 className="mb-4 text-lg font-semibold text-white">Contact</h2>
             <ul className="space-y-3 text-sm">
-              <li>
-                <Link
-                  href="/contact"
-                  className="transition-colors hover:text-ltm-sand"
-                >
-                  Visit an LTM service center
-                </Link>
-              </li>
               <li className="flex items-start gap-2">
-                <Mail
+                <MapPin
                   className="mt-0.5 h-4 w-4 shrink-0 text-white/60"
                   aria-hidden="true"
                 />
-                <Link
-                  href="mailto:Ltm@liberiatraffic.com"
-                  className="transition-colors hover:text-ltm-sand"
-                >
-                  Ltm@liberiatraffic.com
-                </Link>
+                <address className="not-italic leading-relaxed">
+                  {center.address.lines.map((line) => (
+                    <span key={line} className="block">
+                      {line}
+                    </span>
+                  ))}
+                  <span className="block">
+                    {center.address.locality}, {center.address.country}
+                  </span>
+                </address>
               </li>
-              <li className="pt-2">
+              <li className="flex items-start gap-2">
+                <Phone
+                  className="mt-0.5 h-4 w-4 shrink-0 text-white/60"
+                  aria-hidden="true"
+                />
+                <ul className="leading-relaxed">
+                  {center.phones.map((p) => (
+                    <li key={p.dial}>
+                      <Link
+                        href={`tel:${p.dial}`}
+                        className="transition-colors hover:text-ltm-sand"
+                      >
+                        {p.display}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </li>
+              <li className="flex items-start gap-2">
+                <Clock
+                  className="mt-0.5 h-4 w-4 shrink-0 text-white/60"
+                  aria-hidden="true"
+                />
+                <dl className="leading-relaxed">
+                  {center.hours.map((h) => (
+                    <div key={h.days} className="flex flex-wrap gap-x-2">
+                      <dt>{h.days}</dt>
+                      <dd className="text-white/70">{h.hours}</dd>
+                    </div>
+                  ))}
+                </dl>
+              </li>
+              {center.email && (
+                <li className="flex items-start gap-2">
+                  <Mail
+                    className="mt-0.5 h-4 w-4 shrink-0 text-white/60"
+                    aria-hidden="true"
+                  />
+                  <Link
+                    href={`mailto:${center.email}`}
+                    className="transition-colors hover:text-ltm-sand"
+                  >
+                    {center.email}
+                  </Link>
+                </li>
+              )}
+              <li className="pt-1">
                 <Link
                   href="https://www.facebook.com/"
                   aria-label="Visit LTM on Facebook"
