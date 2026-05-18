@@ -185,11 +185,11 @@ export function ServiceDetailLayout({
               <h2 className="font-serif text-2xl text-ltm-black">
                 Step by step
               </h2>
-              <ol className="relative mt-6 space-y-8 border-l-2 border-ltm-border pl-8">
+              <ol className="relative mt-6 space-y-8 border-l-2 border-ltm-border pl-12 md:pl-14">
                 {process.map((step, i) => (
                   <li key={i} className="relative">
                     <span
-                      className="absolute -left-[2.6rem] top-0 inline-flex h-12 w-12 items-center justify-center rounded-full border-2 border-ltm-charcoal bg-white text-base font-bold text-ltm-black shadow-sm"
+                      className="absolute -left-12 top-0 inline-flex h-10 w-10 items-center justify-center rounded-full border-2 border-ltm-charcoal bg-white text-base font-bold text-ltm-black shadow-sm md:-left-14 md:h-12 md:w-12"
                       aria-hidden="true"
                     >
                       {i + 1}

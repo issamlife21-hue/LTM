@@ -78,8 +78,9 @@ export function Header() {
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
   return (
-    <header className="sticky top-0 z-40 border-b border-ltm-charcoal bg-ltm-black/95 text-white backdrop-blur supports-[backdrop-filter]:bg-ltm-black/85">
-      <div className="container-ltm flex h-14 items-center justify-between gap-3 md:h-[72px]">
+    <header className="text-white">
+      <div className="sticky top-0 z-40 border-b border-ltm-charcoal bg-ltm-black/95 backdrop-blur supports-[backdrop-filter]:bg-ltm-black/85">
+        <div className="container-ltm flex h-14 items-center justify-between gap-3 md:h-[72px]">
         <Link
           href="/"
           aria-label="Liberia Traffic Management home"
@@ -156,15 +157,19 @@ export function Header() {
                   {l.label}
                 </Link>
               ))}
-              <div className="px-4 pb-1 pt-3 text-xs font-semibold uppercase tracking-wider text-ltm-muted">
+              <Link
+                href="/services"
+                onClick={() => setMobileOpen(false)}
+                className="rounded-md px-4 py-3 text-base font-medium text-ltm-slate hover:bg-ltm-stone hover:text-ltm-black"
+              >
                 Services
-              </div>
+              </Link>
               {SERVICE_LINKS.map((s) => (
                 <Link
                   key={s.href}
                   href={s.href}
                   onClick={() => setMobileOpen(false)}
-                  className="rounded-md px-4 py-2.5 text-sm text-ltm-slate hover:bg-ltm-stone hover:text-ltm-black"
+                  className="rounded-md py-2 pl-8 pr-4 text-sm text-ltm-slate hover:bg-ltm-stone hover:text-ltm-black"
                 >
                   {s.label}
                 </Link>
@@ -183,9 +188,10 @@ export function Header() {
             </nav>
           </SheetContent>
         </Sheet>
+        </div>
       </div>
 
-      <div className="border-t border-ltm-charcoal bg-ltm-black/95 px-4 py-2 sm:px-6 lg:hidden">
+      <div className="border-b border-ltm-charcoal bg-ltm-black/95 px-4 py-2 sm:px-6 lg:hidden">
         <SiteSearch
           inputClassName="h-9 border-ltm-graphite bg-ltm-charcoal text-sm text-white placeholder:text-white/60"
           placeholder="Search FAQs, services, pricing…"

@@ -33,7 +33,7 @@ export function RoadSignsBody() {
   return (
     <>
       {/* Sticky jump-to-section bar with search */}
-      <div className="sticky top-[108px] z-30 border-y border-ltm-border bg-ltm-paper/95 backdrop-blur supports-[backdrop-filter]:bg-ltm-paper/80 lg:top-[72px]">
+      <div className="sticky top-14 z-30 border-y border-ltm-border bg-ltm-paper/95 backdrop-blur supports-[backdrop-filter]:bg-ltm-paper/80 lg:top-[72px]">
         <div className="container-ltm flex flex-col gap-3 py-3 lg:flex-row lg:items-center lg:justify-between">
           <nav
             aria-label="Jump to section"

@@ -138,7 +138,7 @@ export function Footer() {
               )}
               <li className="pt-1">
                 <Link
-                  href="https://www.facebook.com/"
+                  href="https://www.facebook.com/share/1DbfpVisw8/?mibextid=wwXIfr"
                   aria-label="Visit LTM on Facebook"
                   target="_blank"
                   rel="noopener noreferrer"

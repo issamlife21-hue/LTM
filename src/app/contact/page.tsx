@@ -32,7 +32,7 @@ function organizationJsonLd(center: ServiceCenter) {
     },
     openingHours: ["Mo-Fr 08:00-17:00", "Sa 09:00-13:00"],
     sameAs: [
-      "https://www.facebook.com/Liberia-Traffic-Management-103333742243540/",
+      "https://www.facebook.com/share/1DbfpVisw8/?mibextid=wwXIfr",
     ],
   };
 }
