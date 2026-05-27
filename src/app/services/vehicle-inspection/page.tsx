@@ -11,7 +11,7 @@ import { vehicleInspectionCharges } from "@/data/pricing";
 import { formatUsd } from "@/lib/format";
 
 export const metadata = {
-  title: "Vehicle Inspection. Liberia Traffic Management",
+  title: "Vehicle Inspection",
   description:
     "Mandatory annual vehicle inspection. For 2025, criteria are limited to lights, brakes, and windshield wipers.",
 };
@@ -56,7 +56,11 @@ export default function VehicleInspectionPage() {
         {
           title: "Our inspector runs the check",
           body: "For 2025 the inspection covers three things only: lights, brakes, and windshield wipers.",
-          items: ["Lights (front, rear, and indicators)", "Brakes", "Windshield wipers"],
+          items: [
+            "Lights (front, rear, and indicators)",
+            "Brakes",
+            "Windshield wipers",
+          ],
         },
         {
           title: "If you pass, you get your report",

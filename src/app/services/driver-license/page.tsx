@@ -12,7 +12,7 @@ import {
 import { formatUsd } from "@/lib/format";
 
 export const metadata = {
-  title: "Driver License. Liberia Traffic Management",
+  title: "Driver License",
   description:
     "Apply for or renew your driver license at LTM, the official issuer in Liberia.",
 };
@@ -92,8 +92,8 @@ export default function DriverLicensePage() {
       }}
       source={
         <>
-          Liberian driver license categories follow the standards established
-          by the Government of Liberia and the Liberia National Police.
+          Liberian driver license categories follow the standards established by
+          the Government of Liberia and the Liberia National Police.
         </>
       }
     />

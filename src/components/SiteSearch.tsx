@@ -6,62 +6,103 @@ import { Search } from "lucide-react";
 
 import { Input } from "@/components/ui/input";
 import { faqs } from "@/data/faqs";
-import { pricingTabs } from "@/data/pricing";
+import { roadSigns } from "@/data/road-signs";
+import { services } from "@/data/services";
 import { cn } from "@/lib/utils";
 
-type SearchHit =
-  | {
-      kind: "faq";
-      title: string;
-      preview: string;
-      href: string;
-    }
-  | {
-      kind: "pricing";
-      title: string;
-      preview: string;
-      href: string;
-    };
-
-const PRICING_HREFS: Record<string, string> = {
-  registration: "/pricing#registration",
-  license: "/services/driver-license",
-  "driving-test": "/pricing",
-  inspection: "/services/vehicle-inspection",
-  towing: "/pricing",
-  impoundment: "/pricing",
-  plates: "/services/license-plates",
+type SearchHit = {
+  label: string; // small category tag shown above each result
+  title: string;
+  preview: string;
+  href: string;
 };
+
+// Static destinations the search can return. `keywords` are extra words a
+// user might type (e.g. "fees" for the Pricing page). Edit these to make a
+// page easier to find. Service pages are pulled in from the services list.
+type PageEntry = SearchHit & { keywords: string };
+
+const PAGE_INDEX: PageEntry[] = [
+  ...services.map((s) => ({
+    label: "Service",
+    title: s.title,
+    preview: s.cardDescription,
+    href: s.href,
+    keywords: `${s.title} ${s.cardDescription} ${s.description}`.toLowerCase(),
+  })),
+  {
+    label: "Pricing",
+    title: "Pricing & Fees",
+    preview: "Registration, license, inspection, towing, and plate fees.",
+    href: "/pricing",
+    keywords:
+      "pricing fees fee cost costs charges rates prices price how much taxi plate plates registration license inspection towing impoundment driving test",
+  },
+  {
+    label: "Page",
+    title: "Road Signs & Pavement Markings",
+    preview: "Traffic signals, regulatory and warning signs, and markings.",
+    href: "/road-signs",
+    keywords:
+      "road signs sign signals signal warning regulatory pavement markings stop yield speed limit",
+  },
+  {
+    label: "Page",
+    title: "Practice Test",
+    preview: "Driver's license practice exam and study mode.",
+    href: "/practice-test",
+    keywords: "practice test exam quiz driving test sample study questions",
+  },
+  {
+    label: "Page",
+    title: "Questions & Answers",
+    preview: "Common questions about LTM services.",
+    href: "/faq",
+    keywords: "faq questions answers help support",
+  },
+  {
+    label: "Page",
+    title: "Find a Service Center",
+    preview: "Location, hours, phone, and directions.",
+    href: "/contact",
+    keywords:
+      "contact location service center centre hours phone address directions call email map visit",
+  },
+];
 
 function searchAll(query: string): SearchHit[] {
   const q = query.trim().toLowerCase();
   if (q.length < 2) return [];
 
+  const pageHits: SearchHit[] = PAGE_INDEX.filter(
+    (p) => p.title.toLowerCase().includes(q) || p.keywords.includes(q),
+  ).map(({ label, title, preview, href }) => ({ label, title, preview, href }));
+
   const faqHits: SearchHit[] = faqs
     .filter(
       (f) =>
         f.question.toLowerCase().includes(q) ||
-        f.answer.toLowerCase().includes(q)
+        f.answer.toLowerCase().includes(q),
     )
-    .slice(0, 5)
+    .slice(0, 4)
     .map((f) => ({
-      kind: "faq",
+      label: "Question",
       title: f.question,
       preview: f.answer.slice(0, 100) + (f.answer.length > 100 ? "…" : ""),
       href: `/faq#${f.id}`,
     }));
 
-  const pricingHits: SearchHit[] = pricingTabs
-    .filter((t) => t.label.toLowerCase().includes(q))
-    .slice(0, 4)
-    .map((t) => ({
-      kind: "pricing",
-      title: t.label,
-      preview: "Pricing & rates",
-      href: PRICING_HREFS[t.id] ?? `/pricing`,
+  const signHits: SearchHit[] = roadSigns
+    .filter((s) => s.name.toLowerCase().includes(q))
+    .slice(0, 3)
+    .map((s) => ({
+      label: "Road sign",
+      title: s.name,
+      preview: "Road signs & pavement markings",
+      href: `/road-signs#${s.section}`,
     }));
 
-  return [...faqHits, ...pricingHits];
+  return [...pageHits, ...faqHits, ...signHits].slice(0, 10);
 }
 
 type SiteSearchProps = {
@@ -138,7 +179,7 @@ export function SiteSearch({
           role="listbox"
           className={cn(
             "absolute left-0 right-0 top-full z-50 mt-1 max-h-[60vh] overflow-y-auto rounded-lg border border-ltm-border bg-white shadow-md",
-            panelClassName
+            panelClassName,
           )}
         >
           {hits.length === 0 ? (
@@ -163,7 +204,7 @@ export function SiteSearch({
           ) : (
             <ul className="py-1">
               {hits.map((hit, i) => (
-                <li key={`${hit.kind}-${i}`}>
+                <li key={`${hit.href}-${i}`}>
                   <Link
                     href={hit.href}
                     role="option"
@@ -177,7 +218,7 @@ export function SiteSearch({
                   >
                     <span className="flex items-center gap-2">
                       <span className="text-[11px] font-semibold uppercase tracking-wider text-ltm-muted">
-                        {hit.kind === "faq" ? "Question" : "Pricing"}
+                        {hit.label}
                       </span>
                     </span>
                     <span className="text-sm font-medium text-ltm-black">

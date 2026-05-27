@@ -15,7 +15,11 @@ export type ServiceCenter = {
     locality: string;
     country: string;
   };
+  // `hours` is the human-readable version shown on the page and in the footer.
+  // `openingHoursSchema` is the same hours in schema.org format for SEO
+  // structured data. Keep the two in sync — this file is the single source.
   hours: { days: string; hours: string }[];
+  openingHoursSchema: string[];
   phones: ServiceCenterPhone[];
   email?: string;
   map: {
@@ -38,6 +42,7 @@ export const serviceCenters: ServiceCenter[] = [
       { days: "Saturday", hours: "9:00 AM – 1:00 PM" },
       { days: "Sunday", hours: "Closed" },
     ],
+    openingHoursSchema: ["Mo-Fr 08:00-17:00", "Sa 09:00-13:00"],
     phones: [
       { display: "0888 900 070", dial: "+231888900070" },
       { display: "0770 900 080", dial: "+231770900080" },

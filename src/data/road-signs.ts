@@ -36,7 +36,10 @@ export type RoadSign = {
   liberiaSpecific?: boolean;
 };
 
-export const sectionMeta: Record<SignSection, { title: string; intro: string; order: number }> = {
+export const sectionMeta: Record<
+  SignSection,
+  { title: string; intro: string; order: number }
+> = {
   "traffic-signals": {
     order: 1,
     title: "Traffic Signals",
@@ -174,7 +177,7 @@ export const roadSigns: RoadSign[] = [
     section: "traffic-signals",
     description:
       "When traffic signals are not working because of a power outage or other problem and not displaying any lights, you are required to stop, proceeding through the intersection as though it were an all-way stop. This does not apply if a law enforcement officer or other authorized person is directing traffic at the intersection, or if portable stop signs are in use.",
-    imageUrl: "",
+    imageUrl: "/signs/out-of-service-signals.png",
     imageHint: "dark traffic signal",
   },
   {
@@ -198,7 +201,8 @@ export const roadSigns: RoadSign[] = [
     id: "lane-use-green-arrow",
     name: "Lane Use Signal: Green Arrow",
     section: "traffic-signals",
-    description: "You are permitted to drive in a lane marked with a green arrow signal.",
+    description:
+      "You are permitted to drive in a lane marked with a green arrow signal.",
     imageUrl: "/signs/lane-use-green-arrow.png",
     imageHint: "green down arrow overhead lane signal",
   },
@@ -309,7 +313,8 @@ export const roadSigns: RoadSign[] = [
     id: "no-right-turn",
     name: "No Right Turn",
     section: "regulatory",
-    description: "Right turns are illegal. Do not make a right turn when you see this sign.",
+    description:
+      "Right turns are illegal. Do not make a right turn when you see this sign.",
     imageUrl: "/signs/no-right-turn.png",
     imageHint: "no right turn sign with red slash",
   },
@@ -317,7 +322,8 @@ export const roadSigns: RoadSign[] = [
     id: "no-u-turn",
     name: "No U-Turn",
     section: "regulatory",
-    description: "U-turns are illegal. Do not make a U-turn when you see this sign.",
+    description:
+      "U-turns are illegal. Do not make a U-turn when you see this sign.",
     imageUrl: "/signs/no-u-turn.png",
     imageHint: "no U-turn sign with red slash",
   },
@@ -325,7 +331,8 @@ export const roadSigns: RoadSign[] = [
     id: "no-turn-on-red",
     name: "No Turn on Red",
     section: "regulatory",
-    description: "You may not turn on the red light. Wait for the signal to turn green.",
+    description:
+      "You may not turn on the red light. Wait for the signal to turn green.",
     imageUrl: "/signs/no-turn-on-red.png",
     imageHint: "NO TURN ON RED text sign",
   },
@@ -389,7 +396,8 @@ export const roadSigns: RoadSign[] = [
     id: "advisory-speed",
     name: "Advisory Speed",
     section: "warning",
-    description: "This sign indicates the maximum safe speed for a highway exit.",
+    description:
+      "This sign indicates the maximum safe speed for a highway exit.",
     imageUrl: "/signs/advisory-speed.png",
     imageHint: "exit advisory speed 25 MPH sign",
   },
@@ -397,7 +405,8 @@ export const roadSigns: RoadSign[] = [
     id: "reduced-speed-ahead",
     name: "Reduced Speed Limit Ahead",
     section: "warning",
-    description: "Prepare to reduce your speed; the speed limit is changing ahead.",
+    description:
+      "Prepare to reduce your speed; the speed limit is changing ahead.",
     imageUrl: "/signs/reduced-speed-ahead.png",
     imageHint: "reduced speed limit ahead diamond sign",
   },
@@ -405,7 +414,8 @@ export const roadSigns: RoadSign[] = [
     id: "stop-yield-ahead",
     name: "Stop Ahead / Yield Ahead",
     section: "warning",
-    description: "A stop sign or yield sign is ahead. Slow down and be ready to stop.",
+    description:
+      "A stop sign or yield sign is ahead. Slow down and be ready to stop.",
     imageUrl: "/signs/stop-yield-ahead.png",
     imageHint: "stop ahead and yield ahead diamond signs",
   },
@@ -610,7 +620,8 @@ export const roadSigns: RoadSign[] = [
     id: "sharp-right-turn",
     name: "Sharp Right Turn",
     section: "warning",
-    description: "Slow down and be prepared for a sharp right turn in the road ahead.",
+    description:
+      "Slow down and be prepared for a sharp right turn in the road ahead.",
     imageUrl: "/signs/sharp-right-turn.png",
     imageHint: "sharp right turn diamond sign with right angle arrow",
   },
@@ -785,7 +796,7 @@ export const roadSigns: RoadSign[] = [
     section: "pavement-markings",
     description:
       "Red markings are generally not used; but, some communities do use red curbs to indicate no parking zones.",
-    imageUrl: "",
+    imageUrl: "/signs/red-markings.png",
     imageHint: "red painted curb",
   },
   {
@@ -794,14 +805,15 @@ export const roadSigns: RoadSign[] = [
     section: "pavement-markings",
     description:
       "Red reflectors on the pavement show areas not to be entered or used. They are positioned on the road surface so that only traffic flowing in the wrong direction would observe them.",
-    imageUrl: "",
+    imageUrl: "/signs/red-reflectors.png",
     imageHint: "red pavement reflectors",
   },
   {
     id: "yellow-center-lines",
     name: "Yellow Center Lines",
     section: "pavement-markings",
-    description: "Yellow center lines mean two-way traffic, flowing in opposite directions.",
+    description:
+      "Yellow center lines mean two-way traffic, flowing in opposite directions.",
     imageUrl: "/signs/broken-yellow-center.png",
     imageHint: "yellow center line on road",
   },
@@ -856,7 +868,7 @@ export const roadSigns: RoadSign[] = [
     section: "pavement-markings",
     description:
       "Many two-lane roads in Liberia do not have lane markings to separate the lanes. On an unmarked two-lane road, you may pass a slow moving vehicle on the left side if there are no signs prohibiting passing. Make sure that the way is clear.",
-    imageUrl: "",
+    imageUrl: "/signs/unmarked-two-lane-roads.png",
     imageHint: "unmarked Liberian rural road",
     liberiaSpecific: true,
   },
@@ -894,7 +906,8 @@ export const signColorMeanings = [
   },
   {
     colors: "Brown with white",
-    meaning: "Advises of historical or cultural interests that might exist in the area.",
+    meaning:
+      "Advises of historical or cultural interests that might exist in the area.",
   },
   {
     colors: "Orange with black",

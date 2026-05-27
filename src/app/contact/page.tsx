@@ -4,10 +4,7 @@ import { Clock, ExternalLink, Mail, MapPin, Phone } from "lucide-react";
 
 import { PageHeader } from "@/components/PageHeader";
 import { contactPhoto } from "@/data/photos";
-import {
-  serviceCenters,
-  type ServiceCenter,
-} from "@/data/service-centers";
+import { serviceCenters, type ServiceCenter } from "@/data/service-centers";
 
 export const metadata = {
   title: "Find a Service Center",
@@ -30,10 +27,8 @@ function organizationJsonLd(center: ServiceCenter) {
       addressLocality: center.address.locality,
       addressCountry: center.address.country,
     },
-    openingHours: ["Mo-Fr 08:00-17:00", "Sa 09:00-13:00"],
-    sameAs: [
-      "https://www.facebook.com/share/1DbfpVisw8/?mibextid=wwXIfr",
-    ],
+    openingHours: center.openingHoursSchema,
+    sameAs: ["https://www.facebook.com/share/1DbfpVisw8/?mibextid=wwXIfr"],
   };
 }
 

@@ -19,8 +19,7 @@ const publicSans = Public_Sans({
 
 export const metadata: Metadata = {
   title: {
-    default:
-      "Liberia Traffic Management. Official Traffic Services in Liberia",
+    default: "Liberia Traffic Management. Official Traffic Services in Liberia",
     template: "%s | Liberia Traffic Management",
   },
   description:
@@ -43,12 +42,21 @@ export const metadata: Metadata = {
     siteName: "Liberia Traffic Management",
     locale: "en_US",
     type: "website",
+    images: [
+      {
+        url: "/images/og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Liberia Traffic Management service facility",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Liberia Traffic Management",
     description:
       "Official traffic management services for the Republic of Liberia.",
+    images: ["/images/og-image.jpg"],
   },
   robots: {
     index: true,

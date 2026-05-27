@@ -1,8 +1,10 @@
 import Link from "next/link";
-import { ArrowRight, type LucideIcon } from "lucide-react";
+import { ArrowRight } from "lucide-react";
+
+import type { ServiceIcon } from "@/data/services";
 
 type ServiceCardProps = {
-  icon: LucideIcon;
+  icon: ServiceIcon;
   title: string;
   description: string;
   href: string;
@@ -27,7 +29,7 @@ export function ServiceCard({
         {description}
       </p>
       <span className="mt-4 inline-flex items-center gap-1 text-sm font-medium text-ltm-black group-hover:underline">
-        View details
+        Full details
         <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
       </span>
     </Link>

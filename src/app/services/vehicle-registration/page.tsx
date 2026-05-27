@@ -12,7 +12,7 @@ import { vehicleRegistrationCharges } from "@/data/pricing";
 import { formatUsd } from "@/lib/format";
 
 export const metadata = {
-  title: "Vehicle Registration. Liberia Traffic Management",
+  title: "Vehicle Registration",
   description:
     "Register a new vehicle, renew your registration, or transfer ownership at LTM, the official registrar in Liberia.",
 };
@@ -62,7 +62,10 @@ export default function VehicleRegistrationPage() {
       ]}
       pricing={{
         columns,
-        rows: vehicleRegistrationCharges as unknown as Record<string, unknown>[],
+        rows: vehicleRegistrationCharges as unknown as Record<
+          string,
+          unknown
+        >[],
         note: "Heavy duty trucks above 8 tons and trailers have variable pricing. See the full pricing page for details.",
       }}
       process={[

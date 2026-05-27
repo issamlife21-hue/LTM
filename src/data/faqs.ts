@@ -62,7 +62,8 @@ export const faqs: FAQ[] = [
     id: "q11",
     category: "general",
     question: "Are services available online?",
-    answer: "Not yet. Online services are in development.",
+    answer:
+      "All services are handled in person at an LTM service center. You can visit, call, or email us. Phone numbers, address, and hours are on the Find a Service Center page.",
   },
   {
     id: "q12",

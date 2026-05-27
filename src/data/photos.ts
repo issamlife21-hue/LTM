@@ -30,50 +30,51 @@ export type LtmPhoto = {
 };
 
 // ── HERO CAROUSEL ── Edit, add, or remove slides here. Order = slide order.
+// Images are stored as web-optimized 1600x900 landscape files (under ~250 KB).
 export const heroPhotos: LtmPhoto[] = [
   {
     id: "hero-main-facility",
     url: "/images/hero/hero-main-facility.webp",
     alt: "LTM main service facility, a modern two-story building with paved compound under blue sky",
     category: "exterior",
-    width: 3024,
-    height: 4032,
+    width: 1600,
+    height: 900,
   },
   {
     id: "hero-bicycle-fleet",
     url: "/images/hero/hero-bicycle-fleet.webp",
     alt: "Large fleet of police bicycles arranged in rows at the LTM compound",
     category: "fleet",
-    width: 3024,
-    height: 4032,
+    width: 1600,
+    height: 900,
   },
   {
     id: "hero-motorcycle-fleet",
     url: "/images/hero/hero-motorcycle-fleet.webp",
     alt: "Row of LTM police motorcycles parked in front of the LTM facility",
     category: "fleet",
-    width: 3024,
-    height: 4032,
+    width: 1600,
+    height: 900,
   },
   {
     id: "hero-motorcycle-fleet-2",
     url: "/images/hero/hero-motorcycle-fleet-2.webp",
     alt: "Wide view of LTM police motorcycle fleet with the compound and inspection bays in the background",
     category: "fleet",
-    width: 3024,
-    height: 4032,
+    width: 1600,
+    height: 900,
   },
   {
     id: "hero-inspection-bay",
     url: "/images/hero/hero-inspection-bay.webp",
     alt: "Modern LTM vehicle inspection bay with roller test platforms and inspection terminals",
     category: "inspection",
-    width: 1500,
-    height: 700,
+    width: 1600,
+    height: 900,
   },
 ];
 
-// Gallery on homepage and About sections
+// ── GALLERY ── Photos reused as service-page banners (see servicePhotos).
 export const galleryPhotos: LtmPhoto[] = [
   {
     id: "ltm-sign",
@@ -92,36 +93,12 @@ export const galleryPhotos: LtmPhoto[] = [
     height: 850,
   },
   {
-    id: "ltm-gate",
-    url: "/images/gallery/ltm-gate.webp",
-    alt: "LTM and LNP Traffic Enforcement main entrance gate",
-    category: "exterior",
-    width: 1280,
-    height: 960,
-  },
-  {
-    id: "billboard-installation",
-    url: "/images/gallery/billboard-installation.webp",
-    alt: "Workers installing the official Liberia Traffic Management billboard with the Liberia National Police seal",
-    category: "operations",
-    width: 3024,
-    height: 4032,
-  },
-  {
     id: "police-fleet-courtyard",
     url: "/images/gallery/police-fleet-courtyard.webp",
     alt: "LTM police vehicle fleet parked in formation at the compound courtyard",
     category: "fleet",
     width: 640,
     height: 320,
-  },
-  {
-    id: "deployment",
-    url: "/images/gallery/deployment.webp",
-    alt: "LTM operational deployment with police vehicles, motorcycles and personnel at the compound",
-    category: "operations",
-    width: 1280,
-    height: 960,
   },
 ];
 
@@ -134,7 +111,7 @@ export const servicePhotos = {
   "driver-license": galleryPhotos[1], // motor-vehicle-service-sign
   "vehicle-registration": galleryPhotos[0], // ltm-sign
   "vehicle-inspection": heroPhotos[4], // inspection bay
-  "license-plates": galleryPhotos[4], // police-fleet-courtyard
+  "license-plates": galleryPhotos[2], // police-fleet-courtyard
 };
 
 export const contactPhoto = heroPhotos[0]; // main-facility

@@ -1,37 +1,10 @@
 import Link from "next/link";
-import { Car, Hash, IdCard, Wrench } from "lucide-react";
 
 import { HeroCarousel } from "@/components/HeroCarousel";
 import { CTABanner } from "@/components/layout/CTABanner";
 import { ServiceCard } from "@/components/ServiceCard";
 import { Button } from "@/components/ui/button";
-
-const SERVICES = [
-  {
-    icon: IdCard,
-    title: "Driver License",
-    description: "Apply for or renew a motorcycle, car, or commercial license.",
-    href: "/services/driver-license",
-  },
-  {
-    icon: Car,
-    title: "Vehicle Registration",
-    description: "Register, renew, or transfer ownership.",
-    href: "/services/vehicle-registration",
-  },
-  {
-    icon: Wrench,
-    title: "Vehicle Inspection",
-    description: "Annual check: lights, brakes, windshield wipers.",
-    href: "/services/vehicle-inspection",
-  },
-  {
-    icon: Hash,
-    title: "License Plates",
-    description: "Standard, test, and customized plates.",
-    href: "/services/license-plates",
-  },
-];
+import { services } from "@/data/services";
 
 export default function HomePage() {
   return (
@@ -65,8 +38,14 @@ export default function HomePage() {
             Our services
           </h2>
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {SERVICES.map((s) => (
-              <ServiceCard key={s.href} {...s} />
+            {services.map((s) => (
+              <ServiceCard
+                key={s.href}
+                icon={s.icon}
+                title={s.title}
+                description={s.cardDescription}
+                href={s.href}
+              />
             ))}
           </div>
         </div>
@@ -89,11 +68,11 @@ export default function HomePage() {
               Authorized by the Government of Liberia
             </h2>
             <p className="mt-3 text-base leading-relaxed text-ltm-slate">
-              Liberia Traffic Management is the sole entity authorized under
-              the 2018 Concession Agreement, ratified by the Liberian
-              Legislature, to operate vehicle registration, driver licensing,
-              vehicle inspection, license plates, and traffic violation
-              services on behalf of the Republic.
+              Liberia Traffic Management is the sole entity authorized under the
+              2018 Concession Agreement, ratified by the Liberian Legislature,
+              to operate vehicle registration, driver licensing, vehicle
+              inspection, license plates, and traffic violation services on
+              behalf of the Republic.
             </p>
           </div>
         </div>

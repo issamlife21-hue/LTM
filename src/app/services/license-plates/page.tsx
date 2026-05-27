@@ -11,7 +11,7 @@ import { licensePlateCharges } from "@/data/pricing";
 import { formatUsd } from "@/lib/format";
 
 export const metadata = {
-  title: "License Plates. Liberia Traffic Management",
+  title: "License Plates",
   description:
     "Standard, test, and customized license plates. Customized plates priced per character.",
 };
@@ -46,8 +46,7 @@ function PlatesPricing() {
             </span>
           </p>
           <p className="mt-2 text-sm text-ltm-slate">
-            Choose your own combination. Pricing is per character on the
-            plate.
+            Choose your own combination. Pricing is per character on the plate.
           </p>
         </CardContent>
       </Card>
