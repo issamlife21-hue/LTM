@@ -67,13 +67,13 @@ export const vehicleRegistrationCharges: RegistrationRow[] = [
   { code: "M5", category: "Tricycle, Three Wheels", weightClass: "Cargo Carrier", basePrice: 50.0, nfrCharges: null, additionalCharges: null, totalCost: 50.0 },
   { code: "H", category: "Heavy Duty / Heavy Goods Truck", weightClass: ">8 tons", basePrice: 500.0, nfrCharges: 12.0, additionalCharges: "(Weight in tons − 8) × $20", totalCost: null, notes: "Total varies based on tonnage above 8 tons." },
   { code: "EH", category: "Earth Moving Equipment", basePrice: 500.0, nfrCharges: null, additionalCharges: null, totalCost: 500.0 },
-  { code: "-", category: "Trailer, Heavy Duty, Semi Trailer", basePrice: 50.0, nfrCharges: 12.0, additionalCharges: "Number of Axles × $100", totalCost: null, notes: "Total = (Axles × $100) + $50 + $12" },
+  { code: "-", category: "Trailer, Heavy Duty, Semi Trailer", basePrice: 50.0, nfrCharges: 12.0, additionalCharges: "Number of Axles × $100", totalCost: null, notes: "Total = (Axles × $100) + $100 + $12" },
   { code: "-", category: "Trailer, Heavy Duty, Full Trailer", basePrice: 75.0, nfrCharges: 12.0, additionalCharges: "Number of Axles × $100", totalCost: null, notes: "Total = (Axles × $100) + $75 + $12" },
   { code: "-", category: "Trailer, Light Duty, Small Utility & Tow Dolly Class 1", weightClass: "<45 sq.ft.", basePrice: 25.0, nfrCharges: null, additionalCharges: null, totalCost: 25.0 },
   { code: "-", category: "Trailer, Light Duty, Small Utility & Tow Dolly Class 2", weightClass: "45 to 75 sq.ft.", basePrice: 50.0, nfrCharges: null, additionalCharges: null, totalCost: 50.0 },
   { code: "-", category: "Trailer, Light Duty, Small Cargo Class 1", weightClass: "<230 cu.ft.", basePrice: 25.0, nfrCharges: null, additionalCharges: null, totalCost: 25.0 },
   { code: "-", category: "Trailer, Light Duty, Small Cargo Class 2", weightClass: "230 to 400 cu.ft.", basePrice: 50.0, nfrCharges: null, additionalCharges: null, totalCost: 50.0 },
-  { code: "-", category: "Taxi (A1, A2, or A3)", basePrice: 75.0, nfrCharges: null, additionalCharges: null, totalCost: null, notes: "Specialty rate for licensed taxi service." },
+  { code: "-", category: "Taxi (A1, A2, or A3)", basePrice: 75.0, nfrCharges: 3.0, additionalCharges: null, totalCost: 78.0, notes: "Specialty rate for licensed taxi service." },
 ];
 
 export const licensePlateCharges = {
