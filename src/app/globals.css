@@ -56,16 +56,16 @@
     overflow-x: hidden;
   }
 
+  /* Headings use the same Public Sans family as body text. They read strong
+     through weight and size, not through a decorative typeface. */
   h1, h2, h3, h4, h5, h6 {
     @apply text-ltm-black font-semibold;
+    font-family: var(--font-sans);
     line-height: 1.25;
+    letter-spacing: -0.01em;
   }
 
   h1, h2 {
-    font-family: var(--font-serif);
-  }
-
-  h1 {
     @apply font-bold;
   }
 

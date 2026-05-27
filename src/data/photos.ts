@@ -1,4 +1,24 @@
 // src/data/photos.ts
+// ============================================================================
+// IMAGES: HERO CAROUSEL, GALLERY, AND SERVICE-PAGE HEADERS
+// ============================================================================
+// This is the ONE file to edit for the photos shown across the site.
+//
+// HOW TO ADD OR CHANGE A HERO IMAGE (homepage slideshow):
+//   1. Put the image file in:  public/images/hero/
+//   2. Add (or edit) an entry in `heroPhotos` below.
+//   3. Set `url` to the local path, e.g.  url: "/images/hero/my-photo.jpg"
+//      (You can also paste a full https:// link instead of a local file.)
+//   4. Always write a short, factual `alt` description for accessibility.
+//   5. Set `width` / `height` to the real pixel size of the image.
+//   To REMOVE a hero image, delete its entry. To REORDER, move the entries.
+//
+// HOW TO CHANGE A SERVICE-PAGE HEADER IMAGE:
+//   Edit the `servicePhotos` map near the bottom of this file.
+//
+// NOTE: local files (public/images/hero/...) work with no extra config.
+// External links must use a domain allowed in next.config.mjs.
+// ============================================================================
 
 export type LtmPhoto = {
   id: string;
@@ -9,7 +29,7 @@ export type LtmPhoto = {
   height: number;
 };
 
-// Hero carousel rotates through the 5 strongest photos
+// ── HERO CAROUSEL ── Edit, add, or remove slides here. Order = slide order.
 export const heroPhotos: LtmPhoto[] = [
   {
     id: "hero-main-facility",
@@ -105,7 +125,11 @@ export const galleryPhotos: LtmPhoto[] = [
   },
 ];
 
-// Photos for service-page headers
+// ── SERVICE-PAGE HEADER IMAGES ──
+// Each service page shows one of the photos above as its banner. To change a
+// banner, point the line below at a different photo (or add a new LtmPhoto and
+// reference it here). Files for service-specific photos go in:
+//   public/images/services/
 export const servicePhotos = {
   "driver-license": galleryPhotos[1], // motor-vehicle-service-sign
   "vehicle-registration": galleryPhotos[0], // ltm-sign

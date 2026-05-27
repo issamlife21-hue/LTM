@@ -1,6 +1,22 @@
 // src/data/road-signs.ts
-// Source: liberiatraffic.com — official LTM "Signals, Signs and Pavement Markings" reference.
-// All descriptions copied verbatim from the source document.
+// ============================================================================
+// ROAD SIGNS DATA — the ONE file to edit for the Road Signs page.
+// ============================================================================
+// Source: liberiatraffic.com — official LTM "Signals, Signs and Pavement
+// Markings" reference. Descriptions are copied verbatim from the source.
+//
+// HOW TO ADD A NEW SIGN:
+//   1. Put the sign image in:  public/signs/  (PNG, e.g. my-sign.png)
+//   2. Add an entry to the `roadSigns` array below.
+//   3. Set `imageUrl` to the file path, e.g.  imageUrl: "/signs/my-sign.png"
+//      (leave it as ""  if there is no image — a labeled placeholder shows.)
+//   4. Set `section` to one of the SignSection values (controls which group
+//      the sign appears under). `imageHint` is a short alt-text style hint.
+//   5. Set `liberiaSpecific: true` only for rules unique to Liberia.
+//   To EDIT a sign, change its fields. To REMOVE one, delete its entry.
+//
+// Section headings and intros are defined in `sectionMeta` just below.
+// ============================================================================
 
 export type SignSection =
   | "traffic-signals"

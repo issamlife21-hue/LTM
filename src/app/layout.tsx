@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Source_Serif_4 } from "next/font/google";
+import { Public_Sans } from "next/font/google";
 
 import { FlagStripe } from "@/components/layout/FlagStripe";
 import { Footer } from "@/components/layout/Footer";
@@ -7,16 +7,13 @@ import { Header } from "@/components/layout/Header";
 
 import "./globals.css";
 
-const inter = Inter({
+// Public Sans is the U.S. government's public-service typeface. It is clear,
+// neutral, and highly readable on mobile — the right tone for an official
+// traffic authority. One sans family is used for the whole site (body and
+// headings) so the design stays consistent and never reads like a magazine.
+const publicSans = Public_Sans({
   subsets: ["latin"],
   variable: "--font-sans",
-  display: "swap",
-});
-
-const sourceSerif = Source_Serif_4({
-  subsets: ["latin"],
-  variable: "--font-serif",
-  weight: ["400", "600", "700"],
   display: "swap",
 });
 
@@ -65,10 +62,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="en"
-      className={`${inter.variable} ${sourceSerif.variable}`}
-    >
+    <html lang="en" className={publicSans.variable}>
       <body className="flex min-h-screen flex-col font-sans antialiased">
         <a
           href="#main-content"

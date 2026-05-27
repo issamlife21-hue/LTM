@@ -27,7 +27,7 @@ export function ServiceCard({
         {description}
       </p>
       <span className="mt-4 inline-flex items-center gap-1 text-sm font-medium text-ltm-black group-hover:underline">
-        Learn more
+        View details
         <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
       </span>
     </Link>

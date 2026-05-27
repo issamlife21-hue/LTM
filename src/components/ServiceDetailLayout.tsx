@@ -260,7 +260,7 @@ export function ServiceDetailLayout({
           <aside className="mt-12 lg:col-span-1 lg:mt-0">
             <div className="sticky top-24 rounded-lg border border-ltm-border bg-white p-6">
               <h2 className="font-serif text-lg text-ltm-black">
-                Ready to start?
+                Before you visit
               </h2>
               <p className="mt-3 text-sm leading-relaxed text-ltm-slate">
                 No appointment needed. Bring the documents listed above.

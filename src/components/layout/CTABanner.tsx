@@ -8,12 +8,12 @@ export function CTABanner() {
     <section className="bg-ltm-black text-white">
       <div className="container-ltm flex flex-col items-start gap-6 py-14 md:flex-row md:items-center md:justify-between md:py-16">
         <h2 className="font-serif text-2xl text-white md:text-3xl">
-          Ready to get something done?
+          Visit an LTM service center
         </h2>
         <Button asChild variant="whitePrimary" size="lg">
           <Link href="/contact">
             <MapPin className="h-4 w-4" aria-hidden="true" />
-            Visit an LTM service center
+            Find a location
           </Link>
         </Button>
       </div>

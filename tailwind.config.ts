@@ -86,10 +86,14 @@ const config: Config = {
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
       },
+      // The whole site uses one public-service sans family (Public Sans).
+      // `serif` and `display` are kept as aliases that resolve to the same
+      // font so existing `font-serif` / `font-display` classes stay consistent
+      // and never render a magazine-style serif.
       fontFamily: {
         sans: ["var(--font-sans)", "system-ui", "sans-serif"],
-        serif: ["var(--font-serif)", "Georgia", "serif"],
-        display: ["var(--font-serif)", "Georgia", "serif"],
+        serif: ["var(--font-sans)", "system-ui", "sans-serif"],
+        display: ["var(--font-sans)", "system-ui", "sans-serif"],
       },
       maxWidth: {
         prose: "70ch",
