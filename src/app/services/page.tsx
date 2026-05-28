@@ -16,16 +16,16 @@ export default function ServicesPage() {
   return (
     <>
       <PageHeader title="Our Services" />
-      <section className="container-ltm py-16 md:py-20">
-        <ul className="space-y-6">
+      <section className="container-ltm py-10 md:py-20">
+        <ul className="space-y-4 md:space-y-6">
           {services.map((s) => (
             <li
               key={s.href}
-              className="rounded-lg border border-ltm-border bg-white p-6 md:p-8"
+              className="rounded-lg border border-ltm-border bg-white p-5 md:p-8"
             >
               <div className="flex items-center gap-3">
-                <s.icon className="h-5 w-5 text-ltm-black" aria-hidden="true" />
-                <h2 className="font-serif text-xl text-ltm-black md:text-2xl">
+                <s.icon className="h-6 w-6 text-ltm-black" aria-hidden="true" />
+                <h2 className="font-serif text-lg font-bold text-ltm-black sm:text-xl md:text-2xl">
                   {s.title}
                 </h2>
               </div>

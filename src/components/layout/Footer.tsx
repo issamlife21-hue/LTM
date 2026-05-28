@@ -7,73 +7,135 @@ import { serviceCenters } from "@/data/service-centers";
 
 export function Footer() {
   const center = serviceCenters[0];
+  const primaryPhone = center?.phones[0];
 
   return (
     <footer className="bg-ltm-charcoal text-white/90">
-      <div className="container-ltm pt-12 pb-10">
-        <div className="mb-10 flex flex-col items-center text-center">
+      <div className="container-ltm pb-8 pt-10 md:pb-10 md:pt-12">
+        <div className="mb-8 flex flex-col items-center text-center md:mb-10">
           <Image
             src="/logo/ltm-logo.svg"
             alt="LTM official emblem"
-            width={70}
-            height={70}
-            className="h-[70px] w-[70px] object-contain"
+            width={56}
+            height={56}
+            className="h-14 w-14 object-contain md:h-[70px] md:w-[70px]"
           />
-          <p className="mt-3 font-serif text-sm italic text-white/80">
+          <p className="mt-2 font-serif text-xs italic text-white/80 md:mt-3 md:text-sm">
             Authorized by the Government of the Republic of Liberia
           </p>
         </div>
 
-        <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-4">
-          <div>
-            <h2 className="mb-4 text-lg font-semibold text-white">About LTM</h2>
+        {/* On mobile the footer is reordered Contact → Links → About so the
+            most useful actions are the first thing a thumb reaches. On md+
+            it falls back to the canonical 4-column desktop layout. */}
+        <div className="grid gap-8 md:grid-cols-2 md:gap-10 lg:grid-cols-4">
+          {/* About — last on mobile, first on desktop */}
+          <div className="order-last md:order-none">
+            <h2 className="mb-3 text-base font-semibold text-white md:mb-4 md:text-lg">
+              About LTM
+            </h2>
             <p className="text-sm leading-relaxed text-white/85">
               Liberia Traffic Management is the only entity authorized by the
               Government of Liberia to provide vehicle registration, driver
               licensing, vehicle inspection, license plate, and traffic
               violation services.
             </p>
-            <p className="mt-3 text-xs leading-relaxed text-white/75">
+            {/* Concession-agreement footnote is desktop only — it duplicates
+                what already appears in the legal section above. */}
+            <p className="mt-3 hidden text-xs leading-relaxed text-white/75 md:block">
               Operating under the 2018 Concession Agreement ratified by the
               Liberian Legislature.
             </p>
           </div>
 
-          <div>
-            <h2 className="mb-4 text-lg font-semibold text-white">Quick Links</h2>
-            <ul className="space-y-2 text-sm">
-              {FOOTER_QUICK_LINKS.map((l) => (
-                <li key={l.href}>
-                  <Link
-                    href={l.href}
-                    className="font-medium text-white/90 transition-colors hover:text-ltm-sand focus-visible:text-ltm-sand focus-visible:underline"
-                  >
-                    {l.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
+          {/* Quick Links + Services share a 2-col mini-row on mobile so they
+              don't take a full screen each. `md:contents` removes the wrapper
+              at md+ so they flow into the outer grid as separate columns. */}
+          <div className="grid grid-cols-2 gap-6 md:contents">
+            <div>
+              <h2 className="mb-3 text-base font-semibold text-white md:mb-4 md:text-lg">
+                Quick Links
+              </h2>
+              <ul className="space-y-2 text-sm">
+                {FOOTER_QUICK_LINKS.map((l) => (
+                  <li key={l.href}>
+                    <Link
+                      href={l.href}
+                      className="font-medium text-white/90 transition-colors hover:text-ltm-sand focus-visible:text-ltm-sand focus-visible:underline"
+                    >
+                      {l.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div>
+              <h2 className="mb-3 text-base font-semibold text-white md:mb-4 md:text-lg">
+                Services
+              </h2>
+              <ul className="space-y-2 text-sm">
+                {SERVICE_LINKS.map((s) => (
+                  <li key={s.href}>
+                    <Link
+                      href={s.href}
+                      className="font-medium text-white/90 transition-colors hover:text-ltm-sand focus-visible:text-ltm-sand focus-visible:underline"
+                    >
+                      {s.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
 
-          <div>
-            <h2 className="mb-4 text-lg font-semibold text-white">Services</h2>
-            <ul className="space-y-2 text-sm">
-              {SERVICE_LINKS.map((s) => (
-                <li key={s.href}>
-                  <Link
-                    href={s.href}
-                    className="font-medium text-white/90 transition-colors hover:text-ltm-sand focus-visible:text-ltm-sand focus-visible:underline"
-                  >
-                    {s.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
+          {/* Contact — first on mobile, last on desktop. On mobile we lead
+              with three big tap actions (Call / Directions / Email) because
+              they are the most likely thing a citizen wants from this strip. */}
+          <div className="order-first md:order-none">
+            <h2 className="mb-3 text-base font-semibold text-white md:mb-4 md:text-lg">
+              Contact
+            </h2>
 
-          <div>
-            <h2 className="mb-4 text-lg font-semibold text-white">Contact</h2>
-            <ul className="space-y-4 text-sm">
+            {/* Mobile-first action stack */}
+            <div className="grid grid-cols-1 gap-2 md:hidden">
+              {primaryPhone && (
+                <Link
+                  href={`tel:${primaryPhone.dial}`}
+                  aria-label={`Call LTM at ${primaryPhone.display}`}
+                  className="flex min-h-[44px] items-center justify-center gap-2 rounded-lg bg-white px-4 py-2 text-base font-semibold tabular-nums text-ltm-black active:scale-[0.98]"
+                >
+                  <Phone className="h-4 w-4" aria-hidden="true" />
+                  Call {primaryPhone.display}
+                </Link>
+              )}
+              <div className="grid grid-cols-2 gap-2">
+                {center.map.directionsUrl && (
+                  <Link
+                    href={center.map.directionsUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex min-h-[40px] items-center justify-center gap-1.5 rounded-lg border border-white/60 px-3 py-1.5 text-sm font-semibold text-white active:scale-[0.98]"
+                  >
+                    <MapPin className="h-4 w-4" aria-hidden="true" />
+                    Directions
+                  </Link>
+                )}
+                {center.email && (
+                  <Link
+                    href={`mailto:${center.email}`}
+                    className="flex min-h-[40px] items-center justify-center gap-1.5 rounded-lg border border-white/60 px-3 py-1.5 text-sm font-semibold text-white active:scale-[0.98]"
+                  >
+                    <Mail className="h-4 w-4" aria-hidden="true" />
+                    Email
+                  </Link>
+                )}
+              </div>
+            </div>
+
+            {/* Address + plain-English location + hours (shown on every
+                breakpoint; the action buttons above only appear on mobile) */}
+            <ul className="mt-4 space-y-4 text-sm md:mt-0">
               <li className="flex items-start gap-2">
                 <MapPin
                   className="mt-0.5 h-4 w-4 shrink-0 text-white/85"
@@ -88,16 +150,17 @@ export function Footer() {
                   <span className="block">
                     {center.address.locality}, {center.address.country}
                   </span>
-                  {/* Plain-English "ask your taxi driver" version */}
                   <span className="mt-2 block text-xs font-medium leading-snug text-white/85">
                     {center.shortLocation}
                   </span>
+                  {/* Desktop-only secondary maps link — mobile already has a
+                      big "Directions" button above, no need to repeat it. */}
                   {center.map.directionsUrl && (
                     <Link
                       href={center.map.directionsUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="mt-2 inline-flex items-center gap-1 text-xs font-semibold text-white underline-offset-2 hover:underline focus-visible:underline"
+                      className="mt-2 hidden items-center gap-1 text-xs font-semibold text-white underline-offset-2 hover:underline focus-visible:underline md:inline-flex"
                     >
                       Open in Google Maps
                       <ExternalLink className="h-3 w-3" aria-hidden="true" />
@@ -105,7 +168,9 @@ export function Footer() {
                   )}
                 </address>
               </li>
-              <li className="flex items-start gap-2">
+
+              {/* Desktop-only phone list — mobile uses the big Call button */}
+              <li className="hidden items-start gap-2 md:flex">
                 <Phone
                   className="mt-0.5 h-4 w-4 shrink-0 text-white/85"
                   aria-hidden="true"
@@ -124,6 +189,7 @@ export function Footer() {
                   ))}
                 </ul>
               </li>
+
               <li className="flex items-start gap-2">
                 <Clock
                   className="mt-0.5 h-4 w-4 shrink-0 text-white/85"
@@ -138,8 +204,10 @@ export function Footer() {
                   ))}
                 </dl>
               </li>
+
+              {/* Desktop-only email — mobile uses the Email button above */}
               {center.email && (
-                <li className="flex items-start gap-2">
+                <li className="hidden items-start gap-2 md:flex">
                   <Mail
                     className="mt-0.5 h-4 w-4 shrink-0 text-white/85"
                     aria-hidden="true"
@@ -152,6 +220,7 @@ export function Footer() {
                   </Link>
                 </li>
               )}
+
               <li className="pt-1">
                 <Link
                   href="https://www.facebook.com/share/1DbfpVisw8/?mibextid=wwXIfr"
@@ -169,17 +238,15 @@ export function Footer() {
       </div>
 
       <div className="border-t border-ltm-graphite bg-ltm-black">
-        <div className="container-ltm py-6 text-xs leading-relaxed text-white/75">
+        <div className="container-ltm py-5 text-xs leading-relaxed text-white/75 md:py-6">
           <div className="flex flex-col items-start gap-4 sm:flex-row sm:items-center">
-            {/* Inline <img> so the SVG inherits currentColor for monochrome
-                white rendering on the dark bottom strip. */}
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="/coat-of-arms.svg"
               alt="Coat of arms of the Republic of Liberia"
               width={40}
               height={48}
-              className="h-12 w-10 shrink-0"
+              className="h-10 w-8 shrink-0 sm:h-12 sm:w-10"
               style={{ color: "#ffffff" }}
             />
             <p>
@@ -196,7 +263,7 @@ export function Footer() {
               .
             </p>
           </div>
-          <p className="mt-4 text-center font-serif text-sm italic text-white/75">
+          <p className="mt-3 text-center font-serif text-sm italic text-white/75 md:mt-4">
             &ldquo;The Love of Liberty Brought Us Here&rdquo;
           </p>
         </div>

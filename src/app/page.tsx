@@ -15,23 +15,26 @@ export default function HomePage() {
 
   return (
     <>
-      {/* Hero */}
-      <section className="relative h-[520px] overflow-hidden bg-ltm-black md:h-[600px]">
+      {/* Hero — sized tighter on mobile so the most important above-the-fold
+          actions (View Services + Call) sit closer to the thumb. */}
+      <section className="relative h-[460px] overflow-hidden bg-ltm-black sm:h-[520px] md:h-[600px]">
         <HeroCarousel />
 
-        <div className="container-ltm absolute inset-x-0 bottom-0 top-0 z-10 flex flex-col justify-end pb-14 md:pb-16">
+        <div className="container-ltm absolute inset-x-0 bottom-0 top-0 z-10 flex flex-col justify-end pb-10 md:pb-16">
           <div className="max-w-3xl text-white">
-            <p className="mb-4 text-xs font-semibold uppercase tracking-[0.2em] text-white/85">
+            <p className="mb-3 text-[11px] font-semibold uppercase tracking-[0.2em] text-white/85 sm:mb-4 sm:text-xs">
               Authorized by the Government of Liberia
             </p>
-            <h1 className="mb-5 font-serif text-4xl leading-[1.1] text-white sm:text-5xl">
+            <h1 className="mb-3 font-serif text-3xl leading-[1.1] text-white sm:mb-5 sm:text-4xl md:text-5xl">
               Liberia&rsquo;s Official Traffic Management Service
             </h1>
-            <p className="mb-6 max-w-xl text-base leading-relaxed text-white/95">
+            <p className="mb-5 max-w-xl text-base leading-relaxed text-white/95 sm:mb-6">
               Driver licenses, vehicle registration, inspection, and plates.
             </p>
-            {/* Two clear paths above the fold: view services, or call. */}
-            <div className="flex flex-col gap-3 sm:flex-row">
+            {/* Two clear paths above the fold: view services, or call. Call
+                is the canonical mobile CTA — it isn't repeated in the
+                QuickActions strip below. */}
+            <div className="flex flex-col gap-2 sm:flex-row sm:gap-3">
               <Button asChild size="lg" variant="whitePrimary">
                 <Link href="/services">View Services</Link>
               </Button>
@@ -55,9 +58,9 @@ export default function HomePage() {
       <QuickActions />
 
       {/* Services */}
-      <section className="bg-ltm-paper py-16 md:py-24">
+      <section className="bg-ltm-paper py-10 md:py-24">
         <div className="container-ltm">
-          <h2 className="mb-10 text-2xl text-ltm-black md:text-3xl">
+          <h2 className="mb-6 text-xl font-bold text-ltm-black sm:mb-10 sm:text-2xl md:text-3xl">
             Our services
           </h2>
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
@@ -75,19 +78,19 @@ export default function HomePage() {
       </section>
 
       {/* Legal basis / authority */}
-      <section className="border-y border-ltm-border bg-white py-14 md:py-20">
-        <div className="container-ltm flex flex-col items-center gap-6 md:flex-row md:items-center md:gap-10">
+      <section className="border-y border-ltm-border bg-white py-10 md:py-20">
+        <div className="container-ltm flex flex-col items-center gap-5 md:flex-row md:items-center md:gap-10">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="/coat-of-arms.svg"
             alt="Coat of arms of the Republic of Liberia"
             width={72}
             height={86}
-            className="h-20 w-auto shrink-0 text-ltm-black"
+            className="h-16 w-auto shrink-0 text-ltm-black sm:h-20"
             style={{ color: "#0E0E10" }}
           />
           <div className="max-w-3xl text-center md:text-left">
-            <h2 className="font-serif text-2xl text-ltm-black md:text-3xl">
+            <h2 className="font-serif text-xl font-bold text-ltm-black sm:text-2xl md:text-3xl">
               Authorized by the Government of Liberia
             </h2>
             <p className="mt-3 text-base leading-relaxed text-ltm-ink">

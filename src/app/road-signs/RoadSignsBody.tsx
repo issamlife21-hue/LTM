@@ -39,7 +39,7 @@ export function RoadSignsBody() {
             aria-label="Jump to section"
             className="hidden flex-wrap items-center gap-x-4 gap-y-1 text-xs md:flex"
           >
-            <span className="font-semibold uppercase tracking-wider text-ltm-muted">
+            <span className="font-semibold uppercase tracking-wider text-ltm-slate">
               Jump to:
             </span>
             {SECTIONS_IN_ORDER.map((section) => (
@@ -73,7 +73,7 @@ export function RoadSignsBody() {
           </div>
         </div>
         {q && (
-          <div className="container-ltm pb-2 text-xs text-ltm-muted">
+          <div className="container-ltm pb-2 text-xs font-medium text-ltm-slate">
             {totalMatches === 0
               ? "No matches."
               : `${totalMatches} sign${totalMatches === 1 ? "" : "s"} match.`}

@@ -45,9 +45,9 @@ export function PageHeader({
           />
         </>
       )}
-      <div className="container-ltm relative flex flex-col gap-3 py-10 md:flex-row md:items-end md:justify-between md:py-14">
+      <div className="container-ltm relative flex flex-col gap-3 py-8 md:flex-row md:items-end md:justify-between md:py-14">
         <div className="max-w-3xl">
-          <h1 className="font-serif text-3xl text-white md:text-4xl">
+          <h1 className="font-serif text-2xl font-bold text-white sm:text-3xl md:text-4xl">
             {title}
           </h1>
           {estimatedTime && (

@@ -103,9 +103,9 @@ export function ServiceDetailLayout({
         estimatedTime={estimatedTime}
       />
 
-      <section className="container-ltm py-16 md:py-20">
+      <section className="container-ltm py-10 md:py-20">
         <div className="lg:grid lg:grid-cols-3 lg:gap-12">
-          <div className="space-y-14 lg:col-span-2">
+          <div className="space-y-10 lg:col-span-2 lg:space-y-14">
             {summary && (
               <dl className="grid grid-cols-1 gap-5 rounded-lg border border-ltm-border bg-white p-5 sm:grid-cols-2 sm:p-6">
                 <div>
@@ -144,7 +144,7 @@ export function ServiceDetailLayout({
             )}
 
             <div>
-              <h2 className="font-serif text-2xl text-ltm-black">Overview</h2>
+              <h2 className="font-serif text-xl font-bold text-ltm-black sm:text-2xl">Overview</h2>
               <div className="mt-5 max-w-prose space-y-4 text-[17px] leading-relaxed text-ltm-slate">
                 {typeof overview === "string" ? <p>{overview}</p> : overview}
               </div>
@@ -156,7 +156,7 @@ export function ServiceDetailLayout({
             </div>
 
             <div>
-              <h2 className="font-serif text-2xl text-ltm-black">
+              <h2 className="font-serif text-xl font-bold text-ltm-black sm:text-2xl">
                 What to bring
               </h2>
               <ul className="mt-5 space-y-3">
@@ -178,14 +178,14 @@ export function ServiceDetailLayout({
             </div>
 
             <div>
-              <h2 className="font-serif text-2xl text-ltm-black">Pricing</h2>
+              <h2 className="font-serif text-xl font-bold text-ltm-black sm:text-2xl">Pricing</h2>
               <div className="mt-5">
                 <PricingSection pricing={pricing} />
               </div>
             </div>
 
             <div>
-              <h2 className="font-serif text-2xl text-ltm-black">
+              <h2 className="font-serif text-xl font-bold text-ltm-black sm:text-2xl">
                 Step by step
               </h2>
               <ol className="relative mt-6 space-y-8 border-l-2 border-ltm-border pl-12 md:pl-14">
@@ -228,7 +228,7 @@ export function ServiceDetailLayout({
 
             {faqs.length > 0 && (
               <div>
-                <h2 className="font-serif text-2xl text-ltm-black">
+                <h2 className="font-serif text-xl font-bold text-ltm-black sm:text-2xl">
                   Common questions
                 </h2>
                 <Accordion

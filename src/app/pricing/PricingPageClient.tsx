@@ -241,7 +241,7 @@ export function PricingPageClient() {
         }
       />
 
-      <section className="container-ltm py-12 md:py-16">
+      <section className="container-ltm py-8 md:py-16">
         {/* Search — plain language: taxi, motorcycle, pickup, bus, custom plate… */}
         <div className="mb-4 print:hidden">
           <label

@@ -113,33 +113,39 @@ function ServiceCenterCard({ center }: { center: ServiceCenter }) {
         </div>
 
         <div>
-          <div className="flex items-start gap-3">
-            <Phone
-              className="mt-0.5 h-4 w-4 shrink-0 text-ltm-slate"
-              aria-hidden="true"
-            />
-            <ul className="space-y-2 text-base leading-relaxed">
-              {center.phones.map((p) => (
-                <li key={p.dial}>
-                  <Link
-                    href={`tel:${p.dial}`}
-                    aria-label={`Call LTM at ${p.display}`}
-                    className="inline-flex min-h-[44px] items-center text-lg font-bold tabular-nums text-ltm-black hover:underline"
-                  >
-                    {p.display}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
+          {/* Primary line is the big Call CTA; the other lines drop to small
+              tap links below so the same action isn't repeated twice. */}
           {primaryPhone && (
-            <Button asChild size="lg" className="mt-3 w-full sm:w-auto">
-              <Link href={`tel:${primaryPhone.dial}`}>
+            <Button asChild size="lg" className="w-full">
+              <Link
+                href={`tel:${primaryPhone.dial}`}
+                aria-label={`Call LTM at ${primaryPhone.display}`}
+              >
                 <Phone className="h-4 w-4" aria-hidden="true" />
                 Call {primaryPhone.display}
               </Link>
             </Button>
+          )}
+
+          {center.phones.length > 1 && (
+            <div className="mt-4">
+              <p className="text-xs font-semibold uppercase tracking-wider text-ltm-slate">
+                Other lines
+              </p>
+              <ul className="mt-1.5 flex flex-wrap gap-x-4 gap-y-1.5">
+                {center.phones.slice(1).map((p) => (
+                  <li key={p.dial}>
+                    <Link
+                      href={`tel:${p.dial}`}
+                      aria-label={`Call LTM at ${p.display}`}
+                      className="inline-flex min-h-[36px] items-center text-base font-semibold tabular-nums text-ltm-black hover:underline"
+                    >
+                      {p.display}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
           )}
 
           {center.email && (
@@ -182,7 +188,7 @@ export default function ContactPage() {
         actions={<CallLtm buttonVariant="whitePrimary" />}
       />
 
-      <section className="container-ltm py-14 md:py-20">
+      <section className="container-ltm py-10 md:py-20">
         <div className="grid gap-8 lg:grid-cols-2">
           {serviceCenters.map((center) => (
             <ServiceCenterCard key={center.id} center={center} />

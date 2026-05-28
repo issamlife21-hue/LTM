@@ -72,11 +72,11 @@ function FAQList({ items, query }: { items: FAQ[]; query: string }) {
             <HighlightedText text={faq.question} query={query} />
           </AccordionTrigger>
           <AccordionContent>
-            <p className="text-[17px] leading-relaxed text-ltm-slate">
+            <p className="text-base leading-relaxed text-ltm-ink sm:text-[17px]">
               {faq.answer}
             </p>
             {faq.bullets && faq.bullets.length > 0 && (
-              <ul className="mt-3 list-disc list-inside space-y-1 text-[17px] text-ltm-slate">
+              <ul className="mt-3 list-inside list-disc space-y-1 text-base text-ltm-ink sm:text-[17px]">
                 {faq.bullets.map((b, i) => (
                   <li key={i}>{b}</li>
                 ))}
