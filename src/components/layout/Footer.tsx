@@ -7,7 +7,6 @@ import { serviceCenters } from "@/data/service-centers";
 
 export function Footer() {
   const center = serviceCenters[0];
-  const primaryPhone = center?.phones[0];
 
   return (
     <footer className="bg-ltm-charcoal text-white/90">
@@ -97,45 +96,12 @@ export function Footer() {
               Contact
             </h2>
 
-            {/* Mobile-first action stack */}
-            <div className="grid grid-cols-1 gap-2 md:hidden">
-              {primaryPhone && (
-                <Link
-                  href={`tel:${primaryPhone.dial}`}
-                  aria-label={`Call LTM at ${primaryPhone.display}`}
-                  className="flex min-h-[44px] items-center justify-center gap-2 rounded-lg bg-white px-4 py-2 text-base font-semibold tabular-nums text-ltm-black active:scale-[0.98]"
-                >
-                  <Phone className="h-4 w-4" aria-hidden="true" />
-                  Call {primaryPhone.display}
-                </Link>
-              )}
-              <div className="grid grid-cols-2 gap-2">
-                {center.map.directionsUrl && (
-                  <Link
-                    href={center.map.directionsUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex min-h-[40px] items-center justify-center gap-1.5 rounded-lg border border-white/60 px-3 py-1.5 text-sm font-semibold text-white active:scale-[0.98]"
-                  >
-                    <MapPin className="h-4 w-4" aria-hidden="true" />
-                    Directions
-                  </Link>
-                )}
-                {center.email && (
-                  <Link
-                    href={`mailto:${center.email}`}
-                    className="flex min-h-[40px] items-center justify-center gap-1.5 rounded-lg border border-white/60 px-3 py-1.5 text-sm font-semibold text-white active:scale-[0.98]"
-                  >
-                    <Mail className="h-4 w-4" aria-hidden="true" />
-                    Email
-                  </Link>
-                )}
-              </div>
-            </div>
-
-            {/* Address + plain-English location + hours (shown on every
-                breakpoint; the action buttons above only appear on mobile) */}
-            <ul className="mt-4 space-y-4 text-sm md:mt-0">
+            {/* One unified contact list across every breakpoint. The previous
+                mobile-only big-button stack was removed because the CTABanner
+                renders a primary Call directly above the footer on mobile and
+                doubling the action wasted screen height. Phone numbers stay
+                as bold, tap-friendly tel: links so a single tap still calls. */}
+            <ul className="space-y-4 text-sm">
               <li className="flex items-start gap-2">
                 <MapPin
                   className="mt-0.5 h-4 w-4 shrink-0 text-white/85"
@@ -153,14 +119,12 @@ export function Footer() {
                   <span className="mt-2 block text-xs font-medium leading-snug text-white/85">
                     {center.shortLocation}
                   </span>
-                  {/* Desktop-only secondary maps link — mobile already has a
-                      big "Directions" button above, no need to repeat it. */}
                   {center.map.directionsUrl && (
                     <Link
                       href={center.map.directionsUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="mt-2 hidden items-center gap-1 text-xs font-semibold text-white underline-offset-2 hover:underline focus-visible:underline md:inline-flex"
+                      className="mt-2 inline-flex items-center gap-1 text-xs font-semibold text-white underline-offset-2 hover:underline focus-visible:underline"
                     >
                       Open in Google Maps
                       <ExternalLink className="h-3 w-3" aria-hidden="true" />
@@ -169,8 +133,7 @@ export function Footer() {
                 </address>
               </li>
 
-              {/* Desktop-only phone list — mobile uses the big Call button */}
-              <li className="hidden items-start gap-2 md:flex">
+              <li className="flex items-start gap-2">
                 <Phone
                   className="mt-0.5 h-4 w-4 shrink-0 text-white/85"
                   aria-hidden="true"
@@ -205,9 +168,8 @@ export function Footer() {
                 </dl>
               </li>
 
-              {/* Desktop-only email — mobile uses the Email button above */}
               {center.email && (
-                <li className="hidden items-start gap-2 md:flex">
+                <li className="flex items-start gap-2">
                   <Mail
                     className="mt-0.5 h-4 w-4 shrink-0 text-white/85"
                     aria-hidden="true"

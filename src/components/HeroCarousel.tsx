@@ -79,7 +79,13 @@ export function HeroCarousel() {
         className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ltm-black/85 via-ltm-black/40 to-transparent"
       />
 
-      <div className="absolute bottom-6 left-1/2 z-20 flex -translate-x-1/2 gap-3">
+      {/* Slide dots — hidden on portrait phones because the h-11 tap-targets
+          vertically overlap the hero's Call CTA on narrow widths, which looks
+          messy and creates competing tap zones. Touch swipe still works on
+          mobile, and auto-rotation continues to vary the image. Dots return
+          from `sm` up (landscape phones, tablets, desktop) where there is
+          room for them below the CTAs. */}
+      <div className="absolute bottom-6 left-1/2 z-20 hidden -translate-x-1/2 gap-3 sm:flex">
         {heroPhotos.map((photo, i) => (
           <button
             key={photo.id}
