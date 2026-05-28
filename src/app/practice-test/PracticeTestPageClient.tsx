@@ -391,13 +391,28 @@ function ReviewScreen({
   );
 }
 
+// Fisher–Yates shuffle returning a new array, so each attempt presents the
+// questions in a fresh random order.
+function shuffle<T>(source: readonly T[]): T[] {
+  const out = [...source];
+  for (let i = out.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [out[i], out[j]] = [out[j], out[i]];
+  }
+  return out;
+}
+
 export function PracticeTestPageClient() {
   const [mode, setMode] = React.useState<Mode>("intro");
   const [current, setCurrent] = React.useState(0);
   const [answers, setAnswers] = React.useState<Answer[]>([]);
   const [selected, setSelected] = React.useState<"a" | "b" | "c" | null>(null);
+  // The shuffled order for the current attempt. Reshuffled on every start.
+  const [questions, setQuestions] =
+    React.useState<PracticeQuestion[]>(practiceQuestions);
 
   const startTest = React.useCallback(() => {
+    setQuestions(shuffle(practiceQuestions));
     setMode("quiz");
     setCurrent(0);
     setAnswers([]);
@@ -407,7 +422,7 @@ export function PracticeTestPageClient() {
   const handleSelect = React.useCallback(
     (letter: "a" | "b" | "c") => {
       if (selected !== null) return;
-      const q = practiceQuestions[current];
+      const q = questions[current];
       const opt = q.options.find((o) => o.label === letter)!;
       setSelected(letter);
       setAnswers((prev) => [
@@ -415,17 +430,17 @@ export function PracticeTestPageClient() {
         { questionId: q.id, selected: letter, correct: opt.correct },
       ]);
     },
-    [current, selected]
+    [current, selected, questions]
   );
 
   const handleNext = React.useCallback(() => {
-    if (current + 1 >= practiceQuestions.length) {
+    if (current + 1 >= questions.length) {
       setMode("review");
     } else {
       setCurrent((c) => c + 1);
       setSelected(null);
     }
-  }, [current]);
+  }, [current, questions]);
 
   return (
     <>
@@ -433,11 +448,11 @@ export function PracticeTestPageClient() {
       {mode === "quiz" && (
         <QuizScreen
           current={current}
-          question={practiceQuestions[current]}
+          question={questions[current]}
           selected={selected}
           onSelect={handleSelect}
           onNext={handleNext}
-          isLast={current + 1 >= practiceQuestions.length}
+          isLast={current + 1 >= questions.length}
         />
       )}
       {mode === "review" && (
