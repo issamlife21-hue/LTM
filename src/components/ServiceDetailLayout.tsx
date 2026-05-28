@@ -2,6 +2,7 @@ import * as React from "react";
 import Link from "next/link";
 import { Check, MapPin, Phone } from "lucide-react";
 
+import { LocationLine } from "@/components/LocationLine";
 import { PageHeader } from "@/components/PageHeader";
 import { PriceTable, type PriceColumn } from "@/components/PriceTable";
 import {
@@ -67,7 +68,9 @@ function PricingSection({
           searchKey={pricing.searchKey}
         />
         {pricing.note && (
-          <p className="mt-3 text-sm italic text-ltm-muted">{pricing.note}</p>
+          <p className="mt-3 text-sm font-medium text-ltm-slate">
+            {pricing.note}
+          </p>
         )}
       </>
     );
@@ -160,13 +163,13 @@ export function ServiceDetailLayout({
                 {whatToBring.map((item, i) => (
                   <li
                     key={i}
-                    className="flex items-start gap-3 rounded-md border border-ltm-border bg-white p-3"
+                    className="flex items-start gap-3 rounded-md border border-ltm-border bg-white p-4"
                   >
                     <Check
                       className="mt-0.5 h-5 w-5 shrink-0 text-ltm-success"
                       aria-hidden="true"
                     />
-                    <span className="text-sm leading-relaxed text-ltm-slate">
+                    <span className="text-base font-medium leading-relaxed text-ltm-ink">
                       {item}
                     </span>
                   </li>
@@ -262,30 +265,37 @@ export function ServiceDetailLayout({
               <h2 className="font-serif text-lg text-ltm-black">
                 Before you visit
               </h2>
-              <p className="mt-3 text-sm leading-relaxed text-ltm-slate">
+              <p className="mt-3 text-base font-medium leading-relaxed text-ltm-ink">
                 No appointment needed. Bring the documents listed above.
               </p>
-              <Button asChild className="mt-5 w-full">
+
+              {primaryPhone && (
+                <Button asChild size="lg" className="mt-5 w-full">
+                  <Link
+                    href={`tel:${primaryPhone.dial}`}
+                    aria-label={`Call LTM at ${primaryPhone.display}`}
+                  >
+                    <Phone className="h-4 w-4" aria-hidden="true" />
+                    Call {primaryPhone.display}
+                  </Link>
+                </Button>
+              )}
+
+              <Button
+                asChild
+                variant="outline"
+                size="lg"
+                className="mt-3 w-full"
+              >
                 <Link href="/contact">
                   <MapPin className="h-4 w-4" aria-hidden="true" />
-                  Visit an LTM service center
+                  Find a location
                 </Link>
               </Button>
 
-              {primaryPhone && (
-                <div className="mt-5 border-t border-ltm-border pt-5">
-                  <p className="text-xs font-semibold uppercase tracking-wider text-ltm-muted">
-                    Have a question?
-                  </p>
-                  <Link
-                    href={`tel:${primaryPhone.dial}`}
-                    className="mt-1 inline-flex items-center gap-2 text-base font-semibold text-ltm-black hover:underline"
-                  >
-                    <Phone className="h-4 w-4" aria-hidden="true" />
-                    {primaryPhone.display}
-                  </Link>
-                </div>
-              )}
+              <div className="mt-5 border-t border-ltm-border pt-5">
+                <LocationLine className="text-sm" />
+              </div>
             </div>
           </aside>
         </div>

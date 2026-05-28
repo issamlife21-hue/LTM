@@ -29,20 +29,20 @@ export default function ServicesPage() {
                   {s.title}
                 </h2>
               </div>
-              <p className="mt-3 max-w-prose text-base leading-relaxed text-ltm-slate">
+              <p className="mt-3 max-w-prose text-base leading-relaxed text-ltm-ink">
                 {s.description}
               </p>
-              <h3 className="mt-6 text-xs font-semibold uppercase tracking-wider text-ltm-slate">
+              <h3 className="mt-6 text-xs font-bold uppercase tracking-wider text-ltm-black">
                 What to bring
               </h3>
-              <ul className="mt-2 space-y-1.5 text-sm text-ltm-slate">
+              <ul className="mt-3 space-y-2 text-base text-ltm-ink">
                 {s.whatYouNeed.map((item, i) => (
                   <li key={i} className="flex items-start gap-2">
                     <Check
                       className="mt-0.5 h-4 w-4 shrink-0 text-ltm-success"
                       aria-hidden="true"
                     />
-                    <span>{item}</span>
+                    <span className="font-medium">{item}</span>
                   </li>
                 ))}
               </ul>

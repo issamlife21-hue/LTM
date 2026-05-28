@@ -26,10 +26,10 @@ function PlatesPricing() {
           <CardTitle>Test Plate</CardTitle>
         </CardHeader>
         <CardContent>
-          <p className="text-3xl font-bold text-ltm-black">
+          <p className="text-3xl font-bold tabular-nums text-ltm-black">
             {formatUsd(licensePlateCharges.testPlate)}
           </p>
-          <p className="mt-2 text-sm text-ltm-slate">
+          <p className="mt-2 text-base font-medium text-ltm-ink">
             For newly imported or temporary-use vehicles.
           </p>
         </CardContent>
@@ -39,13 +39,13 @@ function PlatesPricing() {
           <CardTitle>Customized Plate</CardTitle>
         </CardHeader>
         <CardContent>
-          <p className="text-3xl font-bold text-ltm-black">
+          <p className="text-3xl font-bold tabular-nums text-ltm-black">
             {formatUsd(licensePlateCharges.customizedPlatePerCharacter)}
-            <span className="ml-2 text-base font-normal text-ltm-muted">
+            <span className="ml-2 text-base font-semibold text-ltm-slate">
               per character
             </span>
           </p>
-          <p className="mt-2 text-sm text-ltm-slate">
+          <p className="mt-2 text-base font-medium text-ltm-ink">
             Choose your own combination. Pricing is per character on the plate.
           </p>
         </CardContent>

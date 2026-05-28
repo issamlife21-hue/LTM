@@ -28,7 +28,7 @@ const columns: PriceColumn[] = [
       v ? (
         <Badge variant="success">Yes</Badge>
       ) : (
-        <span className="text-ltm-muted">No</span>
+        <span className="text-ltm-slate">No</span>
       ),
   },
   {
@@ -38,7 +38,7 @@ const columns: PriceColumn[] = [
     emphasis: true,
     render: (v, row) =>
       v === null || v === undefined ? (
-        <span className="text-sm font-normal italic text-ltm-muted">
+        <span className="text-sm font-semibold text-ltm-slate">
           {(row.notes as string) ?? "Set by traffic law"}
         </span>
       ) : (

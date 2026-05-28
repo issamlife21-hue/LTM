@@ -41,25 +41,9 @@ export const heroPhotos: LtmPhoto[] = [
     height: 900,
   },
   {
-    id: "hero-bicycle-fleet",
-    url: "/images/hero/hero-bicycle-fleet.webp",
-    alt: "Large fleet of police bicycles arranged in rows at the LTM compound",
-    category: "fleet",
-    width: 1600,
-    height: 900,
-  },
-  {
     id: "hero-motorcycle-fleet",
     url: "/images/hero/hero-motorcycle-fleet.webp",
     alt: "Row of LTM police motorcycles parked in front of the LTM facility",
-    category: "fleet",
-    width: 1600,
-    height: 900,
-  },
-  {
-    id: "hero-motorcycle-fleet-2",
-    url: "/images/hero/hero-motorcycle-fleet-2.webp",
-    alt: "Wide view of LTM police motorcycle fleet with the compound and inspection bays in the background",
     category: "fleet",
     width: 1600,
     height: 900,
@@ -110,7 +94,7 @@ export const galleryPhotos: LtmPhoto[] = [
 export const servicePhotos = {
   "driver-license": galleryPhotos[1], // motor-vehicle-service-sign
   "vehicle-registration": galleryPhotos[0], // ltm-sign
-  "vehicle-inspection": heroPhotos[4], // inspection bay
+  "vehicle-inspection": heroPhotos[2], // inspection bay
   "license-plates": galleryPhotos[2], // police-fleet-courtyard
 };
 

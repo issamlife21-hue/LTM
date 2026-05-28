@@ -124,7 +124,7 @@ export function Header() {
         <div className="hidden lg:block">
           <SiteSearch
             className="w-56"
-            inputClassName="h-9 border-ltm-graphite bg-ltm-charcoal text-sm text-white placeholder:text-white/60"
+            inputClassName="h-9 border-ltm-graphite bg-ltm-charcoal text-sm text-white placeholder:text-white/80"
             placeholder="Search…"
           />
         </div>
@@ -193,7 +193,7 @@ export function Header() {
 
       <div className="border-b border-ltm-charcoal bg-ltm-black/95 px-4 py-2 sm:px-6 lg:hidden">
         <SiteSearch
-          inputClassName="h-9 border-ltm-graphite bg-ltm-charcoal text-sm text-white placeholder:text-white/60"
+          inputClassName="h-9 border-ltm-graphite bg-ltm-charcoal text-sm text-white placeholder:text-white/80"
           placeholder="Search FAQs, services, pricing…"
           onNavigate={() => setMobileOpen(false)}
         />

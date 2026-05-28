@@ -1,12 +1,18 @@
 import Link from "next/link";
+import { MapPin, Phone } from "lucide-react";
 
 import { HeroCarousel } from "@/components/HeroCarousel";
 import { CTABanner } from "@/components/layout/CTABanner";
+import { QuickActions } from "@/components/QuickActions";
 import { ServiceCard } from "@/components/ServiceCard";
 import { Button } from "@/components/ui/button";
+import { serviceCenters } from "@/data/service-centers";
 import { services } from "@/data/services";
 
 export default function HomePage() {
+  const center = serviceCenters[0];
+  const primaryPhone = center?.phones[0];
+
   return (
     <>
       {/* Hero */}
@@ -21,15 +27,32 @@ export default function HomePage() {
             <h1 className="mb-5 font-serif text-4xl leading-[1.1] text-white sm:text-5xl">
               Liberia&rsquo;s Official Traffic Management Service
             </h1>
-            <p className="mb-7 max-w-xl text-base leading-relaxed text-white/90">
+            <p className="mb-6 max-w-xl text-base leading-relaxed text-white/95">
               Driver licenses, vehicle registration, inspection, and plates.
             </p>
-            <Button asChild size="lg" variant="whitePrimary">
-              <Link href="/services">View Services</Link>
-            </Button>
+            {/* Two clear paths above the fold: view services, or call. */}
+            <div className="flex flex-col gap-3 sm:flex-row">
+              <Button asChild size="lg" variant="whitePrimary">
+                <Link href="/services">View Services</Link>
+              </Button>
+              {primaryPhone && (
+                <Button asChild size="lg" variant="whiteOutline">
+                  <Link
+                    href={`tel:${primaryPhone.dial}`}
+                    aria-label={`Call LTM at ${primaryPhone.display}`}
+                  >
+                    <Phone className="h-4 w-4" aria-hidden="true" />
+                    Call {primaryPhone.display}
+                  </Link>
+                </Button>
+              )}
+            </div>
           </div>
         </div>
       </section>
+
+      {/* Quick actions — five fast paths most citizens come here for */}
+      <QuickActions />
 
       {/* Services */}
       <section className="bg-ltm-paper py-16 md:py-24">
@@ -67,13 +90,22 @@ export default function HomePage() {
             <h2 className="font-serif text-2xl text-ltm-black md:text-3xl">
               Authorized by the Government of Liberia
             </h2>
-            <p className="mt-3 text-base leading-relaxed text-ltm-slate">
+            <p className="mt-3 text-base leading-relaxed text-ltm-ink">
               Liberia Traffic Management is the sole entity authorized under the
               2018 Concession Agreement, ratified by the Liberian Legislature,
               to operate vehicle registration, driver licensing, vehicle
               inspection, license plates, and traffic violation services on
               behalf of the Republic.
             </p>
+            {center?.shortLocation && (
+              <p className="mt-4 inline-flex items-start gap-2 text-base font-medium text-ltm-ink">
+                <MapPin
+                  className="mt-0.5 h-4 w-4 shrink-0 text-ltm-black"
+                  aria-hidden="true"
+                />
+                <span>{center.shortLocation}</span>
+              </p>
+            )}
           </div>
         </div>
       </section>

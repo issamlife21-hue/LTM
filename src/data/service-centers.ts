@@ -10,6 +10,10 @@ export type ServiceCenterPhone = {
 export type ServiceCenter = {
   id: string;
   county: string;
+  // A short, plain-English location description shown next to maps and
+  // direction buttons across the site. Keep it under ~80 chars and avoid
+  // jargon — this is what a citizen would tell a friend on the phone.
+  shortLocation: string;
   address: {
     lines: string[];
     locality: string;
@@ -32,6 +36,7 @@ export const serviceCenters: ServiceCenter[] = [
   {
     id: "montserrado",
     county: "Montserrado County",
+    shortLocation: "Located on SKD Boulevard, adjacent to SKD Stadium.",
     address: {
       lines: ["LTM Compound, SKD Boulevard", "Adjacent to SKD Stadium"],
       locality: "Monrovia",

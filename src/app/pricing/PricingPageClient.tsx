@@ -1,7 +1,8 @@
 "use client";
 
 import * as React from "react";
-import { Printer, Search } from "lucide-react";
+import Link from "next/link";
+import { ArrowRight, Phone, Printer, Search, X } from "lucide-react";
 
 import { LastUpdated } from "@/components/LastUpdated";
 import { PageHeader } from "@/components/PageHeader";
@@ -21,7 +22,16 @@ import {
   vehicleRegistrationCharges,
   vehicleTowingCharges,
 } from "@/data/pricing";
+import { serviceCenters } from "@/data/service-centers";
 import { formatUsd } from "@/lib/format";
+import {
+  enrichDriverLicenseRows,
+  enrichDrivingTestRows,
+  enrichImpoundmentRows,
+  enrichInspectionRows,
+  enrichRegistrationRows,
+  enrichTowingRows,
+} from "@/lib/pricing-search";
 
 const registrationColumns: PriceColumn[] = [
   { key: "code", label: "Code" },
@@ -34,7 +44,7 @@ const registrationColumns: PriceColumn[] = [
       v ? (
         <Badge variant="success">Yes</Badge>
       ) : (
-        <span className="text-ltm-muted">No</span>
+        <span className="text-ltm-slate">No</span>
       ),
   },
   {
@@ -54,9 +64,9 @@ const registrationColumns: PriceColumn[] = [
     label: "Additional",
     render: (v) =>
       v ? (
-        <span className="text-sm text-ltm-slate">{v as string}</span>
+        <span className="text-sm text-ltm-ink">{v as string}</span>
       ) : (
-        <span className="text-ltm-muted">None</span>
+        <span className="text-ltm-slate">None</span>
       ),
   },
   {
@@ -66,7 +76,7 @@ const registrationColumns: PriceColumn[] = [
     emphasis: true,
     render: (v, row) =>
       v === null || v === undefined ? (
-        <span className="text-sm font-normal italic text-ltm-muted">
+        <span className="text-sm font-semibold text-ltm-slate">
           {(row.notes as string) ?? "Set by traffic law"}
         </span>
       ) : (
@@ -160,7 +170,7 @@ const impoundmentColumns: PriceColumn[] = [
       if (v === 0) return <Badge variant="success">Free</Badge>;
       if (v === null || v === undefined)
         return (
-          <span className="text-sm font-normal italic text-ltm-muted">
+          <span className="text-sm font-semibold text-ltm-slate">
             {(row.notes as string) ?? "Set by traffic law"}
           </span>
         );
@@ -169,12 +179,50 @@ const impoundmentColumns: PriceColumn[] = [
   },
 ];
 
+// Build the enriched rows once at module load. Each row gets a hidden
+// `_search` field that includes everyday Liberian words (taxi, motorcycle,
+// bike, pickup, SUV, bus, cargo, truck, trailer, …) on top of the official
+// category text. The user can type any of those and find the right fee.
+const REGISTRATION_ROWS = enrichRegistrationRows(vehicleRegistrationCharges);
+const LICENSE_ROWS = enrichDriverLicenseRows(driverLicenseCharges);
+const DRIVING_TEST_ROWS = enrichDrivingTestRows(drivingTestCharges);
+const INSPECTION_ROWS = enrichInspectionRows(vehicleInspectionCharges);
+const TOWING_ROWS = enrichTowingRows(vehicleTowingCharges);
+const IMPOUNDMENT_ROWS = enrichImpoundmentRows(vehicleImpoundmentCharges);
+
+type TabId = (typeof pricingTabs)[number]["id"];
+
+function countMatches(rows: { _search: string }[], q: string): number {
+  if (!q) return 0;
+  return rows.filter((r) => r._search.includes(q)).length;
+}
+
 export function PricingPageClient() {
   const [searchQuery, setSearchQuery] = React.useState("");
+  const [tab, setTab] = React.useState<TabId>("registration");
 
   const handlePrint = React.useCallback(() => {
     if (typeof window !== "undefined") window.print();
   }, []);
+
+  const primaryPhone = serviceCenters[0]?.phones[0];
+
+  // Per-tab match counts, used to power the cross-tab hint banner so users
+  // never get a dead-end "no results" when the answer is one tab away.
+  const q = searchQuery.trim().toLowerCase();
+  const counts: Record<TabId, number> = {
+    registration: countMatches(REGISTRATION_ROWS, q),
+    license: countMatches(LICENSE_ROWS, q),
+    "driving-test": countMatches(DRIVING_TEST_ROWS, q),
+    inspection: countMatches(INSPECTION_ROWS, q),
+    towing: countMatches(TOWING_ROWS, q),
+    impoundment: countMatches(IMPOUNDMENT_ROWS, q),
+    plates: /plate|custom|test plate/.test(q) ? 1 : 0,
+  };
+
+  const otherTabsWithHits = q
+    ? pricingTabs.filter((t) => t.id !== tab && counts[t.id] > 0)
+    : [];
 
   return (
     <>
@@ -194,35 +242,87 @@ export function PricingPageClient() {
       />
 
       <section className="container-ltm py-12 md:py-16">
-        <div className="mb-6 print:hidden">
-          <label htmlFor="pricing-search" className="sr-only">
-            Search pricing categories
+        {/* Search — plain language: taxi, motorcycle, pickup, bus, custom plate… */}
+        <div className="mb-4 print:hidden">
+          <label
+            htmlFor="pricing-search"
+            className="mb-2 block text-sm font-semibold text-ltm-ink"
+          >
+            Find a fee
           </label>
-          <div className="relative max-w-md">
+          <div className="relative">
             <Search
-              className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-ltm-muted"
+              className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-ltm-slate"
               aria-hidden="true"
             />
             <Input
               id="pricing-search"
               type="search"
-              placeholder="Search categories…"
+              placeholder="Try: taxi, motorcycle, pickup, bus, custom plate…"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="pl-9"
+              className="pl-9 pr-10 text-base"
             />
+            {searchQuery && (
+              <button
+                type="button"
+                onClick={() => setSearchQuery("")}
+                aria-label="Clear search"
+                className="absolute right-2 top-1/2 inline-flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-md text-ltm-slate hover:bg-ltm-stone hover:text-ltm-black focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ltm-navy"
+              >
+                <X className="h-4 w-4" aria-hidden="true" />
+              </button>
+            )}
           </div>
+          <p className="mt-2 text-sm text-ltm-slate">
+            You can type everyday words (sedan, jeep, bike, keke, lorry) — you
+            don&rsquo;t need the category code (A1, B2, C3).
+          </p>
         </div>
 
-        <Tabs defaultValue="registration" className="w-full">
+        {/* Cross-tab hint: if the current tab has 0 hits but another tab does,
+            offer a one-tap jump so the search never feels like a dead end. */}
+        {q && counts[tab] === 0 && otherTabsWithHits.length > 0 && (
+          <div className="mb-4 rounded-lg border border-ltm-charcoal bg-white p-4 print:hidden">
+            <p className="text-sm font-semibold text-ltm-black">
+              No matches on this tab. Try:
+            </p>
+            <div className="mt-2 flex flex-wrap gap-2">
+              {otherTabsWithHits.map((t) => (
+                <button
+                  key={t.id}
+                  type="button"
+                  onClick={() => setTab(t.id)}
+                  className="inline-flex items-center gap-1.5 rounded-md border border-ltm-border bg-ltm-stone px-3 py-1.5 text-sm font-semibold text-ltm-black hover:bg-ltm-border focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ltm-navy"
+                >
+                  {t.label}
+                  <span className="rounded-full bg-ltm-black px-1.5 text-xs font-bold text-white">
+                    {counts[t.id]}
+                  </span>
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
+
+        <Tabs
+          value={tab}
+          onValueChange={(v) => setTab(v as TabId)}
+          className="w-full"
+        >
           <TabsList className="mb-6 flex h-auto w-full flex-wrap justify-start gap-1 bg-ltm-stone p-1 print:hidden">
-            {pricingTabs.map((tab) => (
+            {pricingTabs.map((t) => (
               <TabsTrigger
-                key={tab.id}
-                value={tab.id}
-                className="text-xs sm:text-sm"
+                key={t.id}
+                value={t.id}
+                className="text-sm font-semibold"
               >
-                {tab.label}
+                {t.label}
+                {q && counts[t.id] > 0 && (
+                  <span className="ml-1.5 rounded-full bg-ltm-black px-1.5 text-[10px] font-bold text-white">
+                    {counts[t.id]}
+                  </span>
+                )}
               </TabsTrigger>
             ))}
           </TabsList>
@@ -234,8 +334,9 @@ export function PricingPageClient() {
               </h2>
               <PriceTable
                 columns={registrationColumns}
-                rows={vehicleRegistrationCharges as unknown as Record<string, unknown>[]}
+                rows={REGISTRATION_ROWS as unknown as Record<string, unknown>[]}
                 searchQuery={searchQuery}
+                searchKey="_search"
               />
             </TabsContent>
 
@@ -245,8 +346,9 @@ export function PricingPageClient() {
               </h2>
               <PriceTable
                 columns={driverLicenseColumns}
-                rows={driverLicenseCharges as unknown as Record<string, unknown>[]}
+                rows={LICENSE_ROWS as unknown as Record<string, unknown>[]}
                 searchQuery={searchQuery}
+                searchKey="_search"
               />
             </TabsContent>
 
@@ -256,8 +358,9 @@ export function PricingPageClient() {
               </h2>
               <PriceTable
                 columns={drivingTestColumns}
-                rows={drivingTestCharges as unknown as Record<string, unknown>[]}
+                rows={DRIVING_TEST_ROWS as unknown as Record<string, unknown>[]}
                 searchQuery={searchQuery}
+                searchKey="_search"
               />
             </TabsContent>
 
@@ -267,8 +370,9 @@ export function PricingPageClient() {
               </h2>
               <PriceTable
                 columns={inspectionColumns}
-                rows={vehicleInspectionCharges as unknown as Record<string, unknown>[]}
+                rows={INSPECTION_ROWS as unknown as Record<string, unknown>[]}
                 searchQuery={searchQuery}
+                searchKey="_search"
               />
             </TabsContent>
 
@@ -278,9 +382,9 @@ export function PricingPageClient() {
               </h2>
               <PriceTable
                 columns={towingColumns}
-                rows={vehicleTowingCharges as unknown as Record<string, unknown>[]}
+                rows={TOWING_ROWS as unknown as Record<string, unknown>[]}
                 searchQuery={searchQuery}
-                searchKey="vehicleType"
+                searchKey="_search"
               />
             </TabsContent>
 
@@ -290,9 +394,9 @@ export function PricingPageClient() {
               </h2>
               <PriceTable
                 columns={impoundmentColumns}
-                rows={vehicleImpoundmentCharges as unknown as Record<string, unknown>[]}
+                rows={IMPOUNDMENT_ROWS as unknown as Record<string, unknown>[]}
                 searchQuery={searchQuery}
-                searchKey="durationDays"
+                searchKey="_search"
               />
             </TabsContent>
 
@@ -306,10 +410,10 @@ export function PricingPageClient() {
                     <CardTitle>Test Plate</CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <p className="text-3xl font-bold text-ltm-black">
+                    <p className="text-4xl font-bold tabular-nums text-ltm-black">
                       {formatUsd(licensePlateCharges.testPlate)}
                     </p>
-                    <p className="mt-2 text-sm text-ltm-muted">
+                    <p className="mt-2 text-sm font-medium text-ltm-slate">
                       Flat rate per test plate.
                     </p>
                   </CardContent>
@@ -319,13 +423,13 @@ export function PricingPageClient() {
                     <CardTitle>Customized Plate</CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <p className="text-3xl font-bold text-ltm-black">
+                    <p className="text-4xl font-bold tabular-nums text-ltm-black">
                       {formatUsd(licensePlateCharges.customizedPlatePerCharacter)}
-                      <span className="ml-2 text-base font-normal text-ltm-muted">
+                      <span className="ml-2 text-base font-semibold text-ltm-slate">
                         per character
                       </span>
                     </p>
-                    <p className="mt-2 text-sm text-ltm-muted">
+                    <p className="mt-2 text-sm font-medium text-ltm-slate">
                       Choose your own letter/number combination.
                     </p>
                   </CardContent>
@@ -335,15 +439,48 @@ export function PricingPageClient() {
           </div>
         </Tabs>
 
-        <p className="mt-10 text-xs leading-relaxed text-ltm-muted">
+        <p className="mt-10 text-sm font-medium leading-relaxed text-ltm-slate">
           Fees are set by the Government of Liberia. LTM cannot discount or
           waive them.
         </p>
 
-        <p className="mt-3 hidden text-xs text-ltm-muted print:block">
+        <p className="mt-3 hidden text-xs text-ltm-slate print:block">
           Printed from www.liberiatraffic.com. For the most current pricing,
           visit the website.
         </p>
+
+        {/* Questions? — Call LTM strip, mobile-prominent */}
+        {primaryPhone && (
+          <div className="mt-8 flex flex-col gap-3 rounded-lg border border-ltm-border bg-white p-5 sm:flex-row sm:items-center sm:justify-between print:hidden">
+            <div>
+              <p className="text-base font-semibold text-ltm-black">
+                Questions about a fee?
+              </p>
+              <p className="text-sm text-ltm-slate">
+                Call LTM and ask for the registration or licensing counter.
+              </p>
+            </div>
+            <div className="flex flex-col gap-2 sm:flex-row">
+              <Button asChild size="lg" className="w-full sm:w-auto">
+                <Link href={`tel:${primaryPhone.dial}`}>
+                  <Phone className="h-4 w-4" aria-hidden="true" />
+                  Call {primaryPhone.display}
+                </Link>
+              </Button>
+              <Button
+                asChild
+                size="lg"
+                variant="outline"
+                className="w-full sm:w-auto"
+              >
+                <Link href="/contact">
+                  Find a location
+                  <ArrowRight className="h-4 w-4" aria-hidden="true" />
+                </Link>
+              </Button>
+            </div>
+          </div>
+        )}
 
         <LastUpdated section="pricing" />
       </section>
