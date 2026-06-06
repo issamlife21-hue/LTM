@@ -17,7 +17,7 @@ export default function HomePage() {
     <>
       {/* Hero — sized tighter on mobile so the most important above-the-fold
           actions (View Services + Call) sit closer to the thumb. */}
-      <section className="relative h-[460px] overflow-hidden bg-ltm-black sm:h-[520px] md:h-[600px]">
+      <section className="relative min-h-[45svh] overflow-hidden bg-ltm-black sm:min-h-[52svh] md:min-h-[60svh]">
         <HeroCarousel />
 
         <div className="container-ltm absolute inset-x-0 bottom-0 top-0 z-10 flex flex-col justify-end pb-10 md:pb-16">

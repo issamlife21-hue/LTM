@@ -1,0 +1,16 @@
+{
+  // LTM uses Prettier (with prettier-plugin-tailwindcss for class sorting).
+  // Headwind sort-on-save is disabled — prettier-plugin-tailwindcss owns class order.
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true,
+  "headwind.runOnSave": false,
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact"
+  ],
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit"
+  }
+}

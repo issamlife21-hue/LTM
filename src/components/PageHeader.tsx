@@ -47,7 +47,10 @@ export function PageHeader({
       )}
       <div className="container-ltm relative flex flex-col gap-3 py-8 md:flex-row md:items-end md:justify-between md:py-14">
         <div className="max-w-3xl">
-          <h1 className="font-serif text-2xl font-bold text-white sm:text-3xl md:text-4xl">
+          <h1
+            className="font-serif font-bold text-white"
+            style={{ fontSize: "clamp(1.5rem, 4vw + 0.5rem, 2.5rem)" }}
+          >
             {title}
           </h1>
           {estimatedTime && (

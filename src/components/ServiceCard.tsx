@@ -19,7 +19,7 @@ export function ServiceCard({
   return (
     <Link
       href={href}
-      className="group flex h-full flex-col rounded-md border-2 border-ltm-border bg-white p-5 transition-colors hover:border-ltm-black focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ltm-navy focus-visible:ring-offset-2"
+      className="group flex h-full flex-col rounded-md border-2 border-l-4 border-ltm-border border-l-transparent bg-white p-5 transition-all duration-200 hover:border-ltm-black hover:border-l-ltm-navy focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ltm-navy focus-visible:ring-offset-2"
     >
       <div className="mb-3 flex items-center gap-3">
         <Icon className="h-6 w-6 text-ltm-black" aria-hidden="true" />

@@ -193,11 +193,11 @@ export function PriceTable({
             </div>
 
             {/* Big total / charge — the most visible part of the card */}
-            <div className="mt-4 rounded-md border border-ltm-border bg-ltm-stone/70 p-3">
-              <p className="text-xs font-bold uppercase tracking-wider text-ltm-slate">
+            <div className="mt-4 rounded-md bg-ltm-black p-3 text-white">
+              <p className="text-xs font-bold uppercase tracking-wider text-white/70">
                 {emphasisCol.label}
               </p>
-              <div className="mt-1 text-2xl font-bold leading-tight tabular-nums text-ltm-black">
+              <div className="mt-1 text-2xl font-bold leading-tight tabular-nums text-white">
                 {emphasisCol.render
                   ? emphasisCol.render(row[emphasisCol.key], row)
                   : ((row[emphasisCol.key] as React.ReactNode) ??

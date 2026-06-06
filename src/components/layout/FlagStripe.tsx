@@ -7,7 +7,7 @@ const STRIPES = Array.from({ length: 11 }, (_, i) => i % 2 === 0); // true = red
 export function FlagStripe() {
   return (
     <div
-      className="flex h-[3px] w-full flex-col md:h-1"
+      className="flex h-[4px] w-full flex-col md:h-[6px]"
       role="img"
       aria-label="Liberian flag stripes"
     >

@@ -4,8 +4,24 @@ import { Public_Sans } from "next/font/google";
 import { FlagStripe } from "@/components/layout/FlagStripe";
 import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
+import { MobileBottomNav } from "@/components/layout/MobileBottomNav";
+import { ScrollToTop } from "@/components/ScrollToTop";
 
 import "./globals.css";
+
+if (typeof window !== "undefined" && process.env.NODE_ENV === "development") {
+  import("axe-core").then(({ default: axe }) => {
+    axe.run().then((results) => {
+      if (results.violations.length) {
+        console.group("%c ♿ axe violations", "color:red;font-weight:bold");
+        results.violations.forEach((v) =>
+          console.warn(v.description, v.helpUrl, v.nodes),
+        );
+        console.groupEnd();
+      }
+    });
+  });
+}
 
 // Public Sans is the U.S. government's public-service typeface. It is clear,
 // neutral, and highly readable on mobile — the right tone for an official
@@ -84,6 +100,8 @@ export default function RootLayout({
           {children}
         </main>
         <Footer />
+        <MobileBottomNav />
+        <ScrollToTop />
       </body>
     </html>
   );
