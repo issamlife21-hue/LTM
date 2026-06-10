@@ -24,18 +24,7 @@ function HighlightedText({ text, query }: { text: string; query: string }) {
   const parts = highlightMatch(text, query);
   return (
     <>
-      {parts.map((part, i) =>
-        part.match ? (
-          <mark
-            key={i}
-            className="rounded bg-yellow-200 px-0.5 text-ltm-slate"
-          >
-            {part.text}
-          </mark>
-        ) : (
-          <React.Fragment key={i}>{part.text}</React.Fragment>
-        )
-      )}
+      {parts.map((part, i) => (part.match ? <mark key={i} className="rounded-sm bg-yellow-200 px-0.5 text-ltm-black">{part.text}</mark> : <React.Fragment key={i}>{part.text}</React.Fragment>))}
     </>
   );
 }
