@@ -1,11 +1,24 @@
 "use client";
 
 import * as React from "react";
+import dynamic from "next/dynamic";
 
-import { SignQuizClient } from "@/components/SignQuizClient";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
-import { PracticeTestPageClient } from "./PracticeTestPageClient";
+const Loading = () => (
+  <div className="py-12 text-center text-ltm-slate">Loading test…</div>
+);
+
+const PracticeTestPageClient = dynamic(
+  () =>
+    import("./PracticeTestPageClient").then((m) => m.PracticeTestPageClient),
+  { ssr: false, loading: Loading },
+);
+
+const SignQuizClient = dynamic(
+  () => import("@/components/SignQuizClient").then((m) => m.SignQuizClient),
+  { ssr: false, loading: Loading },
+);
 
 export function PracticeTestTabs() {
   return (

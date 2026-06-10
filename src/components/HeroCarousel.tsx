@@ -53,26 +53,37 @@ export function HeroCarousel() {
       onTouchStart={onTouchStart}
       onTouchEnd={onTouchEnd}
     >
-      {heroPhotos.map((photo, i) => (
-        <div
-          key={photo.id}
-          aria-hidden={i !== index}
-          className={cn(
-            "absolute inset-0 transition-opacity duration-1000 ease-in-out",
-            i === index ? "opacity-100" : "opacity-0"
-          )}
-        >
-          <Image
-            src={photo.url}
-            alt={photo.alt}
-            fill
-            priority={i === 0}
-            loading={i === 0 ? "eager" : "lazy"}
-            sizes="100vw"
-            className="object-cover"
-          />
-        </div>
-      ))}
+      {heroPhotos.map((photo, i) => {
+        // Mount only a small window — the active slide plus its immediate
+        // neighbours (next, and previous so the outgoing image can fade out).
+        // This keeps the crossfade smooth while never downloading every hero
+        // image up front on a slow connection.
+        const total = heroPhotos.length;
+        const isActive = i === index;
+        const isNext = i === (index + 1) % total;
+        const isPrev = i === (index - 1 + total) % total;
+        if (!isActive && !isNext && !isPrev) return null;
+        return (
+          <div
+            key={photo.id}
+            aria-hidden={!isActive}
+            className={cn(
+              "absolute inset-0 transition-opacity duration-1000 ease-in-out",
+              isActive ? "opacity-100" : "opacity-0"
+            )}
+          >
+            <Image
+              src={photo.url}
+              alt={photo.alt}
+              fill
+              priority={i === 0}
+              loading={i === 0 ? "eager" : "lazy"}
+              sizes="100vw"
+              className="object-cover"
+            />
+          </div>
+        );
+      })}
 
       <div
         aria-hidden="true"

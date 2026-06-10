@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ArrowRight, Check } from "lucide-react";
 
+import { FadeIn } from "@/components/FadeIn";
 import { CTABanner } from "@/components/layout/CTABanner";
 import { PageHeader } from "@/components/PageHeader";
 import { Button } from "@/components/ui/button";
@@ -18,10 +19,11 @@ export default function ServicesPage() {
       <PageHeader title="Our Services" />
       <section className="container-ltm py-10 md:py-20">
         <ul className="space-y-4 md:space-y-6">
-          {services.map((s) => (
-            <li
-              key={s.href}
-              className="rounded-lg border border-ltm-border bg-white p-5 md:p-8"
+          {services.map((s, index) => (
+            <li key={s.href}>
+            <FadeIn
+              delay={index * 0.05}
+              className="block rounded-lg border border-ltm-border bg-white p-5 md:p-8"
             >
               <div className="flex items-center gap-3">
                 <s.icon className="h-6 w-6 text-ltm-black" aria-hidden="true" />
@@ -54,6 +56,7 @@ export default function ServicesPage() {
                   </Link>
                 </Button>
               </div>
+            </FadeIn>
             </li>
           ))}
         </ul>

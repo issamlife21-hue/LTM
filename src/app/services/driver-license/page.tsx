@@ -1,3 +1,5 @@
+import Script from "next/script";
+
 import { ServiceDetailLayout } from "@/components/ServiceDetailLayout";
 import { Badge } from "@/components/ui/badge";
 import { type PriceColumn } from "@/components/PriceTable";
@@ -39,8 +41,29 @@ const columns: PriceColumn[] = [
   },
 ];
 
+const serviceJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  name: "Driver License",
+  serviceType: "Driver licensing",
+  provider: {
+    "@type": "GovernmentOrganization",
+    name: "Liberia Traffic Management",
+  },
+  areaServed: "Liberia",
+  description:
+    "Apply for, renew, or upgrade a Liberian driver license — motorcycle, tricycle, private car, heavy-duty, and chauffeur categories.",
+};
+
 export default function DriverLicensePage() {
   return (
+    <>
+    <Script
+      id="ltm-driver-license-jsonld"
+      type="application/ld+json"
+      strategy="afterInteractive"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceJsonLd) }}
+    />
     <ServiceDetailLayout
       title="Driver License"
       subtitle="Apply for, renew, or upgrade your license."
@@ -97,5 +120,6 @@ export default function DriverLicensePage() {
         </>
       }
     />
+    </>
   );
 }

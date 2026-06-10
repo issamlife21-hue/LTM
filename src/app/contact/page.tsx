@@ -44,6 +44,7 @@ function ServiceCenterCard({ center }: { center: ServiceCenter }) {
           src={center.map.embedUrl}
           loading="lazy"
           referrerPolicy="no-referrer-when-downgrade"
+          sandbox="allow-scripts allow-same-origin allow-popups allow-forms"
           className="h-full w-full border-0"
         />
       </div>

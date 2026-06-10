@@ -45,7 +45,7 @@ function OptionButton({
       className={cn(
         "w-full rounded-lg border-2 px-4 py-3 text-left text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ltm-navy focus-visible:ring-offset-2 sm:text-base",
         state === "idle" &&
-          "border-ltm-border bg-white text-ltm-slate hover:border-ltm-black hover:bg-ltm-stone",
+          "border-ltm-border bg-white text-ltm-ink hover:border-ltm-black hover:bg-ltm-stone",
         state === "selected-correct" &&
           "border-ltm-success bg-ltm-success/10 text-ltm-slate",
         state === "selected-wrong" &&
@@ -259,7 +259,7 @@ export function SignQuizClient() {
               />
             </div>
 
-            <p className="rounded-md border border-ltm-border bg-ltm-stone p-3 text-xs italic leading-relaxed text-ltm-muted">
+            <p className="rounded-md border border-ltm-border bg-ltm-stone p-3 text-xs italic leading-relaxed text-ltm-slate">
               You correctly identified {correct} of {total} signs. This quiz
               is a study aid only. It does not replace the official road
               signs reference.
@@ -300,7 +300,7 @@ export function SignQuizClient() {
                           <dd className="text-ltm-slate">{a.selectedText}</dd>
                         </div>
                         <div className="flex flex-col gap-0.5 sm:flex-row sm:gap-2">
-                          <dt className="font-medium text-ltm-success">
+                          <dt className="font-medium text-green-700">
                             Correct answer:
                           </dt>
                           <dd className="text-ltm-slate">{q.sign.name}</dd>

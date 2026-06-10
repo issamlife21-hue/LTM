@@ -17,9 +17,9 @@ const badgeVariants = cva(
         outline:
           "border-ltm-border text-ltm-slate",
         success:
-          "border-transparent bg-ltm-success/10 text-ltm-success",
+          "border-transparent bg-ltm-success text-white",
         warning:
-          "border-transparent bg-ltm-warning/10 text-ltm-warning",
+          "border-transparent bg-ltm-warning text-white",
       },
     },
     defaultVariants: {

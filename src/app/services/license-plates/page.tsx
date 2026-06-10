@@ -1,3 +1,5 @@
+import Script from "next/script";
+
 import { ServiceDetailLayout } from "@/components/ServiceDetailLayout";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { faqs } from "@/data/faqs";
@@ -54,8 +56,29 @@ function PlatesPricing() {
   );
 }
 
+const serviceJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  name: "License Plates",
+  serviceType: "Vehicle license plates",
+  provider: {
+    "@type": "GovernmentOrganization",
+    name: "Liberia Traffic Management",
+  },
+  areaServed: "Liberia",
+  description:
+    "Standard, test, and customized Liberian license plates. Test plates US$250; customized plates US$30 per character.",
+};
+
 export default function LicensePlatesPage() {
   return (
+    <>
+    <Script
+      id="ltm-license-plates-jsonld"
+      type="application/ld+json"
+      strategy="afterInteractive"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceJsonLd) }}
+    />
     <ServiceDetailLayout
       title="License Plates"
       subtitle="Standard, test, and customized license plates."
@@ -98,5 +121,6 @@ export default function LicensePlatesPage() {
         lastReviewed: formatLastUpdated(lastUpdated.services),
       }}
     />
+    </>
   );
 }

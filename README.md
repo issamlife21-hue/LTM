@@ -10,7 +10,7 @@ This Next.js application exposes everything a citizen needs to know before walki
 - **Tailwind CSS** with custom LTM design tokens
 - **shadcn/ui** primitives (button, card, accordion, tabs, sheet, table, input, badge, separator, label, textarea)
 - **lucide-react** icons
-- **Inter** loaded via `next/font/google`
+- **Public Sans** loaded via `next/font/google`
 - Statically rendered — every route is prerendered at build time
 
 ## Local development
@@ -40,7 +40,7 @@ npm run lint   # ESLint via next lint
 ```
 src/
 ├── app/
-│   ├── layout.tsx                # root layout (UtilityStrip / Header / main / Footer) + global metadata
+│   ├── layout.tsx                # root layout (FlagStripe / Header / main / Footer / MobileBottomNav / ScrollToTop) + global metadata
 │   ├── page.tsx                  # homepage (hero, trust, services, how-it-works, info, gallery, FAQ teaser, CTA, JSON-LD)
 │   ├── loading.tsx               # global loading spinner
 │   ├── error.tsx                 # client error boundary
@@ -56,14 +56,14 @@ src/
 │   └── contact/                  # /contact page with info cards, map, form
 │
 ├── components/
-│   ├── layout/                   # UtilityStrip, Header, Footer, CTABanner
+│   ├── layout/                   # FlagStripe, Header, Footer, CTABanner, MobileBottomNav
 │   ├── ui/                       # shadcn primitives
-│   ├── PageHeader.tsx            # navy strip used by content pages
+│   ├── PageHeader.tsx            # dark page header used by content pages
 │   ├── PriceTable.tsx            # responsive table → mobile cards
 │   ├── ServiceCard.tsx           # homepage service tile
 │   ├── ServiceDetailLayout.tsx   # shared 2-column layout for /services/* detail pages
-│   ├── SignSvg.tsx, SignCard.tsx # inline SVG sign rendering
-│   └── ContactForm.tsx           # client-side validated contact form
+│   ├── SignImage.tsx, SignCard.tsx # road-sign image + card rendering
+│   └── HeroCarousel.tsx          # homepage hero slideshow
 │
 ├── data/                         # typed source-of-truth content
 │   ├── pricing.ts                # all USD rates (registration, license, towing, etc.)
@@ -106,7 +106,6 @@ Vercel is also a one-click drop-in if preferred.
 
 ## TODO — future work
 
-- **Wire up the contact form** to a real email service (Formspree, Netlify Forms, SendGrid, etc.) — currently the form validates and resets on submit but does not deliver messages.
 - **Replace placeholder gallery photos** on the homepage with actual photos of the LTM compound.
 - **Add online services** to the services pages once LTM enables digital applications and renewals.
 - **Translate** to additional languages spoken in Liberia.

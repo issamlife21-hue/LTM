@@ -1,3 +1,5 @@
+import Script from "next/script";
+
 import { ServiceDetailLayout } from "@/components/ServiceDetailLayout";
 import { type PriceColumn } from "@/components/PriceTable";
 import { faqs } from "@/data/faqs";
@@ -32,8 +34,29 @@ const columns: PriceColumn[] = [
 
 const INSPECTION_FAQ_IDS = ["q19", "q20", "q21"];
 
+const serviceJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  name: "Vehicle Inspection",
+  serviceType: "Vehicle inspection",
+  provider: {
+    "@type": "GovernmentOrganization",
+    name: "Liberia Traffic Management",
+  },
+  areaServed: "Liberia",
+  description:
+    "Mandatory annual vehicle inspection at LTM. For 2025 the check covers lights, brakes, and windshield wipers, and is required before registration.",
+};
+
 export default function VehicleInspectionPage() {
   return (
+    <>
+    <Script
+      id="ltm-vehicle-inspection-jsonld"
+      type="application/ld+json"
+      strategy="afterInteractive"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceJsonLd) }}
+    />
     <ServiceDetailLayout
       title="Vehicle Inspection"
       subtitle="Mandatory annual inspection. Required before registration."
@@ -77,7 +100,7 @@ export default function VehicleInspectionPage() {
       summary={{
         cost: "US$15 to US$200",
         visit: "15 to 20 minutes",
-        documents: 3,
+        documents: 4,
         lastReviewed: formatLastUpdated(lastUpdated.services),
       }}
       source={
@@ -87,5 +110,6 @@ export default function VehicleInspectionPage() {
         </>
       }
     />
+    </>
   );
 }

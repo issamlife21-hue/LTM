@@ -8,10 +8,19 @@ import { ChevronUp } from "lucide-react";
 // overlaps. Honors prefers-reduced-motion with an instant jump.
 export function ScrollToTop() {
   const [visible, setVisible] = React.useState(false);
+  const lastRun = React.useRef(0);
 
   React.useEffect(() => {
-    const onScroll = () => setVisible(window.scrollY > 400);
-    onScroll();
+    // Throttle the visibility check to at most once per 100ms — the scroll
+    // event can fire dozens of times a second on cheap phones.
+    const check = () => setVisible(window.scrollY > 400);
+    const onScroll = () => {
+      const now = Date.now();
+      if (now - lastRun.current < 100) return;
+      lastRun.current = now;
+      check();
+    };
+    check();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);

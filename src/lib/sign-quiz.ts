@@ -37,7 +37,14 @@ export function generateSignQuiz(count = 20): SignQuizQuestion[] {
     const sameSectionPool = pool.filter(
       (s) => s.section === sign.section && s.id !== sign.id
     );
-    const distractors = shuffle(sameSectionPool).slice(0, 3);
+    // Prefer distractors from the same section. If that section is too small
+    // to supply 3, fall back to the whole pool so every question still has
+    // exactly 4 options.
+    const distractorPool =
+      sameSectionPool.length >= 3
+        ? sameSectionPool
+        : pool.filter((s) => s.id !== sign.id);
+    const distractors = shuffle(distractorPool).slice(0, 3);
 
     const options: SignQuizOption[] = shuffle([
       { text: sign.name, correct: true },

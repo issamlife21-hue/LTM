@@ -1,3 +1,5 @@
+import Script from "next/script";
+
 import { ServiceDetailLayout } from "@/components/ServiceDetailLayout";
 import { Badge } from "@/components/ui/badge";
 import { type PriceColumn } from "@/components/PriceTable";
@@ -47,8 +49,29 @@ const columns: PriceColumn[] = [
   },
 ];
 
+const serviceJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  name: "Vehicle Registration",
+  serviceType: "Vehicle registration",
+  provider: {
+    "@type": "GovernmentOrganization",
+    name: "Liberia Traffic Management",
+  },
+  areaServed: "Liberia",
+  description:
+    "Register a new vehicle, renew registration, or transfer ownership with LTM, the official vehicle registrar in Liberia.",
+};
+
 export default function VehicleRegistrationPage() {
   return (
+    <>
+    <Script
+      id="ltm-vehicle-registration-jsonld"
+      type="application/ld+json"
+      strategy="afterInteractive"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceJsonLd) }}
+    />
     <ServiceDetailLayout
       title="Vehicle Registration"
       subtitle="Register, renew, or transfer ownership of your vehicle."
@@ -116,5 +139,6 @@ export default function VehicleRegistrationPage() {
         </>
       }
     />
+    </>
   );
 }

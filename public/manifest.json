@@ -1,0 +1,13 @@
+{
+  "name": "Liberia Traffic Management",
+  "short_name": "LTM",
+  "description": "Official traffic management services for Liberia — vehicle registration, driver licensing, inspection, and license plates.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0E0E10",
+  "theme_color": "#0E0E10",
+  "orientation": "portrait",
+  "icons": [
+    { "src": "/logo/ltm-logo.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+  ]
+}

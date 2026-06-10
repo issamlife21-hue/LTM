@@ -17,6 +17,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { faqCategories, faqs, type FAQ } from "@/data/faqs";
+import { useDebouncedValue } from "@/hooks/useDebouncedValue";
 import { highlightMatch } from "@/lib/format";
 
 function HighlightedText({ text, query }: { text: string; query: string }) {
@@ -39,7 +40,17 @@ function HighlightedText({ text, query }: { text: string; query: string }) {
   );
 }
 
-function FAQList({ items, query }: { items: FAQ[]; query: string }) {
+function FAQList({
+  items,
+  query,
+  value,
+  onValueChange,
+}: {
+  items: FAQ[];
+  query: string;
+  value?: string;
+  onValueChange?: (v: string) => void;
+}) {
   if (items.length === 0) {
     return (
       <EmptyState
@@ -64,10 +75,12 @@ function FAQList({ items, query }: { items: FAQ[]; query: string }) {
     <Accordion
       type="single"
       collapsible
+      value={value}
+      onValueChange={onValueChange}
       className="rounded-lg border border-ltm-border bg-white px-4 sm:px-6"
     >
       {items.map((faq) => (
-        <AccordionItem key={faq.id} value={faq.id}>
+        <AccordionItem key={faq.id} id={faq.id} value={faq.id}>
           <AccordionTrigger className="text-left">
             <HighlightedText text={faq.question} query={query} />
           </AccordionTrigger>
@@ -91,17 +104,42 @@ function FAQList({ items, query }: { items: FAQ[]; query: string }) {
 
 export function FAQPageClient() {
   const [query, setQuery] = React.useState("");
+  const [activeTab, setActiveTab] = React.useState("all");
+  const [openItem, setOpenItem] = React.useState<string | undefined>(undefined);
 
+  const debouncedQuery = useDebouncedValue(query, 150);
   const filtered = React.useMemo(() => {
-    const q = query.trim().toLowerCase();
+    const q = debouncedQuery.trim().toLowerCase();
     if (!q) return faqs;
-    return faqs.filter((f) => f.question.toLowerCase().includes(q));
-  }, [query]);
+    return faqs.filter(
+      (f) =>
+        f.question.toLowerCase().includes(q) ||
+        f.answer.toLowerCase().includes(q) ||
+        (f.bullets ?? []).join(" ").toLowerCase().includes(q)
+    );
+  }, [debouncedQuery]);
 
   const byCategory = React.useCallback(
     (cat: string) => filtered.filter((f) => f.category === cat),
     [filtered]
   );
+
+  // Deep-link support: /faq#<id> from the site search. Switch to the FAQ's
+  // category tab, open its accordion item, then scroll it into view.
+  React.useEffect(() => {
+    const hash = window.location.hash.replace(/^#/, "");
+    if (!hash) return;
+    const target = faqs.find((f) => f.id === hash);
+    if (!target) return;
+    setActiveTab(target.category);
+    setOpenItem(target.id);
+    const timer = window.setTimeout(() => {
+      document
+        .getElementById(target.id)
+        ?.scrollIntoView({ behavior: "smooth", block: "center" });
+    }, 100);
+    return () => window.clearTimeout(timer);
+  }, []);
 
   return (
     <>
@@ -138,7 +176,11 @@ export function FAQPageClient() {
           </div>
         </div>
 
-        <Tabs defaultValue="all" className="w-full">
+        <Tabs
+          value={activeTab}
+          onValueChange={setActiveTab}
+          className="w-full"
+        >
           <TabsList className="mb-6 flex h-auto w-full flex-wrap justify-start gap-1 bg-ltm-stone p-1">
             <TabsTrigger value="all" className="text-xs sm:text-sm">
               All
@@ -155,11 +197,21 @@ export function FAQPageClient() {
           </TabsList>
 
           <TabsContent value="all">
-            <FAQList items={filtered} query={query} />
+            <FAQList
+              items={filtered}
+              query={query}
+              value={openItem}
+              onValueChange={setOpenItem}
+            />
           </TabsContent>
           {faqCategories.map((cat) => (
             <TabsContent key={cat.id} value={cat.id}>
-              <FAQList items={byCategory(cat.id)} query={query} />
+              <FAQList
+                items={byCategory(cat.id)}
+                query={query}
+                value={openItem}
+                onValueChange={setOpenItem}
+              />
             </TabsContent>
           ))}
         </Tabs>

@@ -8,6 +8,7 @@ import { Input } from "@/components/ui/input";
 import { faqs } from "@/data/faqs";
 import { roadSigns } from "@/data/road-signs";
 import { services } from "@/data/services";
+import { useDebouncedValue } from "@/hooks/useDebouncedValue";
 import { cn } from "@/lib/utils";
 
 type SearchHit = {
@@ -36,7 +37,7 @@ const PAGE_INDEX: PageEntry[] = [
     preview: "Registration, license, inspection, towing, and plate fees.",
     href: "/pricing",
     keywords:
-      "pricing fees fee cost costs charges rates prices price how much taxi plate plates registration license inspection towing impoundment driving test",
+      "pricing fees fee cost costs charges rates prices price how much taxi plate plates registration license inspection towing impoundment driving test pen-pen okada keke tricycle three wheel motorcycle bike pickup lorry coaster minibus van cargo truck bus sedan jeep 4x4 cab commercial private",
   },
   {
     label: "Page",
@@ -125,7 +126,11 @@ export function SiteSearch({
   const containerRef = React.useRef<HTMLDivElement | null>(null);
   const id = React.useId();
 
-  const hits = React.useMemo(() => searchAll(query), [query]);
+  const debouncedQuery = useDebouncedValue(query, 150);
+  const hits = React.useMemo(
+    () => searchAll(debouncedQuery),
+    [debouncedQuery],
+  );
 
   React.useEffect(() => {
     function handleClickOutside(e: MouseEvent) {

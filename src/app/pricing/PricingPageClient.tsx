@@ -23,6 +23,7 @@ import {
   vehicleTowingCharges,
 } from "@/data/pricing";
 import { serviceCenters } from "@/data/service-centers";
+import { useDebouncedValue } from "@/hooks/useDebouncedValue";
 import { formatUsd } from "@/lib/format";
 import {
   enrichDriverLicenseRows,
@@ -207,9 +208,13 @@ export function PricingPageClient() {
 
   const primaryPhone = serviceCenters[0]?.phones[0];
 
+  // The input value stays instant; filtering and counts run off the debounced
+  // value so we don't recompute every table on each keystroke.
+  const debouncedQuery = useDebouncedValue(searchQuery, 150);
+
   // Per-tab match counts, used to power the cross-tab hint banner so users
   // never get a dead-end "no results" when the answer is one tab away.
-  const q = searchQuery.trim().toLowerCase();
+  const q = debouncedQuery.trim().toLowerCase();
   const counts: Record<TabId, number> = {
     registration: countMatches(REGISTRATION_ROWS, q),
     license: countMatches(LICENSE_ROWS, q),
@@ -217,7 +222,7 @@ export function PricingPageClient() {
     inspection: countMatches(INSPECTION_ROWS, q),
     towing: countMatches(TOWING_ROWS, q),
     impoundment: countMatches(IMPOUNDMENT_ROWS, q),
-    plates: /plate|custom|test plate/.test(q) ? 1 : 0,
+    plates: 0,
   };
 
   const otherTabsWithHits = q
@@ -335,7 +340,7 @@ export function PricingPageClient() {
               <PriceTable
                 columns={registrationColumns}
                 rows={REGISTRATION_ROWS as unknown as Record<string, unknown>[]}
-                searchQuery={searchQuery}
+                searchQuery={debouncedQuery}
                 searchKey="_search"
               />
             </TabsContent>
@@ -347,7 +352,7 @@ export function PricingPageClient() {
               <PriceTable
                 columns={driverLicenseColumns}
                 rows={LICENSE_ROWS as unknown as Record<string, unknown>[]}
-                searchQuery={searchQuery}
+                searchQuery={debouncedQuery}
                 searchKey="_search"
               />
             </TabsContent>
@@ -359,7 +364,7 @@ export function PricingPageClient() {
               <PriceTable
                 columns={drivingTestColumns}
                 rows={DRIVING_TEST_ROWS as unknown as Record<string, unknown>[]}
-                searchQuery={searchQuery}
+                searchQuery={debouncedQuery}
                 searchKey="_search"
               />
             </TabsContent>
@@ -371,7 +376,7 @@ export function PricingPageClient() {
               <PriceTable
                 columns={inspectionColumns}
                 rows={INSPECTION_ROWS as unknown as Record<string, unknown>[]}
-                searchQuery={searchQuery}
+                searchQuery={debouncedQuery}
                 searchKey="_search"
               />
             </TabsContent>
@@ -383,7 +388,7 @@ export function PricingPageClient() {
               <PriceTable
                 columns={towingColumns}
                 rows={TOWING_ROWS as unknown as Record<string, unknown>[]}
-                searchQuery={searchQuery}
+                searchQuery={debouncedQuery}
                 searchKey="_search"
               />
             </TabsContent>
@@ -395,7 +400,7 @@ export function PricingPageClient() {
               <PriceTable
                 columns={impoundmentColumns}
                 rows={IMPOUNDMENT_ROWS as unknown as Record<string, unknown>[]}
-                searchQuery={searchQuery}
+                searchQuery={debouncedQuery}
                 searchKey="_search"
               />
             </TabsContent>

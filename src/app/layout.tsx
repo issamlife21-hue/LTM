@@ -1,6 +1,7 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Public_Sans } from "next/font/google";
 
+import { BreadcrumbJsonLd } from "@/components/BreadcrumbJsonLd";
 import { FlagStripe } from "@/components/layout/FlagStripe";
 import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
@@ -78,6 +79,18 @@ export const metadata: Metadata = {
     index: true,
     follow: true,
   },
+  manifest: "/manifest.json",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "black-translucent",
+    title: "LTM",
+  },
+};
+
+// Theme color lives in the viewport export (the Next 14 home for it) so the
+// browser chrome on mobile matches the site's matte-black header.
+export const viewport: Viewport = {
+  themeColor: "#0E0E10",
 };
 
 export default function RootLayout({
@@ -94,6 +107,7 @@ export default function RootLayout({
         >
           Skip to main content
         </a>
+        <BreadcrumbJsonLd />
         <FlagStripe />
         <Header />
         <main id="main-content" className="flex-1">

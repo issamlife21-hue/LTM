@@ -32,7 +32,7 @@ export default function StudyPage() {
 
       <section className="container-ltm py-12">
         <div className="mx-auto max-w-3xl space-y-4">
-          <div className="rounded-lg border border-ltm-border bg-ltm-stone p-4 text-sm italic leading-relaxed text-ltm-muted">
+          <div className="rounded-lg border border-ltm-border bg-ltm-stone p-4 text-sm italic leading-relaxed text-ltm-slate">
             {practiceTestMeta.disclaimer}
           </div>
 
@@ -56,7 +56,7 @@ export default function StudyPage() {
                             {q.editorNote}
                           </p>
                         )}
-                        <h2 className="mt-1 text-base font-semibold text-ltm-slate">
+                        <h2 className="mt-1 text-base font-semibold text-ltm-black">
                           {q.question}
                         </h2>
                       </div>

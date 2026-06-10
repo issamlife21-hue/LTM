@@ -1,4 +1,5 @@
 import { LastUpdated } from "@/components/LastUpdated";
+import { PageHeader } from "@/components/PageHeader";
 import { signColorMeanings } from "@/data/road-signs";
 
 import { RoadSignsBody } from "./RoadSignsBody";
@@ -12,14 +13,7 @@ export const metadata = {
 export default function RoadSignsPage() {
   return (
     <>
-      {/* Page header */}
-      <section className="bg-ltm-black py-12 text-white md:py-16">
-        <div className="container-ltm">
-          <h1 className="font-serif text-3xl text-white md:text-4xl">
-            Road Signs &amp; Pavement Markings
-          </h1>
-        </div>
-      </section>
+      <PageHeader title="Road Signs & Pavement Markings" />
 
       {/* Sign colors */}
       <section className="bg-ltm-paper py-14 md:py-20">

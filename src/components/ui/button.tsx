@@ -14,11 +14,11 @@ const buttonVariants = cva(
         destructive:
           "bg-ltm-red text-white hover:bg-ltm-red-dark",
         outline:
-          "border border-ltm-border bg-white text-ltm-slate hover:bg-ltm-stone",
+          "border border-ltm-border bg-white text-ltm-ink hover:bg-ltm-stone",
         secondary:
           "bg-ltm-stone text-ltm-slate hover:bg-ltm-border",
         ghost:
-          "text-ltm-slate hover:bg-ltm-stone",
+          "text-ltm-ink hover:bg-ltm-stone",
         link:
           "text-ltm-black underline-offset-4 hover:underline",
         whitePrimary:

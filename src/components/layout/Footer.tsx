@@ -7,6 +7,7 @@ import { serviceCenters } from "@/data/service-centers";
 
 export function Footer() {
   const center = serviceCenters[0];
+  if (!center) return null;
 
   return (
     <footer className="bg-ltm-charcoal text-white/90">
@@ -209,7 +210,6 @@ export function Footer() {
               width={40}
               height={48}
               className="h-10 w-8 shrink-0 sm:h-12 sm:w-10"
-              style={{ color: "#ffffff" }}
             />
             <p>
               © Liberia Traffic Management. All fees and procedures listed on

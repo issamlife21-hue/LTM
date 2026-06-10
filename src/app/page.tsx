@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { MapPin, Phone } from "lucide-react";
 
+import { FadeIn } from "@/components/FadeIn";
 import { HeroCarousel } from "@/components/HeroCarousel";
 import { CTABanner } from "@/components/layout/CTABanner";
 import { QuickActions } from "@/components/QuickActions";
@@ -25,7 +26,11 @@ export default function HomePage() {
             <p className="mb-3 text-[11px] font-semibold uppercase tracking-[0.2em] text-white/85 sm:mb-4 sm:text-xs">
               Authorized by the Government of Liberia
             </p>
-            <h1 className="mb-3 font-serif text-3xl leading-[1.1] text-white sm:mb-5 sm:text-4xl md:text-5xl">
+            {/* Hero image swap: replace heroPhotos in src/data/photos.ts — add url, alt, width, height */}
+            <h1
+              className="mb-3 font-serif leading-[1.1] text-white sm:mb-5"
+              style={{ fontSize: "clamp(1.6rem, 4.5vw + 0.5rem, 3rem)" }}
+            >
               Liberia&rsquo;s Official Traffic Management Service
             </h1>
             <p className="mb-5 max-w-xl text-base leading-relaxed text-white/95 sm:mb-6">
@@ -55,7 +60,9 @@ export default function HomePage() {
       </section>
 
       {/* Quick actions — five fast paths most citizens come here for */}
-      <QuickActions />
+      <FadeIn>
+        <QuickActions />
+      </FadeIn>
 
       {/* Services */}
       <section className="bg-ltm-paper py-10 md:py-24">
@@ -64,20 +71,22 @@ export default function HomePage() {
             Our services
           </h2>
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {services.map((s) => (
-              <ServiceCard
-                key={s.href}
-                icon={s.icon}
-                title={s.title}
-                description={s.cardDescription}
-                href={s.href}
-              />
+            {services.map((s, index) => (
+              <FadeIn key={s.href} delay={index * 0.05} className="h-full">
+                <ServiceCard
+                  icon={s.icon}
+                  title={s.title}
+                  description={s.cardDescription}
+                  href={s.href}
+                />
+              </FadeIn>
             ))}
           </div>
         </div>
       </section>
 
       {/* Legal basis / authority */}
+      <FadeIn>
       <section className="border-y border-ltm-border bg-white py-10 md:py-20">
         <div className="container-ltm flex flex-col items-center gap-5 md:flex-row md:items-center md:gap-10">
           {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -86,8 +95,7 @@ export default function HomePage() {
             alt="Coat of arms of the Republic of Liberia"
             width={72}
             height={86}
-            className="h-16 w-auto shrink-0 text-ltm-black sm:h-20"
-            style={{ color: "#0E0E10" }}
+            className="h-16 w-auto shrink-0 sm:h-20"
           />
           <div className="max-w-3xl text-center md:text-left">
             <h2 className="font-serif text-xl font-bold text-ltm-black sm:text-2xl md:text-3xl">
@@ -112,6 +120,7 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+      </FadeIn>
 
       <CTABanner />
     </>

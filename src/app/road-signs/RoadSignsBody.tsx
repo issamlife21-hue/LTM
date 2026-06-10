@@ -7,6 +7,7 @@ import { EmptyState } from "@/components/EmptyState";
 import { SignCard } from "@/components/SignCard";
 import { Input } from "@/components/ui/input";
 import { roadSigns, sectionMeta, type SignSection } from "@/data/road-signs";
+import { useDebouncedValue } from "@/hooks/useDebouncedValue";
 import { cn } from "@/lib/utils";
 
 const SECTIONS_IN_ORDER = (Object.keys(sectionMeta) as SignSection[]).sort(
@@ -16,7 +17,8 @@ const SECTIONS_IN_ORDER = (Object.keys(sectionMeta) as SignSection[]).sort(
 export function RoadSignsBody() {
   const [query, setQuery] = React.useState("");
 
-  const q = query.trim().toLowerCase();
+  const debouncedQuery = useDebouncedValue(query, 150);
+  const q = debouncedQuery.trim().toLowerCase();
   const filtered = React.useMemo(
     () =>
       q

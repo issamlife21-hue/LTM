@@ -3,10 +3,10 @@
 // Bump each entry when the underlying content changes.
 
 export const lastUpdated = {
-  pricing: "2026-05-27",
-  roadSigns: "2026-05-27",
-  faq: "2026-05-27",
-  services: "2026-05-27",
+  pricing: "2026-05-27T12:00:00",
+  roadSigns: "2026-05-27T12:00:00",
+  faq: "2026-05-27T12:00:00",
+  services: "2026-05-27T12:00:00",
 } as const;
 
 export type LastUpdatedKey = keyof typeof lastUpdated;

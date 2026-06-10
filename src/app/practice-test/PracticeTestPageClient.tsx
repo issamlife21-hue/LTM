@@ -57,7 +57,7 @@ function OptionButton({
       className={cn(
         "flex w-full items-start gap-3 rounded-lg border-2 px-4 py-3 text-left text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ltm-navy focus-visible:ring-offset-2 sm:text-base",
         state === "idle" &&
-          "border-ltm-border bg-white text-ltm-slate hover:border-ltm-charcoal hover:bg-ltm-stone",
+          "border-ltm-border bg-white text-ltm-ink hover:border-ltm-charcoal hover:bg-ltm-stone",
         state === "selected-correct" &&
           "border-ltm-success bg-ltm-success/10 text-ltm-slate",
         state === "selected-wrong" &&
@@ -150,7 +150,7 @@ function QuizScreen({
                 {question.editorNote}
               </p>
             )}
-            <h2 className="text-lg font-semibold text-ltm-slate sm:text-xl">
+            <h2 className="text-lg font-semibold text-ltm-black sm:text-xl">
               {question.question}
             </h2>
 
@@ -250,7 +250,7 @@ function ReviewScreen({
                 <p className="mt-1 text-4xl font-bold text-ltm-black sm:text-5xl">
                   {correct} <span className="text-ltm-muted">/</span> {total}
                 </p>
-                <p className="mt-1 text-lg text-ltm-slate">{pct}%</p>
+                <p className="mt-1 text-lg text-ltm-ink">{pct}%</p>
               </div>
               {passed ? (
                 <Badge variant="success" className="px-3 py-1.5 text-sm">
@@ -297,7 +297,7 @@ function ReviewScreen({
               </span>
             </div>
 
-            <p className="rounded-md border border-ltm-border bg-ltm-stone p-3 text-xs italic leading-relaxed text-ltm-muted">
+            <p className="rounded-md border border-ltm-border bg-ltm-stone p-3 text-xs italic leading-relaxed text-ltm-slate">
               You answered {correct} of {total} correctly. This practice test
               is a study aid only. It does not guarantee a passing score on
               the official examination, and it is not the official examination
@@ -338,10 +338,10 @@ function ReviewScreen({
                     key={q.id}
                     className="rounded-lg border border-ltm-border bg-white p-5"
                   >
-                    <p className="text-xs font-semibold uppercase tracking-wider text-ltm-muted">
+                    <p className="text-xs font-semibold uppercase tracking-wider text-ltm-slate">
                       Question {q.id}
                     </p>
-                    <h3 className="mt-1 text-base font-semibold text-ltm-slate">
+                    <h3 className="mt-1 text-base font-semibold text-ltm-black">
                       {q.question}
                     </h3>
                     <dl className="mt-3 space-y-1.5 text-sm">
@@ -359,7 +359,7 @@ function ReviewScreen({
                         </dd>
                       </div>
                       <div className="flex flex-col gap-0.5 sm:flex-row sm:gap-2">
-                        <dt className="font-medium text-ltm-success">
+                        <dt className="font-medium text-green-700">
                           Correct answer:
                         </dt>
                         <dd className="text-ltm-slate">
