@@ -1,0 +1,47 @@
+[build]
+  command = "npm run build"
+  publish = ".next"
+
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    # Prevent clickjacking — no one can embed LTM in an iframe
+    X-Frame-Options = "DENY"
+    # Prevent MIME type sniffing
+    X-Content-Type-Options = "nosniff"
+    # Force HTTPS always
+    Strict-Transport-Security = "max-age=31536000; includeSubDomains; preload"
+    # Control what info is sent when clicking external links
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    # Block XSS in older browsers
+    X-XSS-Protection = "1; mode=block"
+    # Restrict what the browser can load — only from LTM's own domain + Google Maps + Google Fonts
+    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; frame-src https://www.google.com; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'"
+    # Limit browser features LTM doesn't use
+    Permissions-Policy = "camera=(), microphone=(), geolocation=(), payment=(), usb=(), interest-cohort=()"
+
+[[headers]]
+  for = "/signs/*"
+  [headers.values]
+    # Cache sign images for 1 year — they never change
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/images/*"
+  [headers.values]
+    # Cache photos for 1 year
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/logo/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/_next/static/*"
+  [headers.values]
+    # Next.js static assets — cache forever, they have content hashes
+    Cache-Control = "public, max-age=31536000, immutable"
